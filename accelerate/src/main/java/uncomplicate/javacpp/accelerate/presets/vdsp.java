@@ -59,7 +59,6 @@ public class vdsp implements LoadEnabled, InfoMapper {
 
     @Override public void map(InfoMap infoMap) {
         infoMap.put(new Info("_Nonnull", "_Nullable").cppTypes().annotations())
-            .put(new Info().enumerate())
             .put(new Info("!0 && !0 && (__STDC_HOSTED__ == 1)").define(false))
             .put(new Info("vDSP_DFT_Interleaved_ComplextoComplex").skip())
             .put(new Info("vDSP_DFT_Interleaved_RealtoComplex").skip())
