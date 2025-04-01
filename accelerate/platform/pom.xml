@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.uncomplicate</groupId>
+  <artifactId>accelerate-platform</artifactId>
+  <version>15.3.2-${javacpp.version}</version>
+  <name>JavaCPP Presets Platform for Apple Accelerate Framework</name>
+
+  <properties>
+      <javacpp.moduleId>accelerate</javacpp.moduleId>
+    <javacpp.version>1.5.12-SNAPSHOT</javacpp.version>
+      <javacpp.compiler.option>-O3</javacpp.compiler.option>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <javacpp.parser.skip>false</javacpp.parser.skip>     <!-- To skip header file parsing phase: -Djavacpp.parser.skip=true  -->
+    <javacpp.compiler.skip>false</javacpp.compiler.skip> <!-- To skip native compilation phase: -Djavacpp.compiler.skip=true -->
+
+    <javacpp.packageName>${project.artifactId}</javacpp.packageName>
+    <javacpp.platform.nativeOutputPath>uncomplicate/javacpp/${javacpp.packageName}/${javacpp.platform}${javacpp.platform.extension}</javacpp.platform.nativeOutputPath>
+    <javacpp.platform.root></javacpp.platform.root>
+    <javacpp.platform.compiler></javacpp.platform.compiler>
+    <javacpp.platform.extension></javacpp.platform.extension>
+    <javacpp.platform.properties>${javacpp.platform}</javacpp.platform.properties>
+    <javacpp.platform.ios-arm>ios-arm${javacpp.platform.extension}</javacpp.platform.ios-arm>
+    <javacpp.platform.ios-arm64>ios-arm64${javacpp.platform.extension}</javacpp.platform.ios-arm64>
+    <javacpp.platform.ios-x86>ios-x86${javacpp.platform.extension}</javacpp.platform.ios-x86>
+    <javacpp.platform.ios-x86_64>ios-x86_64${javacpp.platform.extension}</javacpp.platform.ios-x86_64>
+    <javacpp.platform.linux-armhf>linux-armhf${javacpp.platform.extension}</javacpp.platform.linux-armhf>
+    <javacpp.platform.linux-arm64>linux-arm64${javacpp.platform.extension}</javacpp.platform.linux-arm64>
+    <javacpp.platform.linux-ppc64le>linux-ppc64le${javacpp.platform.extension}</javacpp.platform.linux-ppc64le>
+    <javacpp.platform.linux-x86>linux-x86${javacpp.platform.extension}</javacpp.platform.linux-x86>
+    <javacpp.platform.linux-x86_64>linux-x86_64${javacpp.platform.extension}</javacpp.platform.linux-x86_64>
+    <javacpp.platform.macosx-arm64>macosx-arm64${javacpp.platform.extension}</javacpp.platform.macosx-arm64>
+    <javacpp.platform.macosx-x86_64>macosx-x86_64${javacpp.platform.extension}</javacpp.platform.macosx-x86_64>
+    <javacpp.platform.windows-x86>windows-x86${javacpp.platform.extension}</javacpp.platform.windows-x86>
+    <javacpp.platform.windows-x86_64>windows-x86_64${javacpp.platform.extension}</javacpp.platform.windows-x86_64>
+  </properties>
+
+  <dependencies>
+      <dependency>
+      <groupId>org.bytedeco</groupId>
+      <artifactId>javacpp-platform</artifactId>
+      <version>${javacpp.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>accelerate</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <!-- <dependency> -->
+    <!--   <groupId>${project.groupId}</groupId> -->
+    <!--   <artifactId>${javacpp.moduleId}</artifactId> -->
+    <!--   <version>${project.version}</version> -->
+    <!--   <classifier>${javacpp.platform.ios-arm64}</classifier> -->
+    <!-- </dependency> -->
+    <!-- <dependency> -->
+    <!--   <groupId>${project.groupId}</groupId> -->
+    <!--   <artifactId>${javacpp.moduleId}</artifactId> -->
+    <!--   <version>${project.version}</version> -->
+    <!--   <classifier>${javacpp.platform.ios-x86_64}</classifier> -->
+    <!-- </dependency> -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>accelerate</artifactId>
+      <version>${project.version}</version>
+      <classifier>${javacpp.platform.macosx-arm64}</classifier>
+    </dependency>
+    <!-- <dependency> -->
+    <!--   <groupId>${project.groupId}</groupId> -->
+    <!--   <artifactId>${javacpp.moduleId}</artifactId> -->
+    <!--   <version>${project.version}</version> -->
+    <!--   <classifier>${javacpp.platform.macosx-x86_64}</classifier> -->
+    <!-- </dependency> -->
+  </dependencies>
+
+  <build>
+      <finalName>${project.artifactId}</finalName>
+    <plugins>
+
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <executions>
+          <execution>
+            <id>default-jar</id>
+            <configuration>
+              <archive>
+                <manifestEntries>
+                  <Class-Path>${javacpp.moduleId}.jar ${javacpp.moduleId}-macosx-arm64.jar</Class-Path>
+                </manifestEntries>
+              </archive>
+            </configuration>
+          </execution>
+          <execution>
+            <id>empty-javadoc-jar</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <classifier>javadoc</classifier>
+            </configuration>
+          </execution>
+          <execution>
+            <id>empty-sources-jar</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <classifier>sources</classifier>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.moditect</groupId>
+        <artifactId>moditect-maven-plugin</artifactId>
+        <version>1.1.0</version>
+        <executions>
+          <execution>
+            <id>add-module-infos</id>
+            <phase>none</phase>
+          </execution>
+          <execution>
+            <id>add-platform-module-info</id>
+            <phase>package</phase>
+            <goals>
+              <goal>add-module-info</goal>
+            </goals>
+            <configuration>
+              <modules>
+                <module>
+                  <file>${project.build.directory}/${project.artifactId}.jar</file>
+                  <moduleInfoSource>
+                    module uncomplicate.javacpp.${javacpp.moduleId}.platform {
+                        requires static uncomplicate.javacpp.${javacpp.moduleId}.macosx.arm64;
+                    }
+                  </moduleInfoSource>
+                </module>
+              </modules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

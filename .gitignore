@@ -1,0 +1,7 @@
+/downloads/
+/target/
+**/cppbuild/**
+**/target/**
+
+# Mac
+.DS_Store
