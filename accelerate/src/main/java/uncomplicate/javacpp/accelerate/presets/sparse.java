@@ -33,14 +33,16 @@ import org.bytedeco.javacpp.tools.InfoMapper;
  *
  * @author Dragan Djuric
  */
-@Properties(inherit = bnns.class, global = "uncomplicate.javacpp.accelerate.global.bnns_graph", value = {
+@Properties(inherit = blas_new.class, global = "uncomplicate.accelerate.global.sparse", value = {
         @Platform(value = "macosx-arm64",
-                  include = {"bnns_graph.h"},
-                  includepath = {"/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/vecLib.framework/Headers/BNNS/", "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"})})
-@NoException
-public class bnns_graph implements LoadEnabled, InfoMapper {
+                  include = {"Types.h", "BLAS.h", "Sparse.h", "Solve.h"},
+                  includepath = {"/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/vecLib.framework/Headers/Sparse/",
 
-    static { Loader.checkVersion("uncomplicate.javacpp", "accelerate"); }
+                      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"})})
+@NoException
+public class sparse implements LoadEnabled, InfoMapper {
+
+    static { Loader.checkVersion("uncomplicate", "accelerate"); }
 
     @Override public void init(ClassProperties properties) {
         String platform = properties.getProperty("platform");
@@ -49,8 +51,12 @@ public class bnns_graph implements LoadEnabled, InfoMapper {
     }
 
     @Override public void map(InfoMap infoMap) {
-        infoMap.put(new Info("_Nonnull", "_Nullable", "_Null_unspecified").cppTypes().annotations());
+        infoMap.put(new Info("__restrict").cppTypes().annotations())
+            .put(new Info("sparse_m_float").pointerTypes("sparse_matrix_float"))
+            .put(new Info("sparse_m_double").pointerTypes("sparse_matrix_double"))
+            .put(new Info("__has_attribute(enum_extensibility) && !defined(__swift__)").define(true))
+            .put(new Info("__has_feature(objc_fixed_enum) || __has_extension(cxx_strong_enums)").define(false))
+            .put(new Info("SparseStatusReleased").skip());
     }
-
 
 }

@@ -51,7 +51,6 @@ public class vdsp implements LoadEnabled, InfoMapper {
     }
 
     static InfoMap putTypedefHandle(InfoMap infoMap, String struct, String handle) {
-        //    infoMap.put(new Info(struct).pointerTypes(handle));
         infoMap.put(new Info(handle).valueTypes(struct).pointerTypes(
                         "@ByPtrPtr " + handle, "@Cast(\"" + struct + "*\") PointerPointer"));
         return infoMap;
