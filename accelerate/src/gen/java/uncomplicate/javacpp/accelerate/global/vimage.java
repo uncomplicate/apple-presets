@@ -6280,7 +6280,9 @@ public static native @Cast("vImage_Error") long vImageRichardsonLucyDeConvolve_P
  *          kvImageInvalidKernelSize    The kernel height and width must be odd numbers.
  *      \/textblock </pre>
  */
-
+public static native @Cast("vImage_Error") long vImageRichardsonLucyDeConvolve_ARGB8888( @Const vImage_Buffer src, @Const vImage_Buffer dest, Pointer tempBuffer, @Cast("vImagePixelCount") long srcOffsetToROI_X, @Cast("vImagePixelCount") long srcOffsetToROI_Y, @Const ShortPointer kernel, @Const ShortPointer kernel2, @Cast("uint32_t") int kernel_height, @Cast("uint32_t") int kernel_width, @Cast("uint32_t") int kernel_height2, @Cast("uint32_t") int kernel_width2, int divisor, int divisor2, @Cast("const uint8_t*") BytePointer backgroundColor,  @Cast("uint32_t") int iterationCount, @Cast("vImage_Flags") long flags );
+public static native @Cast("vImage_Error") long vImageRichardsonLucyDeConvolve_ARGB8888( @Const vImage_Buffer src, @Const vImage_Buffer dest, Pointer tempBuffer, @Cast("vImagePixelCount") long srcOffsetToROI_X, @Cast("vImagePixelCount") long srcOffsetToROI_Y, @Const ShortBuffer kernel, @Const ShortBuffer kernel2, @Cast("uint32_t") int kernel_height, @Cast("uint32_t") int kernel_width, @Cast("uint32_t") int kernel_height2, @Cast("uint32_t") int kernel_width2, int divisor, int divisor2, @Cast("const uint8_t*") BytePointer backgroundColor,  @Cast("uint32_t") int iterationCount, @Cast("vImage_Flags") long flags );
+public static native @Cast("vImage_Error") long vImageRichardsonLucyDeConvolve_ARGB8888( @Const vImage_Buffer src, @Const vImage_Buffer dest, Pointer tempBuffer, @Cast("vImagePixelCount") long srcOffsetToROI_X, @Cast("vImagePixelCount") long srcOffsetToROI_Y, @Const short[] kernel, @Const short[] kernel2, @Cast("uint32_t") int kernel_height, @Cast("uint32_t") int kernel_width, @Cast("uint32_t") int kernel_height2, @Cast("uint32_t") int kernel_width2, int divisor, int divisor2, @Cast("const uint8_t*") BytePointer backgroundColor,  @Cast("uint32_t") int iterationCount, @Cast("vImage_Flags") long flags );
 
 /**
  * \function vImageRichardsonLucyDeConvolve_ARGBFFFF
@@ -6424,7 +6426,9 @@ public static native @Cast("vImage_Error") long vImageRichardsonLucyDeConvolve_P
  *          kvImageInvalidKernelSize    The kernel height and width must be odd numbers.
  *      \/textblock </pre>
  */
-
+public static native @Cast("vImage_Error") long vImageRichardsonLucyDeConvolve_ARGBFFFF( @Const vImage_Buffer src, @Const vImage_Buffer dest, Pointer tempBuffer, @Cast("vImagePixelCount") long srcOffsetToROI_X, @Cast("vImagePixelCount") long srcOffsetToROI_Y, @Const FloatPointer kernel, @Const FloatPointer kernel2, @Cast("uint32_t") int kernel_height, @Cast("uint32_t") int kernel_width, @Cast("uint32_t") int kernel_height2, @Cast("uint32_t") int kernel_width2, @Cast("const float*") FloatPointer backgroundColor,  @Cast("uint32_t") int iterationCount, @Cast("vImage_Flags") long flags );
+public static native @Cast("vImage_Error") long vImageRichardsonLucyDeConvolve_ARGBFFFF( @Const vImage_Buffer src, @Const vImage_Buffer dest, Pointer tempBuffer, @Cast("vImagePixelCount") long srcOffsetToROI_X, @Cast("vImagePixelCount") long srcOffsetToROI_Y, @Const FloatBuffer kernel, @Const FloatBuffer kernel2, @Cast("uint32_t") int kernel_height, @Cast("uint32_t") int kernel_width, @Cast("uint32_t") int kernel_height2, @Cast("uint32_t") int kernel_width2, @Cast("const float*") FloatPointer backgroundColor,  @Cast("uint32_t") int iterationCount, @Cast("vImage_Flags") long flags );
+public static native @Cast("vImage_Error") long vImageRichardsonLucyDeConvolve_ARGBFFFF( @Const vImage_Buffer src, @Const vImage_Buffer dest, Pointer tempBuffer, @Cast("vImagePixelCount") long srcOffsetToROI_X, @Cast("vImagePixelCount") long srcOffsetToROI_Y, @Const float[] kernel, @Const float[] kernel2, @Cast("uint32_t") int kernel_height, @Cast("uint32_t") int kernel_width, @Cast("uint32_t") int kernel_height2, @Cast("uint32_t") int kernel_width2, @Cast("const float*") FloatPointer backgroundColor,  @Cast("uint32_t") int iterationCount, @Cast("vImage_Flags") long flags );
 
 /**
  *  \functiongroup Box Convolve
@@ -24320,7 +24324,12 @@ public static native @Cast("vImage_Error") long vImageMultiDimensionalInterpolat
  *  a region between [0,1] in each dimension. Values outside this range are clamped to the nearest in-range value by Manhattan
  *  distance before indexing the table. See vImageConvert_Planar8to16Q12 and vImageConvert_16Q12toPlanar8 for more on the format.
  */
-
+public static native @Cast("vImage_Error") long vImageMultiDimensionalInterpolatedLookupTable_Planar16Q12( @Const vImage_Buffer srcs,
+                                                                                 @Const vImage_Buffer dests,
+                                                                                 Pointer tempBuffer,
+                                                                                 vImage_MultidimensionalTableData table,
+                                                                                 @Cast("vImage_InterpolationMethod") int method,
+                                                                                 @Cast("vImage_Flags") long flags );
 
 /*
  *  vImageFloodFill_Planar8, vImageFloodFill_ARGB8888,

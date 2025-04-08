@@ -35,12 +35,10 @@ import org.bytedeco.javacpp.tools.InfoMapper;
  */
 @Properties(inherit = javacpp.class, global = "uncomplicate.javacpp.accelerate.global.vimage", value = {
         @Platform(value = "macosx-arm64",
-                  //define = {"vImage_Utilities_h 1", "VIMAGE_PF"},
                   include = {"vImage_Types.h", "Alpha.h", "Convolution.h",
                       "Conversion.h", "Geometry.h", "Histogram.h", "Morphology.h",
                       "BasicImageTypes.h", "Transform.h"},
                   includepath = {"/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Accelerate.framework/Frameworks/vImage.framework/Headers/"
-                      , "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/"
                       , "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"})})
 @NoException
 public class vimage implements LoadEnabled, InfoMapper {
@@ -59,40 +57,26 @@ public class vimage implements LoadEnabled, InfoMapper {
         return infoMap;
     }
 
+    static InfoMap putPixelHandle(InfoMap infoMap, String pixel, String struct, String arrayPointer) {
+        infoMap.put(new Info(pixel)
+                    .valueTypes("@Cast(\"" + struct + "*\") " + arrayPointer)
+                    .pointerTypes("@Cast(\"" + pixel + "*\") PointerPointer"));
+        infoMap.put(new Info("const " + pixel)
+                    .valueTypes("@Cast(\"const " + struct + "*\") " + arrayPointer)
+                    .pointerTypes("@Cast(\"const " + pixel + "*\") PointerPointer"));
+        return infoMap;
+    }
+
     @Override public void map(InfoMap infoMap) {
-        infoMap.put(new Info("_Nonnull", "_Nullable", "VIMAGE_PF").cppTypes().annotations());
-
-        infoMap.put(new Info("__has_extension(enumerator_attributes)").define(false))
-            .put(new Info("!0 && !0").define(true))
-            .put(new Info("vImageMultiDimensionalInterpolatedLookupTable_Planar16Q12").skip())
-            .put(new Info("vImageRichardsonLucyDeConvolve_ARGB8888").skip())
-            .put(new Info("vImageRichardsonLucyDeConvolve_ARGBFFFF").skip())
-
+        infoMap
+            .put(new Info("_Nonnull", "_Nullable", "VIMAGE_PF").cppTypes().annotations())
+            .put(new Info("__has_extension(enumerator_attributes)").define(false))
             .put(new Info("Pixel_8")
                  .valueTypes("@Cast(\"uint8_t\") byte")
                  .pointerTypes("@Cast(\"Pixel_8*\") BytePointer"))
             .put(new Info("const Pixel_8")
                  .valueTypes("@Cast(\"const uint8_t\") byte")
                  .pointerTypes("@Cast(\"const Pixel_8*\") BytePointer"))
-
-            .put(new Info("Pixel_88")
-                 .valueTypes("@Cast(\"uint8_t*\") BytePointer")
-                 .pointerTypes(// "@ByPtrPtr uint8_t*",
-                               "@Cast(\"Pixel_88*\") PointerPointer"))
-            .put(new Info("const Pixel_88")
-                 .valueTypes("@Cast(\"const uint8_t*\") BytePointer")
-                 .pointerTypes(// "@ByPtrPtr const uint8_t*",
-                               "@Cast(\"const Pixel_88*\") PointerPointer"))
-
-
-            .put(new Info("Pixel_8888")
-                 .valueTypes("@Cast(\"uint8_t*\") BytePointer")
-                 .pointerTypes(// "@ByPtrPtr uint8_t*",
-                               "@Cast(\"Pixel_8888*\") PointerPointer"))
-            .put(new Info("const Pixel_8888")
-                 .valueTypes("@Cast(\"const uint8_t*\") BytePointer")
-                 .pointerTypes(// "@ByPtrPtr const uint8_t*",
-                               "@Cast(\"const Pixel_8888*\") PointerPointer"))
 
             .put(new Info("Pixel_F")
                  .valueTypes("@Cast(\"float\") float")
@@ -101,42 +85,20 @@ public class vimage implements LoadEnabled, InfoMapper {
                  .valueTypes("@Cast(\"const float\") float")
                  .pointerTypes("@Cast(\"const Pixel_F*\") FloatPointer"))
 
-            .put(new Info("Pixel_FF")
-                 .valueTypes("@Cast(\"float*\") FloatPointer")
-                 .pointerTypes(// "@ByPtrPtr const float*",
-                               "@Cast(\"Pixel_FF*\") PointerPointer"))
-            .put(new Info("const Pixel_FF")
-                 .valueTypes("@Cast(\"const float*\") FloatPointer")
-                 .pointerTypes(// "@ByPtrPtr const float*",
-                               "@Cast(\"const Pixel_FF*\") PointerPointer"))
-
-
-            .put(new Info("Pixel_FFFF")
-                 .valueTypes("@Cast(\"float*\") FloatPointer")
-                 .pointerTypes(// "@ByPtrPtr const float*",
-                               "@Cast(\"Pixel_FFFF*\") PointerPointer"))
-            .put(new Info("const Pixel_FFFF")
-                 .valueTypes("@Cast(\"const float*\") FloatPointer")
-                 .pointerTypes(// "@ByPtrPtr const float*",
-                               "@Cast(\"const Pixel_FFFF*\") PointerPointer"))
-
-            .put(new Info("Pixel_ARGB_16U").valueTypes("@Cast(\"uint16_t*\") ShortPointer"))
-            .put(new Info("Pixel_ARGB_16F").valueTypes("@Cast(\"uint16_t*\") ShortPointer"))
-            .put(new Info("Pixel_ARGB_16S").valueTypes("@Cast(\"int16_t*\") ShortPointer"))
-            .put(new Info("Pixel_16F16F").valueTypes("@Cast(\"uint16_t*\") ShortPointer"))
-            .put(new Info("Pixel_16U16U").valueTypes("@Cast(\"uint16_t*\") ShortPointer"))
-            .put(new Info("Pixel_16S16S").valueTypes("@Cast(\"int16_t*\") ShortPointer"))
-
-            .put(new Info("const Pixel_ARGB_16U").valueTypes("@Cast(\"const uint16_t*\") ShortPointer"))
-            .put(new Info("const Pixel_ARGB_16F").valueTypes("@Cast(\"const uint16_t*\") ShortPointer"))
-            .put(new Info("const Pixel_ARGB_16S").valueTypes("@Cast(\"const int16_t*\") ShortPointer"))
-            .put(new Info("const Pixel_16F16F").valueTypes("@Cast(\"const uint16_t*\") ShortPointer"))
-            .put(new Info("const Pixel_16U16U").valueTypes("@Cast(\"const uint16_t*\") ShortPointer"))
-            .put(new Info("const Pixel_16S16S").valueTypes("@Cast(\"const int16_t*\") ShortPointer"))
-
-
             .put(new Info("vImage_Error").cast().valueTypes("long").pointerTypes("SizeTPointer"))
             .put(new Info("vImage_Flags").cast().valueTypes("long").pointerTypes("LongPointer"));
+
+        putPixelHandle(infoMap, "Pixel_88", "uint8_t", "BytePointer");
+        putPixelHandle(infoMap, "Pixel_8888", "uint8_t", "BytePointer");
+        putPixelHandle(infoMap, "Pixel_FF", "float", "FloatPointer");
+        putPixelHandle(infoMap, "Pixel_FFFF", "float", "FloatPointer");
+        putPixelHandle(infoMap, "Pixel_ARGB_16U", "uint16_t", "ShortPointer");
+        putPixelHandle(infoMap, "Pixel_ARGB_16F", "uint16_t", "ShortPointer");
+        putPixelHandle(infoMap, "Pixel_ARGB_16S", "int16_t", "ShortPointer");
+        putPixelHandle(infoMap, "Pixel_16F16F", "uint16_t", "ShortPointer");
+        putPixelHandle(infoMap, "Pixel_16U16U", "uint16_t", "ShortPointer");
+        putPixelHandle(infoMap, "Pixel_16S16S", "int16_t", "ShortPointer");
+
         putTypedefHandle(infoMap, "vImage_MultidimensionalTableData", "vImage_MultidimensionalTable");
 
 
