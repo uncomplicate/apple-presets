@@ -5,7 +5,7 @@
 
   <groupId>org.uncomplicate</groupId>
   <artifactId>accelerate</artifactId>
-  <version>15.3.2-0.1.0</version>
+  <version>0.1.0-${javacpp.version}</version>
   <name>JavaCPP Presets for Apple Accelerate Framework</name>
 
   <properties>
