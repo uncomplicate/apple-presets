@@ -14,8 +14,8 @@ public class vforce extends uncomplicate.javacpp.accelerate.presets.vforce {
 // Parsed from vForce.h
 
 /*
-vForce.h (from vecLib-1068.60)
-Copyright (c) 1999-2024 by Apple Inc. All rights reserved.
+vForce.h (from vecLib-1068.100)
+Copyright (c) 1999-2025 by Apple Inc. All rights reserved.
 
 @APPLE_LICENSE_HEADER_START@
 

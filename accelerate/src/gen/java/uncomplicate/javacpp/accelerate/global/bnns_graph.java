@@ -1005,8 +1005,24 @@ public static native int BNNSGraphContextSetArgumentType(@ByVal bnns_graph_conte
 
 /** Enables debug mode, checks intermediate tensors for nans and infs.
  *  Not for use in production code. */
+
+///
+///
 public static native void BNNSGraphContextEnableNanAndInfChecks(@ByVal bnns_graph_context_t context,
                                            @Cast("bool") boolean enable_check_for_nans_inf);
+
+/** Sets streaming advancement amount for cases with dynamically shaped inputs.
+ * 
+ *  For models compiled with the {@code BNNSOption} attribute {@code StateMode=Streaming} enabled, where
+ *  {@code slice_update} ops use an update parameter of dynamic shape, BNNS cannot unambigiously
+ *  determine the streaming advancement size. Instead the user must use this function *prior* to calling
+ *  {@code BNNSGraphContextExecute()} to set the advancement size for each frame. 
+ * 
+ *  The internal state pointer will then be advanced by {@code advance_count} elements in the streaming
+ *  dimension prior to returning from {@code BNNSGraphContextExecute()}. The BNNS streaming APIs
+ *  do not support models that require different advancement amounts for different states. */
+public static native int BNNSGraphContextSetStreamingAdvanceCount(@Const @ByVal bnns_graph_context_t context,
+                                             @Cast("size_t") long advance_count);
 
 
 ///
