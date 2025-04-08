@@ -33,7 +33,7 @@ import org.bytedeco.javacpp.tools.InfoMapper;
  *
  * @author Dragan Djuric
  */
-@Properties(inherit = javacpp.class, global = "uncomplicate.accelerate.global.lapack", value = {
+@Properties(inherit = javacpp.class, global = "uncomplicate.javacpp.accelerate.global.lapack", value = {
         @Platform(value = "macosx-arm64",
                   define = {"ACCELERATE_NEW_LAPACK", "ACCELERATE_LAPACK_ILP64"},
                   include = {"lapack_types.h", "lapack.h"},

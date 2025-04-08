@@ -33,7 +33,7 @@ import org.bytedeco.javacpp.tools.InfoMapper;
  *
  * @author Dragan Djuric
  */
-@Properties(inherit = blas_new.class, global = "uncomplicate.accelerate.global.sparse", value = {
+@Properties(inherit = blas_new.class, global = "uncomplicate.javacpp.accelerate.global.sparse", value = {
         @Platform(value = "macosx-arm64",
                   include = {"Types.h", "BLAS.h", "Sparse.h", "Solve.h"},
                   includepath = {"/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/vecLib.framework/Headers/Sparse/",

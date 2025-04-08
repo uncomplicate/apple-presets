@@ -33,7 +33,7 @@ import org.bytedeco.javacpp.tools.InfoMapper;
  *
  * @author Dragan Djuric
  */
-@Properties(inherit = javacpp.class, global = "uncomplicate.accelerate.global.thread", value = {
+@Properties(inherit = javacpp.class, global = "uncomplicate.javacpp.accelerate.global.thread", value = {
         @Platform(value = "macosx-arm64",
                   include = {"thread_api.h"},
                   includepath = {"/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/vecLib.framework/Headers"})})

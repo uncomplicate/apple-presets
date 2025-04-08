@@ -101,8 +101,6 @@ public class vimage implements LoadEnabled, InfoMapper {
 
         putTypedefHandle(infoMap, "vImage_MultidimensionalTableData", "vImage_MultidimensionalTable");
 
-
-
     }
 
 
