@@ -44,9 +44,6 @@ public class blas_new implements LoadEnabled, InfoMapper {
     static { Loader.checkVersion("uncomplicate", "accelerate"); }
 
     @Override public void init(ClassProperties properties) {
-        String platform = properties.getProperty("platform");
-        List<String> includePaths = properties.get("platform.includepath");
-        List<String> includes = properties.get("platform.include");
     }
 
     @Override public void map(InfoMap infoMap) {

@@ -35,9 +35,11 @@ import org.bytedeco.javacpp.tools.InfoMapper;
  */
 @Properties(inherit = blas_new.class, global = "uncomplicate.javacpp.accelerate.global.sparse", value = {
         @Platform(value = "macosx-arm64",
-                  include = {"Types.h", "BLAS.h", "Sparse.h", "Solve.h"},
+                  define = {"ACCELERATE_NEW_LAPACK", "ACCELERATE_LAPACK_ILP64", "CBLAS_ENUM_ONLY"
+                  },
+                  include = {"Types.h", "BLAS.h", "Sparse.h"},
+                  //include = {"Types.h", "BLAS.h", "Solve.h", "Sparse.h"},
                   includepath = {"/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/vecLib.framework/Headers/Sparse/",
-
                       "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"})})
 @NoException
 public class sparse implements LoadEnabled, InfoMapper {
@@ -45,18 +47,24 @@ public class sparse implements LoadEnabled, InfoMapper {
     static { Loader.checkVersion("uncomplicate", "accelerate"); }
 
     @Override public void init(ClassProperties properties) {
-        String platform = properties.getProperty("platform");
-        List<String> includePaths = properties.get("platform.includepath");
-        List<String> includes = properties.get("platform.include");
+    }
+
+    static InfoMap putTypedefHandle(InfoMap infoMap, String struct, String handle) {
+        infoMap.put(new Info(struct).pointerTypes(handle));
+        infoMap.put(new Info(handle).valueTypes("@Cast(\"" + struct + "*\") Pointer").pointerTypes(
+                        "@ByPtrPtr " + handle, "@Cast(\"" + handle + "*\") PointerPointer"));
+        return infoMap;
     }
 
     @Override public void map(InfoMap infoMap) {
-        infoMap.put(new Info("__restrict").cppTypes().annotations())
-            .put(new Info("sparse_m_float").pointerTypes("sparse_matrix_float"))
-            .put(new Info("sparse_m_double").pointerTypes("sparse_matrix_double"))
-            .put(new Info("__has_attribute(enum_extensibility) && !defined(__swift__)").define(true))
-            .put(new Info("__has_feature(objc_fixed_enum) || __has_extension(cxx_strong_enums)").define(false))
-            .put(new Info("SparseStatusReleased").skip());
+
+        infoMap.put(new Info("__restrict").cppTypes().annotations());
+        //infoMap.put(new Info("__has_attribute(enum_extensibility) && !defined(__swift__)").define(true));
+        //infoMap.put(new Info("__has_feature(objc_fixed_enum) || __has_extension(cxx_strong_enums)").define(false));
+
+        putTypedefHandle(infoMap, "sparse_m_float", "sparse_matrix_float");
+        putTypedefHandle(infoMap, "sparse_m_double", "sparse_matrix_double");
+
     }
 
 }

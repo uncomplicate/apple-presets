@@ -46,9 +46,6 @@ public class vimage implements LoadEnabled, InfoMapper {
     static { Loader.checkVersion("uncomplicate.javacpp", "accelerate"); }
 
     @Override public void init(ClassProperties properties) {
-        String platform = properties.getProperty("platform");
-        List<String> includePaths = properties.get("platform.includepath");
-        List<String> includes = properties.get("platform.include");
     }
 
     static InfoMap putTypedefHandle(InfoMap infoMap, String struct, String handle) {

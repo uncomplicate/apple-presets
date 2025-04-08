@@ -612,21 +612,21 @@ public static native double sparse_vector_norm_double( @Cast("sparse_dimension")
  */
 public static native @Cast("sparse_status") int sparse_matrix_vector_product_dense_float( @Cast("CBLAS_TRANSPOSE") int transa,
                                                   float alpha,
-                                                  @ByVal sparse_matrix_float A,
+                                                  @Cast("sparse_m_float*") Pointer A,
                                                   @Const FloatPointer x,
                                                   @Cast("sparse_stride") long incx,
                                                   FloatPointer y,
                                                   @Cast("sparse_stride") long incy );
 public static native @Cast("sparse_status") int sparse_matrix_vector_product_dense_float( @Cast("CBLAS_TRANSPOSE") int transa,
                                                   float alpha,
-                                                  @ByVal sparse_matrix_float A,
+                                                  @Cast("sparse_m_float*") Pointer A,
                                                   @Const FloatBuffer x,
                                                   @Cast("sparse_stride") long incx,
                                                   FloatBuffer y,
                                                   @Cast("sparse_stride") long incy );
 public static native @Cast("sparse_status") int sparse_matrix_vector_product_dense_float( @Cast("CBLAS_TRANSPOSE") int transa,
                                                   float alpha,
-                                                  @ByVal sparse_matrix_float A,
+                                                  @Cast("sparse_m_float*") Pointer A,
                                                   @Const float[] x,
                                                   @Cast("sparse_stride") long incx,
                                                   float[] y,
@@ -634,21 +634,21 @@ public static native @Cast("sparse_status") int sparse_matrix_vector_product_den
 
 public static native @Cast("sparse_status") int sparse_matrix_vector_product_dense_double( @Cast("CBLAS_TRANSPOSE") int transa,
                                                    double alpha,
-                                                   @ByVal sparse_matrix_double A,
+                                                   @Cast("sparse_m_double*") Pointer A,
                                                    @Const DoublePointer x,
                                                    @Cast("sparse_stride") long incx,
                                                    DoublePointer y,
                                                    @Cast("sparse_stride") long incy );
 public static native @Cast("sparse_status") int sparse_matrix_vector_product_dense_double( @Cast("CBLAS_TRANSPOSE") int transa,
                                                    double alpha,
-                                                   @ByVal sparse_matrix_double A,
+                                                   @Cast("sparse_m_double*") Pointer A,
                                                    @Const DoubleBuffer x,
                                                    @Cast("sparse_stride") long incx,
                                                    DoubleBuffer y,
                                                    @Cast("sparse_stride") long incy );
 public static native @Cast("sparse_status") int sparse_matrix_vector_product_dense_double( @Cast("CBLAS_TRANSPOSE") int transa,
                                                    double alpha,
-                                                   @ByVal sparse_matrix_double A,
+                                                   @Cast("sparse_m_double*") Pointer A,
                                                    @Const double[] x,
                                                    @Cast("sparse_stride") long incx,
                                                    double[] y,
@@ -693,31 +693,31 @@ public static native @Cast("sparse_status") int sparse_matrix_vector_product_den
  
  */
 public static native @Cast("sparse_status") int sparse_vector_triangular_solve_dense_float( @Cast("CBLAS_TRANSPOSE") int transt,
-                                              float alpha, @ByVal sparse_matrix_float T,
+                                              float alpha, @Cast("sparse_m_float*") Pointer T,
                                               FloatPointer x,
                                               @Cast("sparse_stride") long incx );
 public static native @Cast("sparse_status") int sparse_vector_triangular_solve_dense_float( @Cast("CBLAS_TRANSPOSE") int transt,
-                                              float alpha, @ByVal sparse_matrix_float T,
+                                              float alpha, @Cast("sparse_m_float*") Pointer T,
                                               FloatBuffer x,
                                               @Cast("sparse_stride") long incx );
 public static native @Cast("sparse_status") int sparse_vector_triangular_solve_dense_float( @Cast("CBLAS_TRANSPOSE") int transt,
-                                              float alpha, @ByVal sparse_matrix_float T,
+                                              float alpha, @Cast("sparse_m_float*") Pointer T,
                                               float[] x,
                                               @Cast("sparse_stride") long incx );
 
 public static native @Cast("sparse_status") int sparse_vector_triangular_solve_dense_double( @Cast("CBLAS_TRANSPOSE") int transt,
                                                double alpha,
-                                               @ByVal sparse_matrix_double T,
+                                               @Cast("sparse_m_double*") Pointer T,
                                                DoublePointer x,
                                                @Cast("sparse_stride") long incx );
 public static native @Cast("sparse_status") int sparse_vector_triangular_solve_dense_double( @Cast("CBLAS_TRANSPOSE") int transt,
                                                double alpha,
-                                               @ByVal sparse_matrix_double T,
+                                               @Cast("sparse_m_double*") Pointer T,
                                                DoubleBuffer x,
                                                @Cast("sparse_stride") long incx );
 public static native @Cast("sparse_status") int sparse_vector_triangular_solve_dense_double( @Cast("CBLAS_TRANSPOSE") int transt,
                                                double alpha,
-                                               @ByVal sparse_matrix_double T,
+                                               @Cast("sparse_m_double*") Pointer T,
                                                double[] x,
                                                @Cast("sparse_stride") long incx );
 
@@ -789,38 +789,74 @@ public static native @Cast("sparse_status") int sparse_outer_product_dense_float
                                     @Const FloatPointer x, @Cast("sparse_stride") long incx,
                                     @Const FloatPointer y,
                                     @Cast("const sparse_index*") LongPointer indy,
-                                    sparse_matrix_float C);
+                                    @ByPtrPtr sparse_matrix_float C);
 public static native @Cast("sparse_status") int sparse_outer_product_dense_float( @Cast("sparse_dimension") long M, @Cast("sparse_dimension") long N,
                                     @Cast("sparse_dimension") long nz, float alpha,
                                     @Const FloatBuffer x, @Cast("sparse_stride") long incx,
                                     @Const FloatBuffer y,
                                     @Cast("const sparse_index*") LongBuffer indy,
-                                    sparse_matrix_float C);
+                                    @Cast("sparse_matrix_float*") PointerPointer C);
 public static native @Cast("sparse_status") int sparse_outer_product_dense_float( @Cast("sparse_dimension") long M, @Cast("sparse_dimension") long N,
                                     @Cast("sparse_dimension") long nz, float alpha,
                                     @Const float[] x, @Cast("sparse_stride") long incx,
                                     @Const float[] y,
                                     @Cast("const sparse_index*") long[] indy,
-                                    sparse_matrix_float C);
+                                    @ByPtrPtr sparse_matrix_float C);
+public static native @Cast("sparse_status") int sparse_outer_product_dense_float( @Cast("sparse_dimension") long M, @Cast("sparse_dimension") long N,
+                                    @Cast("sparse_dimension") long nz, float alpha,
+                                    @Const FloatPointer x, @Cast("sparse_stride") long incx,
+                                    @Const FloatPointer y,
+                                    @Cast("const sparse_index*") LongPointer indy,
+                                    @Cast("sparse_matrix_float*") PointerPointer C);
+public static native @Cast("sparse_status") int sparse_outer_product_dense_float( @Cast("sparse_dimension") long M, @Cast("sparse_dimension") long N,
+                                    @Cast("sparse_dimension") long nz, float alpha,
+                                    @Const FloatBuffer x, @Cast("sparse_stride") long incx,
+                                    @Const FloatBuffer y,
+                                    @Cast("const sparse_index*") LongBuffer indy,
+                                    @ByPtrPtr sparse_matrix_float C);
+public static native @Cast("sparse_status") int sparse_outer_product_dense_float( @Cast("sparse_dimension") long M, @Cast("sparse_dimension") long N,
+                                    @Cast("sparse_dimension") long nz, float alpha,
+                                    @Const float[] x, @Cast("sparse_stride") long incx,
+                                    @Const float[] y,
+                                    @Cast("const sparse_index*") long[] indy,
+                                    @Cast("sparse_matrix_float*") PointerPointer C);
 
 public static native @Cast("sparse_status") int sparse_outer_product_dense_double( @Cast("sparse_dimension") long M, @Cast("sparse_dimension") long N,
                                      @Cast("sparse_dimension") long nz, double alpha,
                                      @Const DoublePointer x,
                                      @Cast("sparse_stride") long incx, @Const DoublePointer y,
                                      @Cast("const sparse_index*") LongPointer indy,
-                                     sparse_matrix_double C);
+                                     @ByPtrPtr sparse_matrix_double C);
 public static native @Cast("sparse_status") int sparse_outer_product_dense_double( @Cast("sparse_dimension") long M, @Cast("sparse_dimension") long N,
                                      @Cast("sparse_dimension") long nz, double alpha,
                                      @Const DoubleBuffer x,
                                      @Cast("sparse_stride") long incx, @Const DoubleBuffer y,
                                      @Cast("const sparse_index*") LongBuffer indy,
-                                     sparse_matrix_double C);
+                                     @Cast("sparse_matrix_double*") PointerPointer C);
 public static native @Cast("sparse_status") int sparse_outer_product_dense_double( @Cast("sparse_dimension") long M, @Cast("sparse_dimension") long N,
                                      @Cast("sparse_dimension") long nz, double alpha,
                                      @Const double[] x,
                                      @Cast("sparse_stride") long incx, @Const double[] y,
                                      @Cast("const sparse_index*") long[] indy,
-                                     sparse_matrix_double C);
+                                     @ByPtrPtr sparse_matrix_double C);
+public static native @Cast("sparse_status") int sparse_outer_product_dense_double( @Cast("sparse_dimension") long M, @Cast("sparse_dimension") long N,
+                                     @Cast("sparse_dimension") long nz, double alpha,
+                                     @Const DoublePointer x,
+                                     @Cast("sparse_stride") long incx, @Const DoublePointer y,
+                                     @Cast("const sparse_index*") LongPointer indy,
+                                     @Cast("sparse_matrix_double*") PointerPointer C);
+public static native @Cast("sparse_status") int sparse_outer_product_dense_double( @Cast("sparse_dimension") long M, @Cast("sparse_dimension") long N,
+                                     @Cast("sparse_dimension") long nz, double alpha,
+                                     @Const DoubleBuffer x,
+                                     @Cast("sparse_stride") long incx, @Const DoubleBuffer y,
+                                     @Cast("const sparse_index*") LongBuffer indy,
+                                     @ByPtrPtr sparse_matrix_double C);
+public static native @Cast("sparse_status") int sparse_outer_product_dense_double( @Cast("sparse_dimension") long M, @Cast("sparse_dimension") long N,
+                                     @Cast("sparse_dimension") long nz, double alpha,
+                                     @Const double[] x,
+                                     @Cast("sparse_stride") long incx, @Const double[] y,
+                                     @Cast("const sparse_index*") long[] indy,
+                                     @Cast("sparse_matrix_double*") PointerPointer C);
 
 /**
  \abstract
@@ -848,18 +884,18 @@ public static native @Cast("sparse_status") int sparse_outer_product_dense_doubl
  A[perm[i],:] = tmp[:];
  
  */
-public static native @Cast("sparse_status") int sparse_permute_rows_float( @ByVal sparse_matrix_float A,
+public static native @Cast("sparse_status") int sparse_permute_rows_float( @Cast("sparse_m_float*") Pointer A,
                              @Cast("const sparse_index*") LongPointer perm );
-public static native @Cast("sparse_status") int sparse_permute_rows_float( @ByVal sparse_matrix_float A,
+public static native @Cast("sparse_status") int sparse_permute_rows_float( @Cast("sparse_m_float*") Pointer A,
                              @Cast("const sparse_index*") LongBuffer perm );
-public static native @Cast("sparse_status") int sparse_permute_rows_float( @ByVal sparse_matrix_float A,
+public static native @Cast("sparse_status") int sparse_permute_rows_float( @Cast("sparse_m_float*") Pointer A,
                              @Cast("const sparse_index*") long[] perm );
 
-public static native @Cast("sparse_status") int sparse_permute_rows_double( @ByVal sparse_matrix_double A,
+public static native @Cast("sparse_status") int sparse_permute_rows_double( @Cast("sparse_m_double*") Pointer A,
                               @Cast("const sparse_index*") LongPointer perm );
-public static native @Cast("sparse_status") int sparse_permute_rows_double( @ByVal sparse_matrix_double A,
+public static native @Cast("sparse_status") int sparse_permute_rows_double( @Cast("sparse_m_double*") Pointer A,
                               @Cast("const sparse_index*") LongBuffer perm );
-public static native @Cast("sparse_status") int sparse_permute_rows_double( @ByVal sparse_matrix_double A,
+public static native @Cast("sparse_status") int sparse_permute_rows_double( @Cast("sparse_m_double*") Pointer A,
                               @Cast("const sparse_index*") long[] perm );
 
 /**
@@ -888,18 +924,18 @@ public static native @Cast("sparse_status") int sparse_permute_rows_double( @ByV
  A[:,perm[j]] = tmp[:];
  
  */
-public static native @Cast("sparse_status") int sparse_permute_cols_float( @ByVal sparse_matrix_float A,
+public static native @Cast("sparse_status") int sparse_permute_cols_float( @Cast("sparse_m_float*") Pointer A,
                              @Cast("const sparse_index*") LongPointer perm );
-public static native @Cast("sparse_status") int sparse_permute_cols_float( @ByVal sparse_matrix_float A,
+public static native @Cast("sparse_status") int sparse_permute_cols_float( @Cast("sparse_m_float*") Pointer A,
                              @Cast("const sparse_index*") LongBuffer perm );
-public static native @Cast("sparse_status") int sparse_permute_cols_float( @ByVal sparse_matrix_float A,
+public static native @Cast("sparse_status") int sparse_permute_cols_float( @Cast("sparse_m_float*") Pointer A,
                              @Cast("const sparse_index*") long[] perm );
 
-public static native @Cast("sparse_status") int sparse_permute_cols_double( @ByVal sparse_matrix_double A,
+public static native @Cast("sparse_status") int sparse_permute_cols_double( @Cast("sparse_m_double*") Pointer A,
                               @Cast("const sparse_index*") LongPointer perm );
-public static native @Cast("sparse_status") int sparse_permute_cols_double( @ByVal sparse_matrix_double A,
+public static native @Cast("sparse_status") int sparse_permute_cols_double( @Cast("sparse_m_double*") Pointer A,
                               @Cast("const sparse_index*") LongBuffer perm );
-public static native @Cast("sparse_status") int sparse_permute_cols_double( @ByVal sparse_matrix_double A,
+public static native @Cast("sparse_status") int sparse_permute_cols_double( @Cast("sparse_m_double*") Pointer A,
                               @Cast("const sparse_index*") long[] perm );
 
 
@@ -930,9 +966,9 @@ public static native @Cast("sparse_status") int sparse_permute_cols_double( @ByV
  SPARSE_NORM_INF.
  
  */
-public static native float sparse_elementwise_norm_float( @ByVal sparse_matrix_float A, @Cast("sparse_norm") int norm );
+public static native float sparse_elementwise_norm_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_norm") int norm );
 
-public static native double sparse_elementwise_norm_double( @ByVal sparse_matrix_double A, @Cast("sparse_norm") int norm );
+public static native double sparse_elementwise_norm_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_norm") int norm );
 
 /**
  \abstract
@@ -962,9 +998,9 @@ public static native double sparse_elementwise_norm_double( @ByVal sparse_matrix
  SPARSE_NORM_INF.
  
  */
-public static native float sparse_operator_norm_float( @ByVal sparse_matrix_float A, @Cast("sparse_norm") int norm );
+public static native float sparse_operator_norm_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_norm") int norm );
 
-public static native double sparse_operator_norm_double( @ByVal sparse_matrix_double A, @Cast("sparse_norm") int norm );
+public static native double sparse_operator_norm_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_norm") int norm );
     
 /**
  \abstract
@@ -993,9 +1029,9 @@ public static native double sparse_operator_norm_double( @ByVal sparse_matrix_do
  If offset is out of the bounds of the matrix A, 0 is returned.
  
  */
-public static native float sparse_matrix_trace_float( @ByVal sparse_matrix_float A, @Cast("sparse_index") long offset );
+public static native float sparse_matrix_trace_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_index") long offset );
 
-public static native double sparse_matrix_trace_double( @ByVal sparse_matrix_double A, @Cast("sparse_index") long offset );
+public static native double sparse_matrix_trace_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_index") long offset );
 
 
 
@@ -1074,7 +1110,7 @@ public static native double sparse_matrix_trace_double( @ByVal sparse_matrix_dou
 public static native @Cast("sparse_status") int sparse_matrix_product_dense_float( @Cast("CBLAS_ORDER") int order,
                                            @Cast("CBLAS_TRANSPOSE") int transa,
                                            @Cast("sparse_dimension") long n, float alpha,
-                                           @ByVal sparse_matrix_float A,
+                                           @Cast("sparse_m_float*") Pointer A,
                                            @Const FloatPointer B,
                                            @Cast("sparse_dimension") long ldb,
                                            FloatPointer C,
@@ -1082,7 +1118,7 @@ public static native @Cast("sparse_status") int sparse_matrix_product_dense_floa
 public static native @Cast("sparse_status") int sparse_matrix_product_dense_float( @Cast("CBLAS_ORDER") int order,
                                            @Cast("CBLAS_TRANSPOSE") int transa,
                                            @Cast("sparse_dimension") long n, float alpha,
-                                           @ByVal sparse_matrix_float A,
+                                           @Cast("sparse_m_float*") Pointer A,
                                            @Const FloatBuffer B,
                                            @Cast("sparse_dimension") long ldb,
                                            FloatBuffer C,
@@ -1090,7 +1126,7 @@ public static native @Cast("sparse_status") int sparse_matrix_product_dense_floa
 public static native @Cast("sparse_status") int sparse_matrix_product_dense_float( @Cast("CBLAS_ORDER") int order,
                                            @Cast("CBLAS_TRANSPOSE") int transa,
                                            @Cast("sparse_dimension") long n, float alpha,
-                                           @ByVal sparse_matrix_float A,
+                                           @Cast("sparse_m_float*") Pointer A,
                                            @Const float[] B,
                                            @Cast("sparse_dimension") long ldb,
                                            float[] C,
@@ -1099,7 +1135,7 @@ public static native @Cast("sparse_status") int sparse_matrix_product_dense_floa
 public static native @Cast("sparse_status") int sparse_matrix_product_dense_double( @Cast("CBLAS_ORDER") int order,
                                             @Cast("CBLAS_TRANSPOSE") int transa,
                                             @Cast("sparse_dimension") long n, double alpha,
-                                            @ByVal sparse_matrix_double A,
+                                            @Cast("sparse_m_double*") Pointer A,
                                             @Const DoublePointer B,
                                             @Cast("sparse_dimension") long ldb,
                                             DoublePointer C,
@@ -1107,7 +1143,7 @@ public static native @Cast("sparse_status") int sparse_matrix_product_dense_doub
 public static native @Cast("sparse_status") int sparse_matrix_product_dense_double( @Cast("CBLAS_ORDER") int order,
                                             @Cast("CBLAS_TRANSPOSE") int transa,
                                             @Cast("sparse_dimension") long n, double alpha,
-                                            @ByVal sparse_matrix_double A,
+                                            @Cast("sparse_m_double*") Pointer A,
                                             @Const DoubleBuffer B,
                                             @Cast("sparse_dimension") long ldb,
                                             DoubleBuffer C,
@@ -1115,7 +1151,7 @@ public static native @Cast("sparse_status") int sparse_matrix_product_dense_doub
 public static native @Cast("sparse_status") int sparse_matrix_product_dense_double( @Cast("CBLAS_ORDER") int order,
                                             @Cast("CBLAS_TRANSPOSE") int transa,
                                             @Cast("sparse_dimension") long n, double alpha,
-                                            @ByVal sparse_matrix_double A,
+                                            @Cast("sparse_m_double*") Pointer A,
                                             @Const double[] B,
                                             @Cast("sparse_dimension") long ldb,
                                             double[] C,
@@ -1176,44 +1212,44 @@ public static native @Cast("sparse_status") int sparse_matrix_product_dense_doub
 public static native @Cast("sparse_status") int sparse_matrix_product_sparse_float(@Cast("CBLAS_ORDER") int order,
                                                  @Cast("CBLAS_TRANSPOSE") int transa,
                                                  float alpha,
-                                                 @ByVal sparse_matrix_float A,
-                                                 @ByVal sparse_matrix_float B,
+                                                 @Cast("sparse_m_float*") Pointer A,
+                                                 @Cast("sparse_m_float*") Pointer B,
                                                  FloatPointer C,
                                                  @Cast("sparse_dimension") long ldc );
 public static native @Cast("sparse_status") int sparse_matrix_product_sparse_float(@Cast("CBLAS_ORDER") int order,
                                                  @Cast("CBLAS_TRANSPOSE") int transa,
                                                  float alpha,
-                                                 @ByVal sparse_matrix_float A,
-                                                 @ByVal sparse_matrix_float B,
+                                                 @Cast("sparse_m_float*") Pointer A,
+                                                 @Cast("sparse_m_float*") Pointer B,
                                                  FloatBuffer C,
                                                  @Cast("sparse_dimension") long ldc );
 public static native @Cast("sparse_status") int sparse_matrix_product_sparse_float(@Cast("CBLAS_ORDER") int order,
                                                  @Cast("CBLAS_TRANSPOSE") int transa,
                                                  float alpha,
-                                                 @ByVal sparse_matrix_float A,
-                                                 @ByVal sparse_matrix_float B,
+                                                 @Cast("sparse_m_float*") Pointer A,
+                                                 @Cast("sparse_m_float*") Pointer B,
                                                  float[] C,
                                                  @Cast("sparse_dimension") long ldc );
 
 public static native @Cast("sparse_status") int sparse_matrix_product_sparse_double(@Cast("CBLAS_ORDER") int order,
                                                   @Cast("CBLAS_TRANSPOSE") int transa,
                                                   double alpha,
-                                                  @ByVal sparse_matrix_double A,
-                                                  @ByVal sparse_matrix_double B,
+                                                  @Cast("sparse_m_double*") Pointer A,
+                                                  @Cast("sparse_m_double*") Pointer B,
                                                   DoublePointer C,
                                                   @Cast("sparse_dimension") long ldc );
 public static native @Cast("sparse_status") int sparse_matrix_product_sparse_double(@Cast("CBLAS_ORDER") int order,
                                                   @Cast("CBLAS_TRANSPOSE") int transa,
                                                   double alpha,
-                                                  @ByVal sparse_matrix_double A,
-                                                  @ByVal sparse_matrix_double B,
+                                                  @Cast("sparse_m_double*") Pointer A,
+                                                  @Cast("sparse_m_double*") Pointer B,
                                                   DoubleBuffer C,
                                                   @Cast("sparse_dimension") long ldc );
 public static native @Cast("sparse_status") int sparse_matrix_product_sparse_double(@Cast("CBLAS_ORDER") int order,
                                                   @Cast("CBLAS_TRANSPOSE") int transa,
                                                   double alpha,
-                                                  @ByVal sparse_matrix_double A,
-                                                  @ByVal sparse_matrix_double B,
+                                                  @Cast("sparse_m_double*") Pointer A,
+                                                  @Cast("sparse_m_double*") Pointer B,
                                                   double[] C,
                                                   @Cast("sparse_dimension") long ldc );
 
@@ -1267,33 +1303,33 @@ public static native @Cast("sparse_status") int sparse_matrix_product_sparse_dou
 public static native @Cast("sparse_status") int sparse_matrix_triangular_solve_dense_float( @Cast("CBLAS_ORDER") int order,
                                    @Cast("CBLAS_TRANSPOSE") int transt,
                                    @Cast("sparse_dimension") long nrhs, float alpha,
-                                   @ByVal sparse_matrix_float T,
+                                   @Cast("sparse_m_float*") Pointer T,
                                    FloatPointer B, @Cast("sparse_dimension") long ldb );
 public static native @Cast("sparse_status") int sparse_matrix_triangular_solve_dense_float( @Cast("CBLAS_ORDER") int order,
                                    @Cast("CBLAS_TRANSPOSE") int transt,
                                    @Cast("sparse_dimension") long nrhs, float alpha,
-                                   @ByVal sparse_matrix_float T,
+                                   @Cast("sparse_m_float*") Pointer T,
                                    FloatBuffer B, @Cast("sparse_dimension") long ldb );
 public static native @Cast("sparse_status") int sparse_matrix_triangular_solve_dense_float( @Cast("CBLAS_ORDER") int order,
                                    @Cast("CBLAS_TRANSPOSE") int transt,
                                    @Cast("sparse_dimension") long nrhs, float alpha,
-                                   @ByVal sparse_matrix_float T,
+                                   @Cast("sparse_m_float*") Pointer T,
                                    float[] B, @Cast("sparse_dimension") long ldb );
 
 public static native @Cast("sparse_status") int sparse_matrix_triangular_solve_dense_double( @Cast("CBLAS_ORDER") int order,
                                     @Cast("CBLAS_TRANSPOSE") int transt,
                                     @Cast("sparse_dimension") long nrhs, double alpha,
-                                    @ByVal sparse_matrix_double T,
+                                    @Cast("sparse_m_double*") Pointer T,
                                     DoublePointer B, @Cast("sparse_dimension") long ldb );
 public static native @Cast("sparse_status") int sparse_matrix_triangular_solve_dense_double( @Cast("CBLAS_ORDER") int order,
                                     @Cast("CBLAS_TRANSPOSE") int transt,
                                     @Cast("sparse_dimension") long nrhs, double alpha,
-                                    @ByVal sparse_matrix_double T,
+                                    @Cast("sparse_m_double*") Pointer T,
                                     DoubleBuffer B, @Cast("sparse_dimension") long ldb );
 public static native @Cast("sparse_status") int sparse_matrix_triangular_solve_dense_double( @Cast("CBLAS_ORDER") int order,
                                     @Cast("CBLAS_TRANSPOSE") int transt,
                                     @Cast("sparse_dimension") long nrhs, double alpha,
-                                    @ByVal sparse_matrix_double T,
+                                    @Cast("sparse_m_double*") Pointer T,
                                     double[] B, @Cast("sparse_dimension") long ldb );
 
 
@@ -1333,9 +1369,9 @@ public static native @Cast("sparse_status") int sparse_matrix_triangular_solve_d
  object is returned, otherwise NULL is returned.
  
  */
-public static native @ByVal sparse_matrix_float sparse_matrix_create_float( @Cast("sparse_dimension") long M, @Cast("sparse_dimension") long N );
+public static native @Cast("sparse_m_float*") Pointer sparse_matrix_create_float( @Cast("sparse_dimension") long M, @Cast("sparse_dimension") long N );
 
-public static native @ByVal sparse_matrix_double sparse_matrix_create_double( @Cast("sparse_dimension") long M, @Cast("sparse_dimension") long N );
+public static native @Cast("sparse_m_double*") Pointer sparse_matrix_create_double( @Cast("sparse_dimension") long M, @Cast("sparse_dimension") long N );
 
 /**
  \abstract
@@ -1381,10 +1417,10 @@ public static native @ByVal sparse_matrix_double sparse_matrix_create_double( @C
  insert.
  
  */
-public static native @Cast("sparse_status") int sparse_insert_entry_float( @ByVal sparse_matrix_float A, float val,
+public static native @Cast("sparse_status") int sparse_insert_entry_float( @Cast("sparse_m_float*") Pointer A, float val,
                                    @Cast("sparse_index") long i, @Cast("sparse_index") long j );
 
-public static native @Cast("sparse_status") int sparse_insert_entry_double( @ByVal sparse_matrix_double A, double val,
+public static native @Cast("sparse_status") int sparse_insert_entry_double( @Cast("sparse_m_double*") Pointer A, double val,
                                     @Cast("sparse_index") long i, @Cast("sparse_index") long j );
 
 /**
@@ -1447,28 +1483,28 @@ public static native @Cast("sparse_status") int sparse_insert_entry_double( @ByV
  insert.
  
  */
-public static native @Cast("sparse_status") int sparse_insert_entries_float( @ByVal sparse_matrix_float A, @Cast("sparse_dimension") long N,
+public static native @Cast("sparse_status") int sparse_insert_entries_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_dimension") long N,
                                      @Const FloatPointer val,
                                      @Cast("const sparse_index*") LongPointer indx,
                                      @Cast("const sparse_index*") LongPointer jndx );
-public static native @Cast("sparse_status") int sparse_insert_entries_float( @ByVal sparse_matrix_float A, @Cast("sparse_dimension") long N,
+public static native @Cast("sparse_status") int sparse_insert_entries_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_dimension") long N,
                                      @Const FloatBuffer val,
                                      @Cast("const sparse_index*") LongBuffer indx,
                                      @Cast("const sparse_index*") LongBuffer jndx );
-public static native @Cast("sparse_status") int sparse_insert_entries_float( @ByVal sparse_matrix_float A, @Cast("sparse_dimension") long N,
+public static native @Cast("sparse_status") int sparse_insert_entries_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_dimension") long N,
                                      @Const float[] val,
                                      @Cast("const sparse_index*") long[] indx,
                                      @Cast("const sparse_index*") long[] jndx );
 
-public static native @Cast("sparse_status") int sparse_insert_entries_double( @ByVal sparse_matrix_double A, @Cast("sparse_dimension") long N,
+public static native @Cast("sparse_status") int sparse_insert_entries_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_dimension") long N,
                                       @Const DoublePointer val,
                                       @Cast("const sparse_index*") LongPointer indx,
                                       @Cast("const sparse_index*") LongPointer jndx );
-public static native @Cast("sparse_status") int sparse_insert_entries_double( @ByVal sparse_matrix_double A, @Cast("sparse_dimension") long N,
+public static native @Cast("sparse_status") int sparse_insert_entries_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_dimension") long N,
                                       @Const DoubleBuffer val,
                                       @Cast("const sparse_index*") LongBuffer indx,
                                       @Cast("const sparse_index*") LongBuffer jndx );
-public static native @Cast("sparse_status") int sparse_insert_entries_double( @ByVal sparse_matrix_double A, @Cast("sparse_dimension") long N,
+public static native @Cast("sparse_status") int sparse_insert_entries_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_dimension") long N,
                                       @Const double[] val,
                                       @Cast("const sparse_index*") long[] indx,
                                       @Cast("const sparse_index*") long[] jndx );
@@ -1531,23 +1567,23 @@ public static native @Cast("sparse_status") int sparse_insert_entries_double( @B
  insert.
  
  */
-public static native @Cast("sparse_status") int sparse_insert_col_float( @ByVal sparse_matrix_float A, @Cast("sparse_index") long j,
+public static native @Cast("sparse_status") int sparse_insert_col_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_index") long j,
                                  @Cast("sparse_dimension") long nz, @Const FloatPointer val,
                                  @Cast("const sparse_index*") LongPointer indx );
-public static native @Cast("sparse_status") int sparse_insert_col_float( @ByVal sparse_matrix_float A, @Cast("sparse_index") long j,
+public static native @Cast("sparse_status") int sparse_insert_col_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_index") long j,
                                  @Cast("sparse_dimension") long nz, @Const FloatBuffer val,
                                  @Cast("const sparse_index*") LongBuffer indx );
-public static native @Cast("sparse_status") int sparse_insert_col_float( @ByVal sparse_matrix_float A, @Cast("sparse_index") long j,
+public static native @Cast("sparse_status") int sparse_insert_col_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_index") long j,
                                  @Cast("sparse_dimension") long nz, @Const float[] val,
                                  @Cast("const sparse_index*") long[] indx );
 
-public static native @Cast("sparse_status") int sparse_insert_col_double( @ByVal sparse_matrix_double A, @Cast("sparse_index") long j,
+public static native @Cast("sparse_status") int sparse_insert_col_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_index") long j,
                                   @Cast("sparse_dimension") long nz, @Const DoublePointer val,
                                   @Cast("const sparse_index*") LongPointer indx );
-public static native @Cast("sparse_status") int sparse_insert_col_double( @ByVal sparse_matrix_double A, @Cast("sparse_index") long j,
+public static native @Cast("sparse_status") int sparse_insert_col_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_index") long j,
                                   @Cast("sparse_dimension") long nz, @Const DoubleBuffer val,
                                   @Cast("const sparse_index*") LongBuffer indx );
-public static native @Cast("sparse_status") int sparse_insert_col_double( @ByVal sparse_matrix_double A, @Cast("sparse_index") long j,
+public static native @Cast("sparse_status") int sparse_insert_col_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_index") long j,
                                   @Cast("sparse_dimension") long nz, @Const double[] val,
                                   @Cast("const sparse_index*") long[] indx );
 
@@ -1609,23 +1645,23 @@ public static native @Cast("sparse_status") int sparse_insert_col_double( @ByVal
  insert.
  
  */
-public static native @Cast("sparse_status") int sparse_insert_row_float( @ByVal sparse_matrix_float A, @Cast("sparse_index") long i,
+public static native @Cast("sparse_status") int sparse_insert_row_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_index") long i,
                                  @Cast("sparse_dimension") long nz, @Const FloatPointer val,
                                  @Cast("const sparse_index*") LongPointer jndx );
-public static native @Cast("sparse_status") int sparse_insert_row_float( @ByVal sparse_matrix_float A, @Cast("sparse_index") long i,
+public static native @Cast("sparse_status") int sparse_insert_row_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_index") long i,
                                  @Cast("sparse_dimension") long nz, @Const FloatBuffer val,
                                  @Cast("const sparse_index*") LongBuffer jndx );
-public static native @Cast("sparse_status") int sparse_insert_row_float( @ByVal sparse_matrix_float A, @Cast("sparse_index") long i,
+public static native @Cast("sparse_status") int sparse_insert_row_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_index") long i,
                                  @Cast("sparse_dimension") long nz, @Const float[] val,
                                  @Cast("const sparse_index*") long[] jndx );
 
-public static native @Cast("sparse_status") int sparse_insert_row_double( @ByVal sparse_matrix_double A, @Cast("sparse_index") long i,
+public static native @Cast("sparse_status") int sparse_insert_row_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_index") long i,
                                   @Cast("sparse_dimension") long nz, @Const DoublePointer val,
                                   @Cast("const sparse_index*") LongPointer jndx );
-public static native @Cast("sparse_status") int sparse_insert_row_double( @ByVal sparse_matrix_double A, @Cast("sparse_index") long i,
+public static native @Cast("sparse_status") int sparse_insert_row_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_index") long i,
                                   @Cast("sparse_dimension") long nz, @Const DoubleBuffer val,
                                   @Cast("const sparse_index*") LongBuffer jndx );
-public static native @Cast("sparse_status") int sparse_insert_row_double( @ByVal sparse_matrix_double A, @Cast("sparse_index") long i,
+public static native @Cast("sparse_status") int sparse_insert_row_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_index") long i,
                                   @Cast("sparse_dimension") long nz, @Const double[] val,
                                   @Cast("const sparse_index*") long[] jndx );
 
@@ -1693,28 +1729,28 @@ public static native @Cast("sparse_status") int sparse_insert_row_double( @ByVal
  sparse_matrix_create_double.
  
  */
-public static native @Cast("sparse_status") int sparse_extract_sparse_row_float( @ByVal sparse_matrix_float A, @Cast("sparse_index") long row,
+public static native @Cast("sparse_status") int sparse_extract_sparse_row_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_index") long row,
                                   @Cast("sparse_index") long column_start, @Cast("sparse_index*") LongPointer column_end,
                                   @Cast("sparse_dimension") long nz, FloatPointer val,
                                   @Cast("sparse_index*") LongPointer jndx );
-public static native @Cast("sparse_status") int sparse_extract_sparse_row_float( @ByVal sparse_matrix_float A, @Cast("sparse_index") long row,
+public static native @Cast("sparse_status") int sparse_extract_sparse_row_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_index") long row,
                                   @Cast("sparse_index") long column_start, @Cast("sparse_index*") LongBuffer column_end,
                                   @Cast("sparse_dimension") long nz, FloatBuffer val,
                                   @Cast("sparse_index*") LongBuffer jndx );
-public static native @Cast("sparse_status") int sparse_extract_sparse_row_float( @ByVal sparse_matrix_float A, @Cast("sparse_index") long row,
+public static native @Cast("sparse_status") int sparse_extract_sparse_row_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_index") long row,
                                   @Cast("sparse_index") long column_start, @Cast("sparse_index*") long[] column_end,
                                   @Cast("sparse_dimension") long nz, float[] val,
                                   @Cast("sparse_index*") long[] jndx );
 
-public static native @Cast("sparse_status") int sparse_extract_sparse_row_double( @ByVal sparse_matrix_double A, @Cast("sparse_index") long row,
+public static native @Cast("sparse_status") int sparse_extract_sparse_row_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_index") long row,
                                   @Cast("sparse_index") long column_start, @Cast("sparse_index*") LongPointer column_end,
                                   @Cast("sparse_dimension") long nz, DoublePointer val,
                                   @Cast("sparse_index*") LongPointer jndx );
-public static native @Cast("sparse_status") int sparse_extract_sparse_row_double( @ByVal sparse_matrix_double A, @Cast("sparse_index") long row,
+public static native @Cast("sparse_status") int sparse_extract_sparse_row_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_index") long row,
                                   @Cast("sparse_index") long column_start, @Cast("sparse_index*") LongBuffer column_end,
                                   @Cast("sparse_dimension") long nz, DoubleBuffer val,
                                   @Cast("sparse_index*") LongBuffer jndx );
-public static native @Cast("sparse_status") int sparse_extract_sparse_row_double( @ByVal sparse_matrix_double A, @Cast("sparse_index") long row,
+public static native @Cast("sparse_status") int sparse_extract_sparse_row_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_index") long row,
                                   @Cast("sparse_index") long column_start, @Cast("sparse_index*") long[] column_end,
                                   @Cast("sparse_dimension") long nz, double[] val,
                                   @Cast("sparse_index*") long[] jndx );
@@ -1784,21 +1820,21 @@ public static native @Cast("sparse_status") int sparse_extract_sparse_row_double
  sparse_matrix_create_double.
  
  */
-public static native @Cast("sparse_status") int sparse_extract_sparse_column_float( @ByVal sparse_matrix_float A,
+public static native @Cast("sparse_status") int sparse_extract_sparse_column_float( @Cast("sparse_m_float*") Pointer A,
                                             @Cast("sparse_index") long column,
                                             @Cast("sparse_index") long row_start,
                                             @Cast("sparse_index*") LongPointer row_end,
                                             @Cast("sparse_dimension") long nz,
                                             FloatPointer val,
                                             @Cast("sparse_index*") LongPointer indx );
-public static native @Cast("sparse_status") int sparse_extract_sparse_column_float( @ByVal sparse_matrix_float A,
+public static native @Cast("sparse_status") int sparse_extract_sparse_column_float( @Cast("sparse_m_float*") Pointer A,
                                             @Cast("sparse_index") long column,
                                             @Cast("sparse_index") long row_start,
                                             @Cast("sparse_index*") LongBuffer row_end,
                                             @Cast("sparse_dimension") long nz,
                                             FloatBuffer val,
                                             @Cast("sparse_index*") LongBuffer indx );
-public static native @Cast("sparse_status") int sparse_extract_sparse_column_float( @ByVal sparse_matrix_float A,
+public static native @Cast("sparse_status") int sparse_extract_sparse_column_float( @Cast("sparse_m_float*") Pointer A,
                                             @Cast("sparse_index") long column,
                                             @Cast("sparse_index") long row_start,
                                             @Cast("sparse_index*") long[] row_end,
@@ -1806,21 +1842,21 @@ public static native @Cast("sparse_status") int sparse_extract_sparse_column_flo
                                             float[] val,
                                             @Cast("sparse_index*") long[] indx );
 
-public static native @Cast("sparse_status") int sparse_extract_sparse_column_double( @ByVal sparse_matrix_double A,
+public static native @Cast("sparse_status") int sparse_extract_sparse_column_double( @Cast("sparse_m_double*") Pointer A,
                                              @Cast("sparse_index") long column,
                                              @Cast("sparse_index") long row_start,
                                              @Cast("sparse_index*") LongPointer row_end,
                                              @Cast("sparse_dimension") long nz,
                                              DoublePointer val,
                                              @Cast("sparse_index*") LongPointer indx );
-public static native @Cast("sparse_status") int sparse_extract_sparse_column_double( @ByVal sparse_matrix_double A,
+public static native @Cast("sparse_status") int sparse_extract_sparse_column_double( @Cast("sparse_m_double*") Pointer A,
                                              @Cast("sparse_index") long column,
                                              @Cast("sparse_index") long row_start,
                                              @Cast("sparse_index*") LongBuffer row_end,
                                              @Cast("sparse_dimension") long nz,
                                              DoubleBuffer val,
                                              @Cast("sparse_index*") LongBuffer indx );
-public static native @Cast("sparse_status") int sparse_extract_sparse_column_double( @ByVal sparse_matrix_double A,
+public static native @Cast("sparse_status") int sparse_extract_sparse_column_double( @Cast("sparse_m_double*") Pointer A,
                                              @Cast("sparse_index") long column,
                                              @Cast("sparse_index") long row_start,
                                              @Cast("sparse_index*") long[] row_end,
@@ -1874,12 +1910,12 @@ public static native @Cast("sparse_status") int sparse_extract_sparse_column_dou
  matrix object is returned, otherwise NULL is returned.
  <p>
  */
-public static native @ByVal sparse_matrix_float sparse_matrix_block_create_float( @Cast("sparse_dimension") long Mb,
+public static native @Cast("sparse_m_float*") Pointer sparse_matrix_block_create_float( @Cast("sparse_dimension") long Mb,
                                                 @Cast("sparse_dimension") long Nb,
                                                 @Cast("sparse_dimension") long k,
                                                 @Cast("sparse_dimension") long l );
 
-public static native @ByVal sparse_matrix_double sparse_matrix_block_create_double( @Cast("sparse_dimension") long Mb,
+public static native @Cast("sparse_m_double*") Pointer sparse_matrix_block_create_double( @Cast("sparse_dimension") long Mb,
                                                   @Cast("sparse_dimension") long Nb,
                                                   @Cast("sparse_dimension") long k,
                                                   @Cast("sparse_dimension") long l );
@@ -1924,28 +1960,28 @@ public static native @ByVal sparse_matrix_double sparse_matrix_block_create_doub
  success a valid matrix object is returned, otherwise NULL is returned.
  
  */
-public static native @ByVal sparse_matrix_float sparse_matrix_variable_block_create_float( @Cast("sparse_dimension") long Mb,
+public static native @Cast("sparse_m_float*") Pointer sparse_matrix_variable_block_create_float( @Cast("sparse_dimension") long Mb,
                                                          @Cast("sparse_dimension") long Nb,
                                                          @Cast("const sparse_dimension*") LongPointer K,
                                                          @Cast("const sparse_dimension*") LongPointer L );
-public static native @ByVal sparse_matrix_float sparse_matrix_variable_block_create_float( @Cast("sparse_dimension") long Mb,
+public static native @Cast("sparse_m_float*") Pointer sparse_matrix_variable_block_create_float( @Cast("sparse_dimension") long Mb,
                                                          @Cast("sparse_dimension") long Nb,
                                                          @Cast("const sparse_dimension*") LongBuffer K,
                                                          @Cast("const sparse_dimension*") LongBuffer L );
-public static native @ByVal sparse_matrix_float sparse_matrix_variable_block_create_float( @Cast("sparse_dimension") long Mb,
+public static native @Cast("sparse_m_float*") Pointer sparse_matrix_variable_block_create_float( @Cast("sparse_dimension") long Mb,
                                                          @Cast("sparse_dimension") long Nb,
                                                          @Cast("const sparse_dimension*") long[] K,
                                                          @Cast("const sparse_dimension*") long[] L );
 
-public static native @ByVal sparse_matrix_double sparse_matrix_variable_block_create_double( @Cast("sparse_dimension") long Mb,
+public static native @Cast("sparse_m_double*") Pointer sparse_matrix_variable_block_create_double( @Cast("sparse_dimension") long Mb,
                                                            @Cast("sparse_dimension") long Nb,
                                                            @Cast("const sparse_dimension*") LongPointer K,
                                                            @Cast("const sparse_dimension*") LongPointer L );
-public static native @ByVal sparse_matrix_double sparse_matrix_variable_block_create_double( @Cast("sparse_dimension") long Mb,
+public static native @Cast("sparse_m_double*") Pointer sparse_matrix_variable_block_create_double( @Cast("sparse_dimension") long Mb,
                                                            @Cast("sparse_dimension") long Nb,
                                                            @Cast("const sparse_dimension*") LongBuffer K,
                                                            @Cast("const sparse_dimension*") LongBuffer L );
-public static native @ByVal sparse_matrix_double sparse_matrix_variable_block_create_double( @Cast("sparse_dimension") long Mb,
+public static native @Cast("sparse_m_double*") Pointer sparse_matrix_variable_block_create_double( @Cast("sparse_dimension") long Mb,
                                                            @Cast("sparse_dimension") long Nb,
                                                            @Cast("const sparse_dimension*") long[] K,
                                                            @Cast("const sparse_dimension*") long[] L );
@@ -2014,33 +2050,33 @@ public static native @ByVal sparse_matrix_double sparse_matrix_variable_block_cr
  insert.
  
  */
-public static native @Cast("sparse_status") int sparse_insert_block_float( @ByVal sparse_matrix_float A,
+public static native @Cast("sparse_status") int sparse_insert_block_float( @Cast("sparse_m_float*") Pointer A,
                                    @Const FloatPointer val,
                                    @Cast("sparse_dimension") long row_stride,
                                    @Cast("sparse_dimension") long col_stride,
                                    @Cast("sparse_index") long bi, @Cast("sparse_index") long bj );
-public static native @Cast("sparse_status") int sparse_insert_block_float( @ByVal sparse_matrix_float A,
+public static native @Cast("sparse_status") int sparse_insert_block_float( @Cast("sparse_m_float*") Pointer A,
                                    @Const FloatBuffer val,
                                    @Cast("sparse_dimension") long row_stride,
                                    @Cast("sparse_dimension") long col_stride,
                                    @Cast("sparse_index") long bi, @Cast("sparse_index") long bj );
-public static native @Cast("sparse_status") int sparse_insert_block_float( @ByVal sparse_matrix_float A,
+public static native @Cast("sparse_status") int sparse_insert_block_float( @Cast("sparse_m_float*") Pointer A,
                                    @Const float[] val,
                                    @Cast("sparse_dimension") long row_stride,
                                    @Cast("sparse_dimension") long col_stride,
                                    @Cast("sparse_index") long bi, @Cast("sparse_index") long bj );
 
-public static native @Cast("sparse_status") int sparse_insert_block_double( @ByVal sparse_matrix_double A,
+public static native @Cast("sparse_status") int sparse_insert_block_double( @Cast("sparse_m_double*") Pointer A,
                                     @Const DoublePointer val,
                                     @Cast("sparse_dimension") long row_stride,
                                     @Cast("sparse_dimension") long col_stride,
                                     @Cast("sparse_index") long bi, @Cast("sparse_index") long bj );
-public static native @Cast("sparse_status") int sparse_insert_block_double( @ByVal sparse_matrix_double A,
+public static native @Cast("sparse_status") int sparse_insert_block_double( @Cast("sparse_m_double*") Pointer A,
                                     @Const DoubleBuffer val,
                                     @Cast("sparse_dimension") long row_stride,
                                     @Cast("sparse_dimension") long col_stride,
                                     @Cast("sparse_index") long bi, @Cast("sparse_index") long bj );
-public static native @Cast("sparse_status") int sparse_insert_block_double( @ByVal sparse_matrix_double A,
+public static native @Cast("sparse_status") int sparse_insert_block_double( @Cast("sparse_m_double*") Pointer A,
                                     @Const double[] val,
                                     @Cast("sparse_dimension") long row_stride,
                                     @Cast("sparse_dimension") long col_stride,
@@ -2098,28 +2134,28 @@ public static native @Cast("sparse_status") int sparse_insert_block_double( @ByV
  sparse_matrix_variable_block_create_double.
  
  */
-public static native @Cast("sparse_status") int sparse_extract_block_float( @ByVal sparse_matrix_float A, @Cast("sparse_index") long bi,
+public static native @Cast("sparse_status") int sparse_extract_block_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_index") long bi,
                                     @Cast("sparse_index") long bj, @Cast("sparse_dimension") long row_stride,
                                     @Cast("sparse_dimension") long col_stride,
                                     FloatPointer val );
-public static native @Cast("sparse_status") int sparse_extract_block_float( @ByVal sparse_matrix_float A, @Cast("sparse_index") long bi,
+public static native @Cast("sparse_status") int sparse_extract_block_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_index") long bi,
                                     @Cast("sparse_index") long bj, @Cast("sparse_dimension") long row_stride,
                                     @Cast("sparse_dimension") long col_stride,
                                     FloatBuffer val );
-public static native @Cast("sparse_status") int sparse_extract_block_float( @ByVal sparse_matrix_float A, @Cast("sparse_index") long bi,
+public static native @Cast("sparse_status") int sparse_extract_block_float( @Cast("sparse_m_float*") Pointer A, @Cast("sparse_index") long bi,
                                     @Cast("sparse_index") long bj, @Cast("sparse_dimension") long row_stride,
                                     @Cast("sparse_dimension") long col_stride,
                                     float[] val );
 
-public static native @Cast("sparse_status") int sparse_extract_block_double( @ByVal sparse_matrix_double A, @Cast("sparse_index") long bi,
+public static native @Cast("sparse_status") int sparse_extract_block_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_index") long bi,
                                      @Cast("sparse_index") long bj, @Cast("sparse_dimension") long row_stride,
                                      @Cast("sparse_dimension") long col_stride,
                                      DoublePointer val );
-public static native @Cast("sparse_status") int sparse_extract_block_double( @ByVal sparse_matrix_double A, @Cast("sparse_index") long bi,
+public static native @Cast("sparse_status") int sparse_extract_block_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_index") long bi,
                                      @Cast("sparse_index") long bj, @Cast("sparse_dimension") long row_stride,
                                      @Cast("sparse_dimension") long col_stride,
                                      DoubleBuffer val );
-public static native @Cast("sparse_status") int sparse_extract_block_double( @ByVal sparse_matrix_double A, @Cast("sparse_index") long bi,
+public static native @Cast("sparse_status") int sparse_extract_block_double( @Cast("sparse_m_double*") Pointer A, @Cast("sparse_index") long bi,
                                      @Cast("sparse_index") long bj, @Cast("sparse_dimension") long row_stride,
                                      @Cast("sparse_dimension") long col_stride,
                                      double[] val );
@@ -2497,4826 +2533,6 @@ public static native void sparse_unpack_vector_double( @Cast("sparse_dimension")
 
 // #endif
   /* __SPARSE_HEADER__ */
-
-
-// Parsed from Solve.h
-
-/** \header
- *  This header provides sparse matrix solvers using "transparent" types
- *  (i.e. types where the matrix structure is exposed to the caller, in
- *  contrast to the opaque types used in the Sparse/BLAS.h header). A subset
- *  of the BLAS operations are also defined on these types.
- *
- *  \copyright 2016-2017 Apple, Inc.  All rights reserved.
- *  \u005Cunsorted
- */
-
-/******************************************************************************
- *
- * We offer two different techniques for solving AX=B where A is sparse and
- * X, B are dense.
- *
- * DIRECT METHODS:    These perform a factorization of the matrix A, and are the
- *                    most reliable and easiest to use. It is recommended that
- *                    users try these first, and only resort to iterative methods
- *                    if time or memory constraints make these methods infeasible.
- *                    Once a factorization is performed additional solves with the
- *                    same A can be performed cheaply.
- *
- * ITERATIVE METHODS: These apply an iterative numerical algorithm to solve the
- *                    problem. They use less memory than direct methods, and can
- *                    be considerably faster if the problem is numerically well
- *                    conditioned or a good preconditioner is known. To safely
- *                    and correctly use these methods a greater degree of
- *                    mathematial knoweldge and effort is required of the user.
- *                    Subsequent solves require the same amount of computational
- *                    work, unless a good approximate solution is available.
- *                    For the best performance, a problem specific preconditioner
- *                    will need to be supplied by the user.
- *
- * ======================================
- * Direct Methods (Matrix Factorizations)
- * ======================================
- *
- * We offer the factorizations detailed below, but all use the same interface,
- * with the variant specified by the argument {@code type}. The most basic solution
- * sequence is:
- *   factors = SparseFactor(type, Matrix)
- *   SparseSolve(factors, rhs, soln)
- *   SparseCleanup(factors)
- *
- * It is sometimes required to perform repeated factorizations with the same
- * non-zero pattern but different numerical values. A SparseRefactor() entry
- * point is supplied that allows the reuse of an existing factor object and
- * its associated memory with different numerical values.
- *
- * If multiple different numeric factorizations with the same symbolic pattern
- * are required, or if the user wishes to perform ordering before numeric
- * values are known, a symbolic factorization object can be obtained by passing
- * a SparseMatrixStructure object to SparseFactor() in place of the full
- * SparseMatrix that also includes the numeric values. The underlying object
- * is reference counted, so this object may be safely destroyed by calling
- * SparseOpaqueDestroy() even if numeric factorizations that depend on it are
- * still in use. Due to this reference counting, if the user wishes to make a
- * shallow copy of the underlying object they should call SparseRetain().
- *
- * If the user wishes to apply matrix factors individually, they may obtain
- * opaque objects through the SparseCreateSubfactor() routine. These objects
- * may then be used through calls to SparseMultiply() and SparseSove().
- *
- * Cholesky
- * ========
- * A = PLL'P'
- * for real symmetric or complex Hermitian positive-definite matrices A.
- * If A is not positive-definite the factorization will detect this and fail,
- * potentially after significant computation.
- * P is a permutation matrix that is (by default) automatically calculated by
- * the solver (see options.orderMethod for further details).
- * L is the lower triangular factorization matrix.
- * By default no diagonal scaling matrix is applied to A, but one may be
- * enabled through options.scalingMethod.
- *
- * SparseSolve() will solve Ax = b.
- * SparseCreateSubfactor() allows the following subfactors to be extracted:
- * - SparseSubfactorL    returns an opaque object representing L. Both Multiply and Solve are valid.
- * - SparseSubfactorP    returns an opaque object representing P. Both Multiply and Solve are valid.
- * - SparseSubfactorPLPS returns an opaque object representing PLP'. Only Solve is valid, and
- *                       transpose solve followed by non-transpose solve is equivalent to a full
- *                       system solve with A.
- *
- * Symmetric Indefinite
- * ====================
- * SAS = PLDL'P'
- * for real symmetric or complex Hermitian matrices A.
- * P is a permutation matrix that is (by default) automatically calculated by
- * the solver (see options.orderMethod for further details).
- * S is a diagonal scaling matrix that is (by default) automatically calculated
- * by the solver (see options.scalingMethod for further details).
- * L is a unit lower triangular factorization matrix.
- * D is a block diagonal factorization matrix, with 1x1 and 2x2 diagonal blocks.
- * A variety of different pivoting options are offered:
- * - Unpivoted performs no numerical pivoting, and D only has 1x1 pivots. Only
- *   suitable for well behaved systems with full rank, otherwise very unstable.
- * - Supernode Bunch-Kaufmann (SBK) restricts pivoting to operations that do not
- *   alter the symbolic structure of the factors. Static pivoting (the addition
- *   (of sqrt(eps) to small diagonal entries) is used in the presence of small
- *   pivots. This method is often effective for well scaled matrices, but is
- *   not numerically stable for some systems.
- * - Threshold Partial Pivoting (TPP) is provably numerically stable, but at the
- *   cost of (potentially) increased factor size and number of operations.
- *
- * SparseSolve() will solve Ax = b.
- * SparseCreateSubfactor() allows the following sunfactors to be extracted:
- * - SparseSubfactorL    returns an opaque object representing L. Both Multiply and Solve are valid.
- * - SparseSubfactorD    returns an opaque object representing D. Both Multiply and Solve are valid.
- * - SparseSubfactorP    returns an opaque object representing P. Both Multiply and Solve are valid.
- * - SparseSubfactorS    returns an opaque object representing S. Both Multiply and Solve are valid.
- * - SparseSubfactorPLPS returns an opaque object representing PLP'S. When tranposed represents PLDP'S.
- *                    Only Solve is valid, and transpose solve followed by non-transpose solve is
- *                    equivalent to a full system solve with A.
- *
- * QR
- * ==
- * A = QRP      if m >= n so A is overdetermined or square
- * A = P'R'Q'   if m <  n so A is underdetermined
- * for real or complex matrices A of size m x n.
- * P is a column permutation that is (by default) automatically calculated by
- * the solver (see options.orderMethod for further details).
- * Q is an m x n (or n x m if underdetermined) orthagonal factor matrix.
- * R is an n x n (or m x m if underdetermined) upper triangular factor matrix.
- *
- * If a Cholesky factorization of A^T A is desired (being the factor R) consider
- * using the CholeskyAtA options below instead. This performs the same factorization but
- * without the overhead of storing the Q factor.
- *
- * We note that in many cases other methods of solving a given problem are normally faster
- * than the use of a Sparse QR factorization:
- * - For least squares, use a dedicated least squares solution method
- *   (e.g. Diagonally preconditioned LSMR).
- * - If a low rank approximation is required, multiply rank+5 random vectors by A and
- *   perform a dense QR of the result.
- *
- * SparseSolve() will solve either:
- * - x = arg min_x || Ax - b ||_2      if A is overdetermined.
- * - x = arg min_x || x ||_2 s.t. Ax=b if A is underdetermined.
- * SparseCreateSubfactor() allows the following sunfactors to be extracted:
- * - SparseSubfactorQ  returns an opaque object representing Q. Both Multiply and Solve are valid.
- * - SparseSubfactorR  returns an opaque object representing R. Both Multiply and Solve are valid.
- * - SparseSubfactorP  returns an opaque object representing P. Both Multiply and Solve are valid.
- * - SparseSubfactorRP returns an opaque object representing RP (or P'R'). Only Solve is valid.
- *
- * CholeskyAtA
- * ===========
- * A^TA = P'R'RP
- * for real matrices A.
- * This performs the same factorization as QR above, but avoids storing the Q factor resulting
- * in a significant storage saving. The number of rows in A must be greater than or equal to the
- * number of columns (otherwise A^T A is singular).
- *
- * SparseSolve() will solve A^TA x = b.
- * SparseCreateSubfactor() allows the following subfactors to be extracted:
- * - SparseSubfactorR  returns an opaque object representing R. Both Multiply and Solve are valid.
- * - SparseSubfactorP  returns an opaque object representing P. Both Multiply and Solve are valid.
- * - SparseSubfactorRP returns an opaque object representing RP (or P'R'). Only Solve is valid.
- *
- *
- * =====================================
- * Iterative Methods and Preconditioners
- * =====================================
- *
- * We offer the following iterative methods:
- * CG:    Conjugate Gradient method for symmetric positive-definite matrices.
- * GMRES: Generalised Minimum RESidual method and variants (FGMRES, DQGMRES) for
- *        symmetric indefinite and unsymmetric matrices.
- * LSMR:  Least Squares Minimum Residual method for solving least squares problems.
- *
- * The most basic solution sequence is:
- *
- *   SparseSolve( SparseCG(), X, B, A );
- *
- * However:
- * - Various method-specific options may be passed as the argument of SparseCG(), SparseGMRES()
- *   or SparseLSMR() in the first argument:
- *     SparseSolve( SparseCG( (SparseCGOptions) { .maxIterations=10 } ), X, B, A);
- * - The SparseMatrix argument A may be replaced by a block that applies the operator
- *   Y = Y + op(A) X where op(A) represents the application of the operator A or its transpose:
- *     SparseSolve( SparseLSMR(), X, B,
- *       ^void (enum CBLAS_TRANSPOSE trans, DenseMatrix_Double X, DenseMatrix_Double Y) {
- *         // Code to perform Y += op(A) X
- *       } );
- * - An optional Preconditioner may be supplied. If A is a SparseMatrix, this can be a predefined
- *   preconditioner supplied by the Accelerate library:
- *     SparseSolve( SparseCG(), X, B, SparsePreconditionerDiagonal, A );
- *   or be user specified (i.e. if a better preconditioner is available, or a routine for applying
- *   an operator is supplied by the user instead of a SparseMatrix A):
- *     SparseSolve( SparseCG(), X, B, (SparseOpaquePreconditioner) {
- *         .type  = SparsePreconditionerUser,
- *         .mem   = userDataPointer,
- *         .apply = userFunctionPointer
- *       }, A);
- *
- * If the user requires more control over convergence testing, or otherwise wishes to single-step
- * the method, they may instead perform a single iteration through a call of the form:
- *
- *  SparseIterate( SparseCG(), iteration, state, converged, X, B, R, Preconditioner, ApplyOperator);
- *
- * Users should note that solutions may not be available at all iterations, and a call with
- * iteration=-1 may be required to retrieve the current solution. Refer to the documentation for
- * individual methods before attempting to use this form.
- *
- * Further note that convience forms of this call using SparseMatrix data types and predefined
- * preconditioners are not offered.
- *
- * At present the following preconditioners are offered by this package:
- * SparsePreconditionerDiagonal     - Applies y=D^-1x, where D is the matrix containing only
- *                                    the diagonal elements of A. It provides a simple
- *                                    preconditioner for CG and GMRES methods.
- * SparsePreconditionerDiagScaling  - Applies y=D^-1x, where D is the diagonal matrix such that
- *                                    d_ii = || A_j ||_2 with A_j the j-th column of A. It provides
- *                                    a simple preconditioner for LSMR.
- *
- *****************************************************************************/
-
-
-// #ifndef SPARSE_SOLVE_HEADER
-// #define SPARSE_SOLVE_HEADER
-
-// #ifndef __has_include
-// # define __has_include(_) 0
-// #endif
-
-// #ifndef __has_feature
-// # define __has_feature(_) 0
-// #endif
-
-// #ifndef __has_attribute
-// # define __has_attribute(_) 0
-// #endif
-
-/*  Standard attributes for public sparse interfaces.                         */
-// #if __has_attribute(overloadable)
-public static native @MemberGetter int SPARSE_PUBLIC_INTERFACE();
-public static final int SPARSE_PUBLIC_INTERFACE = SPARSE_PUBLIC_INTERFACE();
-
-// #include <limits.h>
-// #include <stdint.h>
-// #include <stdbool.h>
-// #include <stdlib.h>
-
-// #if defined __VECLIB__ /* Included via Accelerate */
-// # define SPARSE_INCLUDED_VIA_ACCELERATE
-// #endif
-
-// #if __has_include(<Accelerate/Accelerate.h>)
-// # include <Accelerate/Accelerate.h>
-// #else
-// # include <cblas.h>
-// #endif
-
-// Due to changes in the implementation of OS_ENUM that would break ABI,
-// we now define our own SPARSE_ENUM instead.
-// Note that as specifying an enum_extensibility attribute causes Swift to import things
-// differently compared to previous versions of Sparse, we disable it here to avoid
-// breaking backwards compatability.
-// #if __has_attribute(enum_extensibility) && !defined(__swift__)
-public static native @MemberGetter int __SPARSE_ENUM_ATTR();
-public static final int __SPARSE_ENUM_ATTR = __SPARSE_ENUM_ATTR();
-public static native @MemberGetter int __SPARSE_ENUM_ATTR_CLOSED();
-public static final int __SPARSE_ENUM_ATTR_CLOSED = __SPARSE_ENUM_ATTR_CLOSED();
-// #else
-// #endif // __has_attribute(enum_extensibility)
-
-// #if __has_feature(objc_fixed_enum) || __has_extension(cxx_strong_enums)
-// #else
-// # define __SPARSE_ENUM_C_FALLBACK(_name, _type, ...)
-//          typedef _type _name##_t; enum _name { __VA_ARGS__ }
-// # define SPARSE_ENUM(_name, _type, ...)
-//          typedef _type _name##_t; enum { __VA_ARGS__ }
-// # define SPARSE_CLOSED_ENUM(_name, _type, ...)
-//          __SPARSE_ENUM_C_FALLBACK(_name, _type, ## __VA_ARGS__)
-//          __SPARSE_ENUM_ATTR_CLOSED
-// #endif
-
-// #if __has_include(<os/availability.h>)
-// # include <os/availability.h>
-// #else
-// # define API_AVAILABLE(...) /* nothing */
-// #endif
-
-// #if __has_feature(nullability)
-// #pragma clang assume_nonnull begin
-// #endif
-
-/*******************************************************************************
- * \group Sparse Matrix Type Definitions
- ******************************************************************************/
-
-/** \abstract A flag to describe the type of matrix represented.
- *
- *  \discussion A SparseMatrixStructure object can represent several types of
- *  matrices:
- *
- *  \constant SparseOrdinary A "normal" sparse matrix without special structure.
- *
- *  \constant SparseTriangular A triangular sparse matrix with non-unit diagonal.
- *    The SparseTriangle_t field indicates which triangle (upper or lower)
- *    is used.
- *
- *  \constant SparseUnitTriangular A triangular sparse matrix with unit diagonal.
- *    The SparseTriangle_t field indicates which triangle (upper or lower)
- *    is used.
- *
- *  \constant SparseSymmetric A symmetric sparse matrix.  The SparseTriangle_t
- *    field indicates which triangle (upper or lower) is used to represent
- *    the matrix.                                                             */ /** enum  */
- public static final int
-   SparseOrdinary       = 0,
-  SparseTriangular     = 1,
-  SparseUnitTriangular = 2,
-  SparseSymmetric      = 3;
-
-/** \abstract A flag to indicate which triangle of a matrix is used.
- *
- *  \constant SparseUpperTriangle
- *            For triangular and unit-triangular matrices, indicates that the
- *            upper triangle is to be used, and the lower triangle is implicitly
- *            zero.
- *            For symmetric matrices, indicates that the upper triangle is to
- *            be used; the lower triangle is implicitly defined by reflection.
- *
- *  \constant SparseLowerTriangle
- *            For triangular matrices, indicates that the lower triangle is to
- *            be used, and the upper triangle is implicitly zero.
- *            For symmetric matrices, indicates that the lower triangle is to
- *            be used; the upper triangle is implicitly defined by reflection.*/ /** enum SparseTriangle */
- public static final int
-    SparseUpperTriangle = 0,
-  SparseLowerTriangle = 1;
-
-/** \abstract A type representing the attributes of a matrix.
- *
- *  \field transpose If {@code true}, the matrix is implicitly transposed when used
- *  in any functions.
- *
- *  \field triangle If {@code kind} is {@code SparseOrdinary}, this field is ignored.
- *  Otherwise it indicates which triangle (upper or lower) represents the
- *  matrix.
- *
- *  \field kind Identifies the matrix as being full ({@code SparseOrdinary}), [unit-]
- *  triangular ({@code SparseTriangular}, {@code SparseUnitTriangular}), or symmetric
- *  ({@code SparseSymmetric}).
- *
- *  \field _reserved for future expansion. Must be zero.
- *
- *  \field _allocatedBySparse an implementation detail. Should be zero for any
- *  matrix you allocate.                                                      */
-public static class SparseAttributes_t extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseAttributes_t() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseAttributes_t(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseAttributes_t(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseAttributes_t position(long position) {
-        return (SparseAttributes_t)super.position(position);
-    }
-    @Override public SparseAttributes_t getPointer(long i) {
-        return new SparseAttributes_t((Pointer)this).offsetAddress(i);
-    }
-
-  public native @Cast("bool") @NoOffset boolean transpose(); public native SparseAttributes_t transpose(boolean setter);
-  public native @Cast("SparseTriangle_t") @NoOffset byte triangle(); public native SparseAttributes_t triangle(byte setter);
-  public native @Cast("SparseKind_t") @NoOffset int kind(); public native SparseAttributes_t kind(int setter);
-  public native @Cast("unsigned int") @NoOffset int _reserved(); public native SparseAttributes_t _reserved(int setter);
-  public native @Cast("bool") @NoOffset boolean _allocatedBySparse(); public native SparseAttributes_t _allocatedBySparse(boolean setter);
-}
-
-/** \abstract A type representing the sparsity structure of a sparse matrix.
- *
- *  \discussion The sparsity structure is represented in *block compressed
- *  sparse column* (block CSC) format. The matrix is divided into a regular
- *  grid of rowCount x columnCount blocks each of size {@code blockSize x blockSize},
- *  and only blocks containing a non-zero entry are stored. CSC format is
- *  used to store the locations of these blocks. For each block column, a list
- *  of block row indices for non-zero blocks are stored, and the lists for each
- *  column are stored contigously one after the other. Hence the row indices
- *  for column j are given by rowIndices[columnStarts[j]:columnStarts[j+1]],
- *  where columnStarts[] is storing the location of the first index in each
- *  column.
- *  If the blockSize is 1, then this format is exactly equivalent to standard
- *  CSC format.
- *  CSR format data can be simulated by using a blockSize of 1 and setting
- *  the transpose attribute (strictly this is still a transposed CSC matrix, so
- *  rowCount and columnCount will be transposed compared to true CSR).
- *
- *  \field rowCount Number of (block) rows in matrix.
- *
- *  \field columnCount Number of (block) columns in matrix.
- *
- *  \field columnStarts Specifies where each (block) column starts in rowIndices
- *         array.
- *
- *  \field rowIndices Specifies the (block) row indices of the matrix.
- *
- *  \field attributes The attribute meta-data for the matrix, for example
- *         whether the matrix is symmetric and only half the entries are stored.
- *
- *  \field blockSize The block size of the matrix.                            */
-public static class SparseMatrixStructure extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseMatrixStructure() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseMatrixStructure(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseMatrixStructure(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseMatrixStructure position(long position) {
-        return (SparseMatrixStructure)super.position(position);
-    }
-    @Override public SparseMatrixStructure getPointer(long i) {
-        return new SparseMatrixStructure((Pointer)this).offsetAddress(i);
-    }
-
-  public native int rowCount(); public native SparseMatrixStructure rowCount(int setter);
-  public native int columnCount(); public native SparseMatrixStructure columnCount(int setter);
-  public native CLongPointer columnStarts(); public native SparseMatrixStructure columnStarts(CLongPointer setter);
-  public native IntPointer rowIndices(); public native SparseMatrixStructure rowIndices(IntPointer setter);
-  public native @ByRef SparseAttributes_t attributes(); public native SparseMatrixStructure attributes(SparseAttributes_t setter);
-  public native @Cast("uint8_t") byte blockSize(); public native SparseMatrixStructure blockSize(byte setter);
-}
-
-/** \abstract A type representing a sparse matrix.
- *
- *  \discussion
- *  {@code data} is the array of values in the non-zero blocks of the matrix stored
- *  contiguously, each block in column-major order. If there are N structural
- *  non-zero blocks in the matrix, {@code data} holds {@code blockSize}*{@code blockSize}*{@code N}
- *  doubles.
- *
- * \field structure The symbolic structure of the matrix.
- *
- * \field data The numerical values of the matrix. If structure.blockSize > 1,
- *        blocks are stored contigously in column-major format.               */
-public static class SparseMatrix_Double extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseMatrix_Double() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseMatrix_Double(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseMatrix_Double(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseMatrix_Double position(long position) {
-        return (SparseMatrix_Double)super.position(position);
-    }
-    @Override public SparseMatrix_Double getPointer(long i) {
-        return new SparseMatrix_Double((Pointer)this).offsetAddress(i);
-    }
-
-  public native @ByRef SparseMatrixStructure structure(); public native SparseMatrix_Double structure(SparseMatrixStructure setter);
-  public native DoublePointer data(); public native SparseMatrix_Double data(DoublePointer setter);
-}
-
-/** \abstract A type representing a sparse matrix.
- *
- *  \discussion
- *  {@code data} is the array of values in the non-zero blocks of the matrix stored
- *  contiguously, each block in column-major order. If there are N structural
- *  non-zero blocks in the matrix, {@code data} holds {@code blockSize}*{@code blockSize}*{@code N}
- *  doubles.
- *
- * \field structure The symbolic structure of the matrix.
- *
- * \field data The numerical values of the matrix. If structure.blockSize > 1,
- *        blocks are stored contigously in column-major format.               */
-public static class SparseMatrix_Float extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseMatrix_Float() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseMatrix_Float(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseMatrix_Float(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseMatrix_Float position(long position) {
-        return (SparseMatrix_Float)super.position(position);
-    }
-    @Override public SparseMatrix_Float getPointer(long i) {
-        return new SparseMatrix_Float((Pointer)this).offsetAddress(i);
-    }
-
-  public native @ByRef SparseMatrixStructure structure(); public native SparseMatrix_Float structure(SparseMatrixStructure setter);
-  public native FloatPointer data(); public native SparseMatrix_Float data(FloatPointer setter);
-}
-
-/******************************************************************************
- *  \group Conversion From Other Formats
- ******************************************************************************
- *  \discussion In the conversion functions below, the variables {@code rowCount},
- *  {@code columnCount}, {@code blockCount}, {@code row[]} and {@code col[]} describe a sparse matrix
- *  structure with {@code blockCount} structurally non-zero entries, each of which
- *  is a "block".
- *
- *  The matrix described has {@code rowCount*blockSize} rows and
- *  {@code columnCount*blockSize} columns. For each {@code i} in {@code 0..<blockCount}, there
- *  is a a structurally non-zero block at block position {@code (row[i], column[i])}
- *  with numerical values {@code data[i*blockSize*blockSize:(i+1)*blockSize*blockSize-1]}
- *  interpreted as the elements of a dense column-major matrix with {@code blockSize}
- *  rows and columns.
- *
- *  If the coordinates {@code (row[i], column[i])} are invalid (meaning that they
- *  lie outside the ranges {@code 0..<rowCount} or {@code 0..<columnCount}, respectively),
- *  or {@code attributes.kind} is {@code SparseTriangular} or {@code SparseUnitTriangular} and
- *  they lie in the wrong triangle, then that block element is ignored and
- *  not included in the returned matrix.
- *
- *  If {@code attributes.kind} is {@code SparseSymmetric}, any entries in the wrong
- *  triangle are transposed and summed into the block at {@code (column[i], row[i])}
- *  if one is present.
- *
- *  In all cases, if any duplicate coordinates are present, the elements are
- *  summed and replaced with a single entry.
- *
- *  There are two variants of each converter; one which allocates its own
- *  workspace internally, and also allocates space for the resulting sparse
- *  matrix, and one which requires you to pass storage for the new matrix and
- *  a separate workspace for precise control over allocations.                */
-
-/** \abstract Convert from coordinate format arrays to a SparseMatrix_Double
- *  object, dropping out-of-range entries and summing duplicates.
- *
- *  \discussion For symmetric matrices, entries are accepted in either triangle
- *  (if they are in the "wrong" triangle as specified by attributes.triangle,
- *  they are transposed, and if an entry is already present, are treated as
- *  duplicates and summed).
- *  For triangular matrices, entries in the "wrong" triangle as specified by
- *  attributes.triangle are treated as out-of-range and dropped.
- *
- *  @param rowCount (input) Number of rows in structure.
- *
- *  @param columnCount (input) Number of columns in structure.
- *
- *  @param blockCount (input) Number of blocks in matrix.
- *
- *  @param blockSize (input) Block size for data storage on both input and
- *  ouput.
- *
- *  @param attributes (input) Attributes of matrix to create. The matrix will
- *  be forced to conform to the specified attributes by copying or dropping
- *  elements as needed.
- *
- *  @param row (input) Row indices of matrix structure.
- *
- *  @param column (input) Column indices of matrix structure.
- *
- *  @param data (input) The contents of the structurally non-zero (block)
- *  matrix elements.
- *
- *  @return A new SparseMatrix_Double object. When you are done with this
- *  matrix, release the memory that has been allocated by calling
- *  SparseCleanup( ) on it.                                                   */
-public static native int SparseConvertFromCoordinate(int rowCount, int columnCount,
-  long blockCount, @Cast("uint8_t") byte blockSize, @ByVal SparseAttributes_t attributes,
-  @Const IntPointer row, @Const IntPointer column, @Const DoublePointer data);
-public static native int SparseConvertFromCoordinate(int rowCount, int columnCount,
-  long blockCount, @Cast("uint8_t") byte blockSize, @ByVal SparseAttributes_t attributes,
-  @Const IntBuffer row, @Const IntBuffer column, @Const DoubleBuffer data);
-public static native int SparseConvertFromCoordinate(int rowCount, int columnCount,
-  long blockCount, @Cast("uint8_t") byte blockSize, @ByVal SparseAttributes_t attributes,
-  @Const int[] row, @Const int[] column, @Const double[] data);
-
-/** \abstract Convert from coordinate format arrays to a SparseMatrix_Float
- *  object, dropping out-of-range entries and summing duplicates.
- *
- *  \discussion For symmetric matrices, entries are accepted in either triangle
- *  (if they are in the "wrong" triangle as specified by attributes.triangle,
- *  they are transposed, and if an entry is already present, are treated as
- *  duplicates and summed).
- *  For triangular matrices, entries in the "wrong" triangle as specified by
- *  attributes.triangle are treated as out-of-range and dropped.
- *
- *  @param rowCount (input) Number of rows in structure.
- *
- *  @param columnCount (input) Number of columns in structure.
- *
- *  @param blockCount (input) Number of blocks in matrix.
- *
- *  @param blockSize (input) Block size for data storage on both input and
- *  ouput.
- *
- *  @param attributes (input) Attributes of matrix to create. The matrix will
- *  be forced to conform to the specified attributes by copying or dropping
- *  elements as needed.
- *
- *  @param row (input) Row indices of matrix structure.
- *
- *  @param column (input) Column indices of matrix structure.
- *
- *  @param data (input) The contents of the structurally non-zero (block)
- *  matrix elements.
- *
- *  @return A new SparseMatrix_Float object. When you are done with this
- *  matrix, release the memory that has been allocated by calling
- *  SparseCleanup( ) on it.                                                   */
-public static native int SparseConvertFromCoordinate(int rowCount, int columnCount, long blockCount,
-  @Cast("uint8_t") byte blockSize, @ByVal SparseAttributes_t attributes, @Const IntPointer row,
-  @Const IntPointer column, @Const FloatPointer data);
-public static native int SparseConvertFromCoordinate(int rowCount, int columnCount, long blockCount,
-  @Cast("uint8_t") byte blockSize, @ByVal SparseAttributes_t attributes, @Const IntBuffer row,
-  @Const IntBuffer column, @Const FloatBuffer data);
-public static native int SparseConvertFromCoordinate(int rowCount, int columnCount, long blockCount,
-  @Cast("uint8_t") byte blockSize, @ByVal SparseAttributes_t attributes, @Const int[] row,
-  @Const int[] column, @Const float[] data);
-
-/** \abstract Convert from coordinate format arrays to a SparseMatrix_Double
- *  object, dropping out-of-range entries and summing duplicates.
- *
- *  \discussion For symmetric matrices, entries are accepted in either triangle 
- *  (if they are in the "wrong" triangle as specified by attributes.triangle, 
- *  they are transposed, and if an entry is already present, are treated as 
- *  duplicates and summed).
- *  For triangular matrices, entries in the "wrong" triangle as specified by
- *  attributes.triangle are treated as out-of-range and dropped.
- *
- *  @param rowCount (input) Number of rows in structure.
- *
- *  @param columnCount (input) Number of columns in structure.
- *
- *  @param blockCount (input) Number of blocks in matrix.
- *
- *  @param blockSize (input) Block size for data storage on both input and
- *  ouput.
- *
- *  @param attributes (input) Attributes of matrix to create. The matrix will
- *  be forced to conform to the specified attributes by copying or dropping
- *  elements as needed.
- *
- *  @param row (input) Row indices of matrix structure.
- *
- *  @param column (input) Column indices of matrix structure.
- *
- *  @param data (input) The contents of the structurally non-zero (block)
- *  matrix elements.
- *
- *  @param storage (output) A block of memory of size at least:
- *
- *    48 + (columnCount+1)*sizeof(long) + blockCount*sizeof(int)
- *      + blockCount*blockSize*blockSize*sizeof(double)
- *
- *  The returned structures .structure.columnStarts, .structure.rowIndices,
- *  and .data will point into this storage. You are responsible for managing
- *  the allocation and cleanup of this memory.
- *
- *  @param workspace (scratch) Workspace of size rowCount*sizeof(int).
- *
- *  @return A new SparseMatrix_Double object, using the memory you provided in
- *  the {@code storage} parameter.                                                  */
-public static native int SparseConvertFromCoordinate(int rowCount, int columnCount, long blockCount,
-  @Cast("uint8_t") byte blockSize, @ByVal SparseAttributes_t attributes, @Const IntPointer row,
-  @Const IntPointer column, @Const DoublePointer data, Pointer storage, Pointer workspace);
-public static native int SparseConvertFromCoordinate(int rowCount, int columnCount, long blockCount,
-  @Cast("uint8_t") byte blockSize, @ByVal SparseAttributes_t attributes, @Const IntBuffer row,
-  @Const IntBuffer column, @Const DoubleBuffer data, Pointer storage, Pointer workspace);
-public static native int SparseConvertFromCoordinate(int rowCount, int columnCount, long blockCount,
-  @Cast("uint8_t") byte blockSize, @ByVal SparseAttributes_t attributes, @Const int[] row,
-  @Const int[] column, @Const double[] data, Pointer storage, Pointer workspace);
-
-/** \abstract Convert from coordinate format arrays to a SparseMatrix_Float
- *  object, dropping out-of-range entries and summing duplicates.
- *
- *  \discussion For symmetric matrices, entries are accepted in either triangle
- *  (if they are in the "wrong" triangle as specified by attributes.triangle,
- *  they are transposed, and if an entry is already present, are treated as
- *  duplicates and summed).
- *  For triangular matrices, entries in the "wrong" triangle as specified by
- *  attributes.triangle are treated as out-of-range and dropped.
- *
- *  @param rowCount (input) Number of rows in structure.
- *
- *  @param columnCount (input) Number of columns in structure.
- *
- *  @param blockCount (input) Number of blocks in matrix.
- *
- *  @param blockSize (input) Block size for data storage on both input and
- *  ouput.
- *
- *  @param attributes (input) Attributes of matrix to create. The matrix will
- *  be forced to conform to the specified attributes by copying or dropping
- *  elements as needed.
- *
- *  @param row (input) Row indices of matrix structure.
- *
- *  @param column (input) Column indices of matrix structure.
- *
- *  @param data (input) The contents of the structurally non-zero (block)
- *  matrix elements.
- *
- *  @param storage (output) A block of memory of size at least:
- *
- *    48 + (columnCount+1)*sizeof(long) + blockCount*sizeof(int)
- *      + blockCount*blockSize*blockSize*sizeof(float)
- *
- *  The returned structures .structure.columnStarts, .structure.rowIndices,
- *  and .data will point into this storage. You are responsible for managing
- *  the allocation and cleanup of this memory.
- *
- *  @param workspace (scratch) Workspace of size rowCount*sizeof(int).
- *
- *  @return A new SparseMatrix_Float object, using the memory you provided in
- *  the {@code storage} parameter.                                                  */
-public static native int SparseConvertFromCoordinate(int rowCount, int columnCount, long blockCount,
-  @Cast("uint8_t") byte blockSize, @ByVal SparseAttributes_t attributes, @Const IntPointer row,
-  @Const IntPointer column, @Const FloatPointer data, Pointer storage, Pointer workspace);
-public static native int SparseConvertFromCoordinate(int rowCount, int columnCount, long blockCount,
-  @Cast("uint8_t") byte blockSize, @ByVal SparseAttributes_t attributes, @Const IntBuffer row,
-  @Const IntBuffer column, @Const FloatBuffer data, Pointer storage, Pointer workspace);
-public static native int SparseConvertFromCoordinate(int rowCount, int columnCount, long blockCount,
-  @Cast("uint8_t") byte blockSize, @ByVal SparseAttributes_t attributes, @Const int[] row,
-  @Const int[] column, @Const float[] data, Pointer storage, Pointer workspace);
-
-// #if defined __SPARSE_TYPES_H
-/** \group Conversions from opaque sparse matrix types
- *
- *  \discussion The older sparse headers on iOS and OS X (Sparse/BLAS.h) use
- *  a separate set of types that do not expose the internal storage of the
- *  sparse matrix. To assist in interoperation with the newer interfaces here,
- *  we provide a set of conversion functions from those types.                */
-
-/** \abstract Converts an opaque sparse_matrix_double object to a transparent
- *  SparseMatrix_Double object. When you are done with this matrix, release
- *  the memory that has been allocated by calling SparseCleanup( ) on it.
- *
- *  @param matrix The matrix to be converted.                                 */
-public static native int SparseConvertFromOpaque(@ByVal sparse_matrix_double matrix);
-
-/** \abstract Converts an opaque sparse_matrix_float object to a transparent
- *  SparseMatrix_Float object. When you are done with this matrix, release
- *  the memory that has been allocated by calling SparseCleanup( ) on it.
- *
- *  @param matrix The matrix to be converted.                                 */
-public static native int SparseConvertFromOpaque(@ByVal sparse_matrix_float matrix);
-// #endif /* defined __SPARSE_TYPES_H */
-
-/******************************************************************************
- *  \group Dense Matrices and Vectors
- ******************************************************************************/
-
-/** \abstract Contains a dense vector of double values.
- *
- *  \field count    Number of entries in the vector.
- *  \field data     The array of double values.                               */
-public static class DenseVector_Double extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public DenseVector_Double() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public DenseVector_Double(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public DenseVector_Double(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public DenseVector_Double position(long position) {
-        return (DenseVector_Double)super.position(position);
-    }
-    @Override public DenseVector_Double getPointer(long i) {
-        return new DenseVector_Double((Pointer)this).offsetAddress(i);
-    }
-
-  public native int count(); public native DenseVector_Double count(int setter);
-  public native DoublePointer data(); public native DenseVector_Double data(DoublePointer setter);
-}
-
-/** \abstract Contains a dense vector of float values.
- *
- *  \field count    Number of entries in the vector.
- *  \field data     The array of float values.                                */
-public static class DenseVector_Float extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public DenseVector_Float() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public DenseVector_Float(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public DenseVector_Float(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public DenseVector_Float position(long position) {
-        return (DenseVector_Float)super.position(position);
-    }
-    @Override public DenseVector_Float getPointer(long i) {
-        return new DenseVector_Float((Pointer)this).offsetAddress(i);
-    }
-
-  public native int count(); public native DenseVector_Float count(int setter);
-  public native FloatPointer data(); public native DenseVector_Float data(FloatPointer setter);
-}
-
-/** \abstract Contains a dense {@code rowCount} x {@code columnCount} matrix of double
- *            values stored in column-major order.
- *
- *  \field rowCount     Number of rows in the matrix.
- *  \field columnCount  Number of columns in the matrix.
- *  \field columnStride The column stride of the matrix.
- *  \field attributes   The attributes of the matrix, for example whether the
- *                      matrix is symmetrical or triangular.
- *  \field data         The array of double values in column-major order.     */
-public static class DenseMatrix_Double extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public DenseMatrix_Double() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public DenseMatrix_Double(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public DenseMatrix_Double(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public DenseMatrix_Double position(long position) {
-        return (DenseMatrix_Double)super.position(position);
-    }
-    @Override public DenseMatrix_Double getPointer(long i) {
-        return new DenseMatrix_Double((Pointer)this).offsetAddress(i);
-    }
-
-  public native int rowCount(); public native DenseMatrix_Double rowCount(int setter);
-  public native int columnCount(); public native DenseMatrix_Double columnCount(int setter);
-  public native int columnStride(); public native DenseMatrix_Double columnStride(int setter);
-  public native @ByRef SparseAttributes_t attributes(); public native DenseMatrix_Double attributes(SparseAttributes_t setter);
-  public native DoublePointer data(); public native DenseMatrix_Double data(DoublePointer setter);
-}
-
-/** \abstract Contains a dense {@code rowCount} x {@code columnCount} matrix of float
- *            values stored in column-major order.
- *
- *  \field rowCount     Number of rows in the matrix.
- *  \field columnCount  Number of columns in the matrix.
- *  \field columnStride The column stride of the matrix.
- *  \field attributes   The attributes of the matrix, for example whether the
- *                      matrix is symmetrical or triangular.
- *  \field data         The array of float values in column-major order.      */
-public static class DenseMatrix_Float extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public DenseMatrix_Float() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public DenseMatrix_Float(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public DenseMatrix_Float(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public DenseMatrix_Float position(long position) {
-        return (DenseMatrix_Float)super.position(position);
-    }
-    @Override public DenseMatrix_Float getPointer(long i) {
-        return new DenseMatrix_Float((Pointer)this).offsetAddress(i);
-    }
-
-  public native int rowCount(); public native DenseMatrix_Float rowCount(int setter);
-  public native int columnCount(); public native DenseMatrix_Float columnCount(int setter);
-  public native int columnStride(); public native DenseMatrix_Float columnStride(int setter);
-  public native @ByRef SparseAttributes_t attributes(); public native DenseMatrix_Float attributes(SparseAttributes_t setter);
-  public native FloatPointer data(); public native DenseMatrix_Float data(FloatPointer setter);
-}
-
-/******************************************************************************
- *  \group Sparse Factorization Related Types
- ******************************************************************************/
-
-/** \abstract Status field for a factorization.
- *
- *  \constant SparseStatusOK              Factorization was successful.
- *  \constant SparseFactorizationFailed   Factorization failed due to a
- *                                        numerical issue.
- *  \constant SparseMatrixIsSingular      Factorization aborted as matrix is
- *                                        singular.
- *  \constant SparseInternalError         Factorization encountered an internal
- *                                        error (e.g. failed to allocate memory).
- *  \constant SparseParameterError        Error in user-supplied parameter.
- *  \constant SparseStatusReleased        Factorization object has been freed.
- */ /** enum  */
- public static final int
-   SparseStatusOK            = 0,
-  SparseFactorizationFailed = -1,
-  SparseMatrixIsSingular    = -2,
-  SparseInternalError       = -3,
-  SparseParameterError      = -4;
-
-/** \abstract Types of factorization than can be performed.
- *
- *  \constant SparseFactorizationCholesky
- *              Cholesky (LL^T) factorization.
- *  \constant SparseFactorizationLDLT
- *              Default LDL^T factorization (currently LDL^T with TPP).
- *  \constant SparseFactorizationLDLTUnpivoted
- *              Cholesky-like LDL^T with only 1x1 pivots and no pivoting.
- *  \constant SparseFactorizationLDLTSBK
- *              LDL^T with Supernode Bunch-Kaufman and static pivoting.
- *  \constant SparseFactorizationLDLTTPP
- *              LDL^T with full threshold partial pivoting.
- *  \constant SparseFactorizationQR
- *              QR factorization.
- *  \constant SparseFactorizationCholeskyAtA
- *              QR factorization without storing Q (equivalent to A^TA = R^T R).
- */ /** enum  */
- public static final int
-   SparseFactorizationCholesky = 0,
-  SparseFactorizationLDLT = 1,
-  SparseFactorizationLDLTUnpivoted = 2,
-  SparseFactorizationLDLTSBK = 3,
-  SparseFactorizationLDLTTPP = 4,
-  SparseFactorizationQR = 40,
-  SparseFactorizationCholeskyAtA = 41;
-
-/** \abstract Control flags for matrix factorization.
- *
- *  \constant SparseDefaultControl  Use default values.
- */ /** enum  */
- public static final int
-   SparseDefaultControl = 0;
-
-/** \abstract Specifies type of fill-reducing ordering.
- *
- *  \discussion The order in which variables are eliminated (i.e. the column/row ordering) in a
- *  sparse factorization makes a big difference to the size of the resulting factors and amount of
- *  work required to calculate them (it is probably the biggest single factor). Minimizing the size
- *  or work required is an NP-complete problem, so only heuristics are implemented in this library.
- *
- *  We note that AMD-based orderings tend to be fast and provide good quality for small matrices,
- *  whilst nested dissection based orderings (such as metis) are normally considerably slower to
- *  compute, but provide better quality orderings for larger problems, and expose more parallelism
- *  during the factorization. We recommend AMD is used unless the problem is very large (millions
- *  of rows and columns) or you will perform many repeated factorizations. If you are uncertain,
- *  try both and see which gives better performance for your usage.
- *
- *  The AMD and MeTiS orderings provide good orderings for symmetric matrices. They can be used
- *  for the QR factorizations, but this involves forming A^TA explicitly, which is expensive.
- *  COLAMD on the other hand finds an ordering for A^T A whilst only working with A. For this
- *  reason, COLAMD cannot be used for symmetric factorizations.
- *
- *  \constant SparseOrderDefault
- *              Default ordering (AMD for symmetric and COLAMD for unsymmetric
- *              factorizations, but this may change if better algorithms become
- *              available).
- *  \constant SparseOrderUser
- *              User-supplied ordering, or identity if options->order is NULL
- *  \constant SparseOrderAMD
- *              AMD ordering. Large overhead cost if used for QR-based
- *              factorization due to explicit formation of A^T A.
- *  \constant SparseOrderMetis
- *              MeTiS Nested Dissection ordering. Large overhead cost if used
- *              for QR-based factorization due to explicit formation of A^T A.
- *  \constant SparseOrderCOLAMD
- *              Column AMD ordering for A^T A. Not valid for symmetric
- *              factorizations (use AMD instead).                             */ /** enum  */
- public static final int
-   SparseOrderDefault = 0,
-  SparseOrderUser = 1,
-  SparseOrderAMD = 2,
-  SparseOrderMetis = 3,
-  SparseOrderCOLAMD = 4;
-
-/** \abstract Specifies type of scaling to be performed.
- *
- *  \constant SparseScalingDefault
- *              Default scaling (at present EquilibriationInf if LDL^T, or no
- *              scaling if Cholesky).
- *  \constant SparseScalingUser
- *              User scaling if options.scaling is non-NULL, otherwise no
- *              scaling.
- *  \constant SparseScalingEquilibriationInf
- *              Norm equilibriation scaling using inf norm.                   */ /** enum  */
- public static final int
-   SparseScalingDefault = 0,
-  SparseScalingUser = 1,
-  SparseScalingEquilibriationInf = 2;
-
-/** \typedef SparseSymbolicFactorOptions
- *  \abstract Options that affect the symbolic stage of a sparse factorization.
- *
- *  \field control
- *    Flags controlling the computation.
- *
- *  \field orderMethod
- *    Ordering algorithm to use.
- *
- *  \field order    User-supplied array for ordering.
- *    Either NULL or a pointer to a row permutation that reduces fill in the
- *    matrix being factored.
- *    If {@code orderMethod} is {@code SparseOrderUser}, and this pointer is NULL, the
- *      original matrix ordering is used.
- *    If {@code orderMethod} is {@code SparseOrderUser}, and this pointer is non-NULL,
- *      the user-provided permutation is used to order the matrix before
- *      factorization.
- *    If {@code orderMethod} is not {@code SparseOrderUser}, the factor function will
- *      compute its own fill reducing ordering.
- *    If this pointer is non-NULL, the computed permutation will be returned in
- *      the array.
- *
- *  \field ignoreRowsAndColumns  Ignore rows and columns listed in this array.
- *    In some cases it is useful to ignore specified rows and columns,
- *    if this array is not NULL, it provides a list of rows and columns to
- *    ignore, terminated by a negative index.
- *    Note that this the row and column indices are for the actual matrix, not
- *    of its block structure, so 0 indicates the first row, not the first
- *    blockSize rows.
- *    In the symmetric case (Cholesky, LDL^T) each entry indicates that the
- *    matching row AND column should be ignored.
- *    In the unsymmetric case (QR, Cholesky A^TA) an index i<m indicates that
- *    row m should be ignored and an index i>=m indicates that column (i-m)
- *    should be ignored (where m is the number of rows in A,
- *    i.e. m=A.structure.rowCount*A.blockSize if A is not transposed, or
- *    m=A.structure.columnCount*A.blockSize if A is transposed).
- *
- *  {@literal @}callback malloc Function to use for allocation of internal memory
- *    {@literal @}discussion Memory will be freed through the free() callback. If this
- *      function pointer is NULL, the system malloc() will be used.
- *    {@literal @}param size Size of space to allocate in bytes.
- *    {@literal @}result Pointer to newly allocated memory, or NULL if allocation failed.
- *      The returned pointer must be 16-byte aligned (this requirement is
- *      satisfied by the system malloc()).
- *
- *  {@literal @}callback free Function to use to free memory allocated by malloc() callback.
- *    \discussion If this function pointer is NULL, the system free() will be
- *      used.
- *    {@literal @}param pointer Pointer to memory to be freed.
- *
- *  {@literal @}callback reportError Function to use to report parameter errors.
- *    {@literal @}param message
- *    {@literal @}discussion If NULL, errors are logged via <os/log.h> and execution is
- *      halted via __builtin_trap().  If non-NULL, the provided function is
- *      called with a human-readable string describing the error condition.
- *      If the callback returns, control will be returned to the caller with
- *      any outputs in a safe but undefined state (i.e. they may hold partial
- *      results or garbage, but all sizes and pointers are valid).            */
-public static class SparseSymbolicFactorOptions extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseSymbolicFactorOptions() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseSymbolicFactorOptions(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseSymbolicFactorOptions(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseSymbolicFactorOptions position(long position) {
-        return (SparseSymbolicFactorOptions)super.position(position);
-    }
-    @Override public SparseSymbolicFactorOptions getPointer(long i) {
-        return new SparseSymbolicFactorOptions((Pointer)this).offsetAddress(i);
-    }
-
-  public native @Cast("SparseControl_t") int control(); public native SparseSymbolicFactorOptions control(int setter);
-  public native @Cast("SparseOrder_t") byte orderMethod(); public native SparseSymbolicFactorOptions orderMethod(byte setter);
-  public native IntPointer order(); public native SparseSymbolicFactorOptions order(IntPointer setter);
-  public native IntPointer ignoreRowsAndColumns(); public native SparseSymbolicFactorOptions ignoreRowsAndColumns(IntPointer setter);
-  public native Pointer size_tsize(); public native SparseSymbolicFactorOptions size_tsize(Pointer setter);
-  @Convention("_Nonnull") public static class Free_Pointer extends FunctionPointer {
-      static { Loader.load(); }
-      /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-      public    Free_Pointer(Pointer p) { super(p); }
-      protected Free_Pointer() { allocate(); }
-      private native void allocate();
-      public native void call(Pointer pointer);
-  }
-  public native @Name("free") Free_Pointer _free(); public native SparseSymbolicFactorOptions _free(Free_Pointer setter);
-  @Convention("_Nullable") public static class ReportError_BytePointer extends FunctionPointer {
-      static { Loader.load(); }
-      /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-      public    ReportError_BytePointer(Pointer p) { super(p); }
-      protected ReportError_BytePointer() { allocate(); }
-      private native void allocate();
-      public native void call(@Cast("const char*") BytePointer message);
-  }
-  public native ReportError_BytePointer reportError(); public native SparseSymbolicFactorOptions reportError(ReportError_BytePointer setter);
-}
-
-/** \abstract Options that affect the numerical stage of a sparse factorization.
- *
- *  \field control
- *    Flags controlling the computation.
- *
- *  \field scalingMethod
- *    Scaling method to use.
- *
- *  \field scaling      User-supplied array for scaling.
- *    Either NULL or a pointer to an array of real values with length greater
- *    than or equal to the size of the matrix being factored. The type of the
- *    array values is the element type of the matrix.
- *    If {@code scalingMethod} is {@code SparseScalingUser}, and this pointer is NULL, no
- *      scaling is applied.
- *    If {@code scalingMethod} is {@code SparseScalingUser}, and this pointer is non-NULL,
- *      the user-provided array is used to scale the matrix before factorization.
- *    If {@code scalingMethod} is not {@code SparseScalingUser}, the factor function will
- *      compute its own scaling.
- *    If this pointer is non-NULL, the computed scaling will be returned in the
- *      array.
- *
- *  \field pivotTolerance
- *    Pivot tolerance used by threshold partial pivoting.
- *    Clamped to range [0,0.5].
- *
- *  \field zeroTolerance
- *    Zero tolerance used by some pivoting modes.
- *    Values less than zeroTolerance in absolute value will be treated as zero.
- */
-public static class SparseNumericFactorOptions extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseNumericFactorOptions() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseNumericFactorOptions(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseNumericFactorOptions(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseNumericFactorOptions position(long position) {
-        return (SparseNumericFactorOptions)super.position(position);
-    }
-    @Override public SparseNumericFactorOptions getPointer(long i) {
-        return new SparseNumericFactorOptions((Pointer)this).offsetAddress(i);
-    }
-
-  public native @Cast("SparseControl_t") int control(); public native SparseNumericFactorOptions control(int setter);
-  public native @Cast("SparseScaling_t") byte scalingMethod(); public native SparseNumericFactorOptions scalingMethod(byte setter);
-  public native Pointer scaling(); public native SparseNumericFactorOptions scaling(Pointer setter);
-  public native double pivotTolerance(); public native SparseNumericFactorOptions pivotTolerance(double setter);
-  public native double zeroTolerance(); public native SparseNumericFactorOptions zeroTolerance(double setter);
-}
-
-/** \abstract A semi-opaque type representing symbolic matrix factorization.
- *
- *  \discussion Represents a symbolic matrix factorization (i.e. the pattern of
- *              the factors without the values). A single symbolic factorization
- *              may be the basis for multiple numerical factorizations of
- *              matrices with the same pattern but different values non-zero
- *              values.
- *
- *              Use the {@code SparseCleanup} function to free resources held by these
- *              objects. The internal factorization pointer is refence counted,
- *              so it is safe to destroy this object even if numeric
- *              factorizations exist that still depend on it.
- *
- *  \field status
- *    Indicates status of factorization object.
- *
- *  \field type
- *    Type fo factorization this represents.
- *
- *  \field rowCount
- *    Copy of field from SparseMatrixStructure passed to SparseFactor() call
- *    used to construct this symbolic factorization.
- *
- *  \field columnCount
- *    Copy of field from SparseMatrixStructure passed to SparseFactor() call
- *    used to construct this symbolic factorization.
- *
- *  \field attributes
- *    Copy of field from SparseMatrixStructure passed to SparseFactor() call
- *    used to construct this symbolic factorization.
- *
- *  \field blockSize
- *    Copy of field from SparseMatrixStructure passed to SparseFactor() call
- *    used to construct this symbolic factorization.
- *
- *  \field factorization
- *    Pointer to private internal representation of symbolic factor.
- *
- *  \field workspaceSize_Float
- *    Size, in bytes, of workspace required to perform numerical factorization
- *    in float.
- *
- *  \field workspaceSize_Double
- *    Size, in bytes, of workspace required to perform numerical factorization
- *    in double.
- *
- *  \field factorSize_Float
- *    Minimum size, in bytes, required to store numerical factors in float.
- *    If numerical pivoting requires a pivot to be delayed, the actual size
- *    required may be larger.
- *
- *  \field factorSize_Double
- *    Minimum size, in bytes, required to store numerical factors in double.
- *    If numerical pivoting requires a pivot to be delayed, the actual size
- *    required may be larger.                                                 */
-public static class SparseOpaqueSymbolicFactorization extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseOpaqueSymbolicFactorization() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseOpaqueSymbolicFactorization(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseOpaqueSymbolicFactorization(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseOpaqueSymbolicFactorization position(long position) {
-        return (SparseOpaqueSymbolicFactorization)super.position(position);
-    }
-    @Override public SparseOpaqueSymbolicFactorization getPointer(long i) {
-        return new SparseOpaqueSymbolicFactorization((Pointer)this).offsetAddress(i);
-    }
-
-  public native @Cast("SparseStatus_t") int status(); public native SparseOpaqueSymbolicFactorization status(int setter);
-  public native int rowCount(); public native SparseOpaqueSymbolicFactorization rowCount(int setter);
-  public native int columnCount(); public native SparseOpaqueSymbolicFactorization columnCount(int setter);
-  public native @ByRef SparseAttributes_t attributes(); public native SparseOpaqueSymbolicFactorization attributes(SparseAttributes_t setter);
-  public native @Cast("uint8_t") byte blockSize(); public native SparseOpaqueSymbolicFactorization blockSize(byte setter);
-  public native @Cast("SparseFactorization_t") byte type(); public native SparseOpaqueSymbolicFactorization type(byte setter);
-  public native Pointer factorization(); public native SparseOpaqueSymbolicFactorization factorization(Pointer setter);
-  public native @Cast("size_t") long workspaceSize_Float(); public native SparseOpaqueSymbolicFactorization workspaceSize_Float(long setter);
-  public native @Cast("size_t") long workspaceSize_Double(); public native SparseOpaqueSymbolicFactorization workspaceSize_Double(long setter);
-  public native @Cast("size_t") long factorSize_Float(); public native SparseOpaqueSymbolicFactorization factorSize_Float(long setter);
-  public native @Cast("size_t") long factorSize_Double(); public native SparseOpaqueSymbolicFactorization factorSize_Double(long setter);
-}
-
-/** \abstract A semi-opaque type representing a matrix factorization in double.
- *
- *  \discussion Use the {@code SparseCleanup} function to free resources held
- *  by these objects.
- *
- *  The object can be in one of the following states:
- *  1) Something went wrong with symbolic factorization, nothing is valid.
- *     - indicated by .symbolicFactorization.status < 0
- *  2) Symbolic factorization was good, but failed in numeric factorization
- *     initialization.
- *     - indicated by .symbolicFactorization.status >= 0 && .status < 0 &&
- *                    .numericFactorization == NULL
- *     - symbolic factorization may be used for future calls.
- *  3) Symbolic factorization was good, factor allocated/initialized correctly,
- *     but numeric factorization failed
- *     e.g. a Cholesky factorization of an indefinite matrix was attempted.
- *     - indicated by .symbolicFactorization.status >= 0 && .status < 0 &&
- *                    .numericFactorization not NULL
- *     - user may pass this object to SparseRefactor_Double() with a modified
- *       matrix
- *  4) Symbolic and numeric factorizations are both good
- *     - indicated by .status >= 0
- *
- * \field status
- *    Indicates status of factorization object.
- *
- * \field attributes
- *    Flags associated with this factorization object. In particular, transpose
- *    field indicates whether object is considered to be factorization of A or
- *    A^T.
- *
- * \field symbolicFactorization
- *    Symbolic Factorization upon which this Numeric Factorization depends.
- *
- * \field userFactorStorage
- *    Flag that indicates if user provided storage backing this object. If
- *    true, then factor storage must be freed by the user once all references
- *    are finished with (though any additional storage allocated due to pivoting
- *    will still be freed by SparseCleanup()).
- *
- * \field numericFactorization
- *    Pointer to private internal representation of numeric factor.
- *
- * \field solveWorkspaceRequiredStatic
- *    The required size of workspace, in bytes) for a call to SparseSolve is
- *    solveWorkspaceRequiredStatic + nrhs * solveWorkspaceRequiredPerRHS
- *    where nrhs is the number of right-hand side vectors.
- *
- * \field solveWorkspaceRequiredPerRHS
- *    The required size of workspace, in bytes) for a call to SparseSolve is
- *    solveWorkspaceRequiredStatic + nrhs * solveWorkspaceRequiredPerRHS
- *    where nrhs is the number of right-hand side vectors.                    */
-public static class SparseOpaqueFactorization_Double extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseOpaqueFactorization_Double() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseOpaqueFactorization_Double(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseOpaqueFactorization_Double(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseOpaqueFactorization_Double position(long position) {
-        return (SparseOpaqueFactorization_Double)super.position(position);
-    }
-    @Override public SparseOpaqueFactorization_Double getPointer(long i) {
-        return new SparseOpaqueFactorization_Double((Pointer)this).offsetAddress(i);
-    }
-
-  public native @Cast("SparseStatus_t") int status(); public native SparseOpaqueFactorization_Double status(int setter);
-  public native @ByRef SparseAttributes_t attributes(); public native SparseOpaqueFactorization_Double attributes(SparseAttributes_t setter);
-  public native @ByRef SparseOpaqueSymbolicFactorization symbolicFactorization(); public native SparseOpaqueFactorization_Double symbolicFactorization(SparseOpaqueSymbolicFactorization setter);
-  public native @Cast("bool") boolean userFactorStorage(); public native SparseOpaqueFactorization_Double userFactorStorage(boolean setter);
-  public native Pointer numericFactorization(); public native SparseOpaqueFactorization_Double numericFactorization(Pointer setter);
-  public native @Cast("size_t") long solveWorkspaceRequiredStatic(); public native SparseOpaqueFactorization_Double solveWorkspaceRequiredStatic(long setter);
-  public native @Cast("size_t") long solveWorkspaceRequiredPerRHS(); public native SparseOpaqueFactorization_Double solveWorkspaceRequiredPerRHS(long setter);
-}
-
-/** \abstract A semi-opaque type representing a matrix factorization in float.
- *
- *  \discussion Use the {@code SparseCleanup} function to free resources held
- *  by these objects.
- *
- *  The object can be in one of the following states:
- *  1) Something went wrong with symbolic factorization, nothing is valid.
- *     - indicated by .symbolicFactorization.status < 0
- *  2) Symbolic factorization was good, but failed in numeric factorization
- *     initialization.
- *     - indicated by .symbolicFactorization.status >= 0 && .status < 0 &&
- *                    .numericFactorization == NULL
- *     - symbolic factorization may be used for future calls.
- *  3) Symbolic factorization was good, factor allocated/initialized correctly,
- *     but numeric factorization failed
- *     e.g. a Cholesky factorization of an indefinite matrix was attempted.
- *     - indicated by .symbolicFactorization.status >= 0 && .status < 0 &&
- *                    .numericFactorization not NULL
- *     - user may pass this object to SparseRefactor_Double() with a modified
- *       matrix
- *  4) Symbolic and numeric factorizations are both good
- *     - indicated by .status >= 0
- *
- * \field status
- *    Indicates status of factorization object.
- *
- * \field attributes
- *    Flags associated with this factorization object. In particular, transpose
- *    field indicates whether object is considered to be factorization of A or
- *    A^T.
- *
- * \field symbolicFactorization
- *    Symbolic Factorization upon which this Numeric Factorization depends.
- *
- * \field userFactorStorage
- *    Flag that indicates if user provided storage backing this object. If
- *    true, then factor storage must be freed by the user once all references
- *    are finished with (though any additional storage allocated due to pivoting
- *    will still be freed by SparseCleanup()).
- *
- * \field numericFactorization
- *    Pointer to private internal representation of numeric factor.
- *
- * \field solveWorkspaceRequiredStatic
- *    The required size of workspace, in bytes) for a call to SparseSolve is
- *    solveWorkspaceRequiredStatic + nrhs * solveWorkspaceRequiredPerRHS
- *    where nrhs is the number of right-hand side vectors.
- *
- * \field solveWorkspaceRequiredPerRHS
- *    The required size of workspace, in bytes) for a call to SparseSolve is
- *    solveWorkspaceRequiredStatic + nrhs * solveWorkspaceRequiredPerRHS
- *    where nrhs is the number of right-hand side vectors.                    */
-public static class SparseOpaqueFactorization_Float extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseOpaqueFactorization_Float() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseOpaqueFactorization_Float(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseOpaqueFactorization_Float(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseOpaqueFactorization_Float position(long position) {
-        return (SparseOpaqueFactorization_Float)super.position(position);
-    }
-    @Override public SparseOpaqueFactorization_Float getPointer(long i) {
-        return new SparseOpaqueFactorization_Float((Pointer)this).offsetAddress(i);
-    }
-
-  public native @Cast("SparseStatus_t") int status(); public native SparseOpaqueFactorization_Float status(int setter);
-  public native @ByRef SparseAttributes_t attributes(); public native SparseOpaqueFactorization_Float attributes(SparseAttributes_t setter);
-  public native @ByRef SparseOpaqueSymbolicFactorization symbolicFactorization(); public native SparseOpaqueFactorization_Float symbolicFactorization(SparseOpaqueSymbolicFactorization setter);
-  public native @Cast("bool") boolean userFactorStorage(); public native SparseOpaqueFactorization_Float userFactorStorage(boolean setter);
-  public native Pointer numericFactorization(); public native SparseOpaqueFactorization_Float numericFactorization(Pointer setter);
-  public native @Cast("size_t") long solveWorkspaceRequiredStatic(); public native SparseOpaqueFactorization_Float solveWorkspaceRequiredStatic(long setter);
-  public native @Cast("size_t") long solveWorkspaceRequiredPerRHS(); public native SparseOpaqueFactorization_Float solveWorkspaceRequiredPerRHS(long setter);
-}
-
-/*******************************************************************************
- * \group Sub-factor Types
- ******************************************************************************/
-
-/** \abstract Types of sub-factor object.
- *
- *  \constant SparseSubfactorInvalid
- *    Invalid subfactor (requested type not compatible with supplied factorization
- *    or already destroyed).
- *  \constant SparseSubfactorP
- *    Permutation subfactor, valid for all factorization types.
- *  \constant SparseSubfactorS
- *    Diagonal scaling subfactor, valid for Cholesky and LDL^T only.
- *  \constant SparseSubfactorL
- *    L factor subfactor, valid for Cholesky and LDL^T only.
- *  \constant SparseSubfactorD
- *    D factor subfactor, valid for LDL^T only.
- *  \constant SparseSubfactorPLPS
- *    Half-solve subfactor, valid for Cholesky and LDL^T only.
- *    Corresponds to PLP' on forward (non-transpose) solve, and
- *    corresponds to PLDP' on backward (transpose) solve (D=I for Chokesky).
- *  \constant SparseSubfactorQ
- *    Q factor subfactor, valid for QR only.
- *  \constant SparseSubfactorR
- *    R factor subfactor, valid for QR and CholeskyAtA only.
- *  \constant SparseSubfactorRP
- *    Half-solve subfactor, valid for QR and CholeskyAtA only.                   */ /** enum  */
- public static final int
-         SparseSubfactorInvalid = 0,
-        SparseSubfactorP = 1,
-        SparseSubfactorS = 2,
-        SparseSubfactorL = 3,
-        SparseSubfactorD = 4,
-        SparseSubfactorPLPS = 5,
-        SparseSubfactorQ = 6,
-        SparseSubfactorR = 7,
-        SparseSubfactorRP = 8;
-
-/** \abstract Represents a sub-factor of the factorization (eg  L from LDL^T).
- *
- *  \field attributes
- *    Attributes of subfactor. Notably transpose indicates whether it should be
- *    considered as the transpose of its underlying contents (e.g. should it
- *    count as L or L^T if .contents=SparseSubfactorL).
- *  \field contents
- *    Subfactor this represents, e.g. L or Q.
- *  \field factor
- *    Underlying factorization this subfactor is part of.
- *  \field workspaceRequiredStatic
- *    The size of the workspace, in bytes, required to perform SparseMultiply()
- *    or SparseSolve() with this subfactor is given by the expression:
- *    workspaceRequiredStatic + nrhs*workspaceRequiredPerRhs
- *    where nrhs is the number of right-hand side vectors.
- *  \field workspaceRequiredPerRHS
- *    The size of the workspace, in bytes, required to perform SparseMultiply()
- *    or SparseSolve() with this subfactor is given by the expression:
- *    workspaceRequiredStatic + nrhs*workspaceRequiredPerRhs
- *    where nrhs is the number of right-hand side vectors.
- */
-public static class SparseOpaqueSubfactor_Double extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseOpaqueSubfactor_Double() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseOpaqueSubfactor_Double(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseOpaqueSubfactor_Double(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseOpaqueSubfactor_Double position(long position) {
-        return (SparseOpaqueSubfactor_Double)super.position(position);
-    }
-    @Override public SparseOpaqueSubfactor_Double getPointer(long i) {
-        return new SparseOpaqueSubfactor_Double((Pointer)this).offsetAddress(i);
-    }
-
-  public native @ByRef SparseAttributes_t attributes(); public native SparseOpaqueSubfactor_Double attributes(SparseAttributes_t setter);
-  public native @Cast("SparseSubfactor_t") byte contents(); public native SparseOpaqueSubfactor_Double contents(byte setter);
-  public native @ByRef SparseOpaqueFactorization_Double factor(); public native SparseOpaqueSubfactor_Double factor(SparseOpaqueFactorization_Double setter);
-  public native @Cast("size_t") long workspaceRequiredStatic(); public native SparseOpaqueSubfactor_Double workspaceRequiredStatic(long setter);
-  public native @Cast("size_t") long workspaceRequiredPerRHS(); public native SparseOpaqueSubfactor_Double workspaceRequiredPerRHS(long setter);
-}
-
-/** \abstract Represents a sub-factor of the factorization (eg  L from LDL^T).
- *
- *  \field attributes
- *    Attributes of subfactor. Notably transpose indicates whether it should be
- *    considered as the transpose of its underlying contents (e.g. should it
- *    count as L or L^T if .contents=SparseSubfactorL).
- *  \field contents
- *    Subfactor this represents, e.g. L or Q.
- *  \field factor
- *    Underlying factorization this subfactor is part of.
- *  \field workspaceRequiredStatic
- *    The size of the workspace, in bytes, required to perform SparseMultiply()
- *    or SparseSolve() with this subfactor is given by the expression:
- *    workspaceRequiredStatic + nrhs*workspaceRequiredPerRhs
- *    where nrhs is the number of right-hand side vectors.
- *  \field workspaceRequiredPerRHS
- *    The size of the workspace, in bytes, required to perform SparseMultiply()
- *    or SparseSolve() with this subfactor is given by the expression:
- *    workspaceRequiredStatic + nrhs*workspaceRequiredPerRhs
- *    where nrhs is the number of right-hand side vectors.
- */
-public static class SparseOpaqueSubfactor_Float extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseOpaqueSubfactor_Float() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseOpaqueSubfactor_Float(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseOpaqueSubfactor_Float(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseOpaqueSubfactor_Float position(long position) {
-        return (SparseOpaqueSubfactor_Float)super.position(position);
-    }
-    @Override public SparseOpaqueSubfactor_Float getPointer(long i) {
-        return new SparseOpaqueSubfactor_Float((Pointer)this).offsetAddress(i);
-    }
-
-  public native @ByRef SparseAttributes_t attributes(); public native SparseOpaqueSubfactor_Float attributes(SparseAttributes_t setter);
-  public native @Cast("SparseSubfactor_t") byte contents(); public native SparseOpaqueSubfactor_Float contents(byte setter);
-  public native @ByRef SparseOpaqueFactorization_Float factor(); public native SparseOpaqueSubfactor_Float factor(SparseOpaqueFactorization_Float setter);
-  public native @Cast("size_t") long workspaceRequiredStatic(); public native SparseOpaqueSubfactor_Float workspaceRequiredStatic(long setter);
-  public native @Cast("size_t") long workspaceRequiredPerRHS(); public native SparseOpaqueSubfactor_Float workspaceRequiredPerRHS(long setter);
-}
-
-/******************************************************************************
- *  \group Matrix and Vector Operations (Sparse BLAS Wrappers)
- ******************************************************************************/
-
-/**** Multiplication **********************************************************/
-
-/** \abstract Performs the multiplication Y = AX for double values
- *
- *  @param A (input) sparse matrix.
- *
- *  @param X (input) dense matrix. Inner dimensions of A and X must match.
- *
- *  @param Y (output) dense matrix. Dimensions must match the outer dimensions
- *  of A and X. Overwritten with their product.                               */
-public static native int SparseMultiply(@ByVal SparseMatrix_Double A, @ByVal DenseMatrix_Double X, @ByVal DenseMatrix_Double Y);
-
-/** \abstract Performs the multiplication Y = AX for float values.
- *
- *  @param A (input) sparse matrix.
- *
- *  @param X (input) dense matrix. Inner dimensions of A and X must match.
- *
- *  @param Y (output) dense matrix. Dimensions must match the outer dimensions
- *  of A and X. Overwritten with their product.                               */
-public static native int SparseMultiply(@ByVal SparseMatrix_Float A, @ByVal DenseMatrix_Float X, @ByVal DenseMatrix_Float Y);
-
-/** \abstract Performs the multiplication Y = alpha * AX for double values
- *
- *  @param alpha (input) scale to apply to the result.
- *
- *  @param A (input) sparse matrix.
- *
- *  @param X (input) dense matrix. Inner dimensions of A and X must match.
- *
- *  @param Y (output) dense matrix. Dimensions must match the outer dimensions
- *  of A and X. Overwritten with alpha * AX.                                  */
-public static native int SparseMultiply(double alpha, @ByVal SparseMatrix_Double A, @ByVal DenseMatrix_Double X, @ByVal DenseMatrix_Double Y);
-
-/** \abstract Performs the multiplication Y = alpha * AX for float values.
- *
- *  @param alpha (input) scale to apply to the result.
- *
- *  @param A (input) sparse matrix.
- *
- *  @param X (input) dense matrix. Inner dimensions of A and X must match.
- *
- *  @param Y (output) dense matrix. Dimensions must match the outer dimensions
- *  of A and X. Overwritten with alpha * AX.                                  */
-public static native int SparseMultiply(float alpha, @ByVal SparseMatrix_Float A, @ByVal DenseMatrix_Float X, @ByVal DenseMatrix_Float Y);
-
-/** \abstract Performs the multiplication y = Ax for double values
- *
- *  @param A (input) sparse matrix.
- *
- *  @param x (input) dense vector.
- *
- *  @param y (output) dense vector.                                           */
-public static native int SparseMultiply(@ByVal SparseMatrix_Double A, @ByVal DenseVector_Double x, @ByVal DenseVector_Double y);
-
-/** \abstract Performs the multiplication y = Ax for float values
- *
- *  @param A (input) sparse matrix.
- *
- *  @param x (input) dense vector.
- *
- *  @param y (output) dense vector.                                           */
-public static native int SparseMultiply(@ByVal SparseMatrix_Float A, @ByVal DenseVector_Float x, @ByVal DenseVector_Float y);
-
-/** \abstract Performs the multiplication y = alpha * Ax for double values
- *
- *  @param alpha (input) scale to apply to the result.
- *
- *  @param A (input) sparse matrix.
- *
- *  @param x (input) dense vector.
- *
- *  @param y (output) dense vector.                                           */
-public static native int SparseMultiply(double alpha, @ByVal SparseMatrix_Double A, @ByVal DenseVector_Double x, @ByVal DenseVector_Double y);
-
-/** \abstract Performs the multiplication y = alpha * Ax for float values.
- *
- *  @param alpha (input) scale to apply to the result.
- *
- *  @param A (input) sparse matrix.
- *
- *  @param x (input) dense vector.
- *
- *  @param y (output) dense vector.                                           */
-public static native int SparseMultiply(float alpha, @ByVal SparseMatrix_Float A, @ByVal DenseVector_Float x, @ByVal DenseVector_Float y);
-
-/**** Multipy-Add *************************************************************/
-
-/** \abstract Y += AX for double values
- *
- *  @param A (input) sparse matrix.
- *
- *  @param X (input) dense matrix. Inner dimensions of A and X must match.
- *
- *  @param Y (output) dense matrix. Dimensions must match the outer dimensions
- *  of A and X. Overwritten with their product.                               */
-public static native int SparseMultiplyAdd(@ByVal SparseMatrix_Double A, @ByVal DenseMatrix_Double X, @ByVal DenseMatrix_Double Y);
-
-/** \abstract Y += AX for float values.
- *
- *  @param A (input) sparse matrix.
- *
- *  @param X (input) dense matrix. Inner dimensions of A and X must match.
- *
- *  @param Y (output) dense matrix. Dimensions must match the outer dimensions
- *  of A and X. Overwritten with their product.                               */
-public static native int SparseMultiplyAdd(@ByVal SparseMatrix_Float A, @ByVal DenseMatrix_Float X, @ByVal DenseMatrix_Float Y);
-
-/** \abstract Y += alpha * AX for double values
- *
- *  @param alpha (input) scale to apply to the product of A and X.
- *
- *  @param A (input) sparse matrix.
- *
- *  @param X (input) dense matrix. Inner dimensions of A and X must match.
- *
- *  @param Y (output) dense matrix. Dimensions must match the outer dimensions
- *  of A and X. Overwritten with alpha * AX.                                  */
-public static native int SparseMultiplyAdd(double alpha, @ByVal SparseMatrix_Double A, @ByVal DenseMatrix_Double X, @ByVal DenseMatrix_Double Y);
-
-/** \abstract Y += alpha * AX for float values.
- *
- *  @param alpha (input) scale to apply to the product of A and X.
- *
- *  @param A (input) sparse matrix.
- *
- *  @param X (input) dense matrix. Inner dimensions of A and X must match.
- *
- *  @param Y (output) dense matrix. Dimensions must match the outer dimensions
- *  of A and X. Overwritten with alpha * AX.                                  */
-public static native int SparseMultiplyAdd(float alpha, @ByVal SparseMatrix_Float A, @ByVal DenseMatrix_Float X, @ByVal DenseMatrix_Float Y);
-
-/** \abstract y += Ax for double values
- *
- *  @param A (input) sparse matrix.
- *
- *  @param x (input) dense vector.
- *
- *  @param y (output) dense vector.                                           */
-public static native int SparseMultiplyAdd(@ByVal SparseMatrix_Double A, @ByVal DenseVector_Double x, @ByVal DenseVector_Double y);
-
-/** \abstract y += Ax for float values.
- *
- *  @param A (input) sparse matrix.
- *
- *  @param x (input) dense vector.
- *
- *  @param y (output) dense vector.                                           */
-public static native int SparseMultiplyAdd(@ByVal SparseMatrix_Float A, @ByVal DenseVector_Float x, @ByVal DenseVector_Float y);
-
-/** \abstract y += alpha * Ax for double values
- *
- *  @param alpha (input) scale to apply to the product of A and x.
- *
- *  @param A (input) sparse matrix.
- *
- *  @param x (input) dense vector.
- *
- *  @param y (output) dense vector.                                           */
-public static native int SparseMultiplyAdd(double alpha, @ByVal SparseMatrix_Double A, @ByVal DenseVector_Double x, @ByVal DenseVector_Double y);
-
-/** \abstract y += alpha * Ax for float values.
- *
- *  @param alpha (input) scale to apply to the product of A and x.
- *
- *  @param A (input) sparse matrix.
- *
- *  @param x (input) dense vector.
- *
- *  @param y (output) dense vector.                                           */
-public static native int SparseMultiplyAdd(float alpha, @ByVal SparseMatrix_Float A, @ByVal DenseVector_Float x, @ByVal DenseVector_Float y);
-
-/******************************************************************************
- *  \group Transposition
- ******************************************************************************/
-
-/** \abstract Returns a transposed copy of the specified SparseMatrix_Double.
- *
- *  \discussion Note that the underlying storage is *not* reference counted,
- *  so users must ensure the original matrix (or at least its underlying
- *  storage) is not destroyed before they are finished with the matrix returned
- *  by this routine.
- *
- *  @param Matrix The matrix to transpose.
- *
- *  @return A copy of matrix with A.structure.attributes.transpose flipped.  */
-public static native int SparseGetTranspose(@ByVal SparseMatrix_Double Matrix);
-
-/** \abstract Returns a transposed copy of the specified SparseMatrix_Float.
- *
- *  \discussion Note that the underlying storage is *not* reference counted,
- *  so users must ensure the original matrix (or at least its underlying
- *  storage) is not destroyed before they are finished with the matrix returned
- *  by this routine.
- *
- *  @param Matrix The matrix to transpose.
- *
- *  @return A copy of matrix with matrix.structure.attributes.transpose bit
- *           flipped.                                                         */
-public static native int SparseGetTranspose(@ByVal SparseMatrix_Float Matrix);
-
-/** \abstract Returns a transposed, reference-counted copy of a factorization.
- *
- *  @param Factor The factorization to transpose.
- *
- *  @return A matrix factorization of A^T, where the original was of A. As
- *           this is reference counted, it must be freed through a call to
- *           SparseCleanup() once it is no longer required.                   */
-public static native int SparseGetTranspose(@ByVal SparseOpaqueFactorization_Double Factor);
-
-/** \abstract Returns a transposed, reference-counted copy of a factorization.
- *
- *  @param Factor The factorization to transpose.
- *
- *  @return A matrix factorization of A^T, where the original was of A. As
- *           this is reference counted, it must be freed through a call to
- *           SparseCleanup() once it is no longer required.                   */
-public static native int SparseGetTranspose(@ByVal SparseOpaqueFactorization_Float Factor);
-
-/** \abstract Returns a transposed, reference-counted copy of a subfactor.
- *
- *  @param Subfactor The object to transpose.
- *
- *  @return A subfactor equivalent to the transpose of the one provided. As
- *           this is reference counted, it must be freed through a call to
- *           SparseCleanup() once it is no longer required.                   */
-public static native int SparseGetTranspose(@ByVal SparseOpaqueSubfactor_Double Subfactor);
-
-/** \abstract Returns a transposed, reference-counted copy of a subfactor.
- *
- *  @param Subfactor The object to transpose.
- *
- *  @return A subfactor equivalent to the transpose of the one provided. As
- *           this is reference counted, it must be freed through a call to
- *           SparseCleanup() once it is no longer required.                   */
-public static native int SparseGetTranspose(@ByVal SparseOpaqueSubfactor_Float Subfactor);
-
-/******************************************************************************
- *  \group Sparse Factor Functions
- ******************************************************************************/
-
-/**** All-in-one Sparse Factor Functions **************************************/
-
-/** \abstract Returns the specified factorization of a sparse matrix of double
- *            values.
- *
- *  @param type The type of factorization to perform.
- *
- *  @param Matrix The matrix to factorize.
- *
- *  @return Factorization of Matrix.                                         */
-public static native int SparseFactor(@Cast("SparseFactorization_t") byte type, @ByVal SparseMatrix_Double Matrix);
-
-/** \abstract Returns the specified factorization of a sparse matrix of float
- *            values.
- *
- *  @param type The type of factorization to perform.
- *
- *  @param Matrix The matrix to factorize.                                    */
-public static native int SparseFactor(@Cast("SparseFactorization_t") byte type, @ByVal SparseMatrix_Float Matrix);
-
-/** \abstract Returns the specified factorization of a sparse matrix of double
- *            values, using the specified options.
- *
- *  @param type The type of factorization to perform.
- *
- *  @param Matrix The matrix to factorize.
- *
- *  @param sfoptions Symbolic factor options, for example the ordering algorithm
- *         to use.
- *
- *  @param nfoptions Numeric factor options, for example pivoting parameters.
- *
- *  @return Factorization of Matrix.                                         */
-public static native int SparseFactor(@Cast("SparseFactorization_t") byte type, @ByVal SparseMatrix_Double Matrix, @ByVal SparseSymbolicFactorOptions sfoptions, @ByVal SparseNumericFactorOptions nfoptions);
-
-/** \abstract Returns the specified factorization of a sparse matrix of float
- *            values, using the specified options.
- *
- *  @param type The type of factorization to perform.
- *
- *  @param Matrix The matrix to factorize.
- *
- *  @param sfoptions Symbolic factor options, for example the ordering algorithm
- *         to use.
- *
- *  @param nfoptions Numeric factor options, for example pivoting parameters.
- *
- *  @return Factorization of Matrix.                                         */
-public static native int SparseFactor(@Cast("SparseFactorization_t") byte type, @ByVal SparseMatrix_Float Matrix, @ByVal SparseSymbolicFactorOptions sfoptions, @ByVal SparseNumericFactorOptions nfoptions);
-
-/**** Sparse Factor Functions using pre-calculated symbolic factors ***********/
-
-/** \abstract Returns the factorization of a sparse matrix of double values
- *            corresponding to the supplied symbolic factorization.
- *
- *  @param SymbolicFactor A symbolic factorization, as returned by a call of the
- *         form SymbolicFactor = SparseFactor(Matrix.structure).
- *
- *  @param Matrix The matrix to factorize.
- *
- *  @return Factorization of Matrix.                                         */
-public static native int SparseFactor(@ByVal SparseOpaqueSymbolicFactorization SymbolicFactor, @ByVal SparseMatrix_Double Matrix);
-
-/** \abstract Returns the factorization of a sparse matrix of float values
- *            corresponding to the supplied symbolic factorization.
- *
- *  @param SymbolicFactor A symbolic factorization, as returned by a call of the
- *         form SymbolicFactor = SparseFactor(Matrix.structure).
- *
- *  @param Matrix The matrix to factorize.
- *
- *  @return Factorization of Matrix.                                         */
-public static native int SparseFactor(@ByVal SparseOpaqueSymbolicFactorization SymbolicFactor, @ByVal SparseMatrix_Float Matrix);
-
-/** \abstract Returns the factorization of a sparse matrix of double values
- *            corresponding to the supplied symbolic factorization, using the
- *            specified options.
- *
- *  @param SymbolicFactor A symbolic factorization, as returned by a call of the
- *         form SymbolicFactor = SparseFactor(Matrix.structure).
- *
- *  @param Matrix The matrix to factorize.
- *
- *  @param nfoptions Numeric factor options, for example pivoting parameters.
- *
- *  @return Factorization of Matrix.                                         */
-public static native int SparseFactor(@ByVal SparseOpaqueSymbolicFactorization SymbolicFactor, @ByVal SparseMatrix_Double Matrix, @ByVal SparseNumericFactorOptions nfoptions);
-
-/** \abstract Returns the factorization of a sparse matrix of float values
- *            corresponding to the supplied symbolic factorization, using the
- *            specified options.
- *
- *  @param SymbolicFactor A symbolic factorization, as returned by a call of the
- *         form SymbolicFactor = SparseFactor(Matrix.structure).
- *
- *  @param Matrix The matrix to factorize.
- *
- *  @param nfoptions Numeric factor options, for example pivoting parameters.
- *
- *  @return Factorization of Matrix.                                         */
-public static native int SparseFactor(@ByVal SparseOpaqueSymbolicFactorization SymbolicFactor, @ByVal SparseMatrix_Float Matrix, @ByVal SparseNumericFactorOptions nfoptions);
-
-/**** Sparse Factor Functions with user-defined workspace *********************/
-
-/** \abstract Returns the factorization of a sparse matrix of double values
- *            corresponding to the supplied symbolic factorization, using the
- *            specified options and without any internal memory allocations.
- *
- *  \discussion Note that internal memory allocations may occur in the case of
- *  pivoted factorizations that result in delayed pivots. If you require closer
- *  control over memory allocations, supply a sfoptions.malloc() function that
- *  implements the required behaviour, or use an alternative non-pivoted
- *  factorization returns. Note that if sfoptions.malloc() returns NULL the
- *  factorization will abort immediately.
- *
- *  @param SymbolicFactor A symbolic factorization, as returned by a call of the
- *         form SymbolicFactor = SparseFactor(Matrix.structure).
- *
- *  @param Matrix The matrix to factorize.
- *
- *  @param nfoptions Numeric factor options, for example pivoting parameters.
- *
- *  @param factorStorage A pointer to space used to store the factorization
- *         of size at least SymbolicFactor.factorSize_Double bytes. This storage
- *         should not be altered by the user during the lifetime of the return
- *         value. This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- *
- *  @param workspace A pointer to a workspace of size at least
- *         SymbolicFactor.workspaceSize_Double bytes. This workspace may be
- *         reused or destroyed by the user as soon as the function returns.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- *
- *  @return Factorization of Matrix.                                         */
-public static native int SparseFactor(
-  @ByVal SparseOpaqueSymbolicFactorization SymbolicFactor, @ByVal SparseMatrix_Double Matrix,
-  @ByVal SparseNumericFactorOptions nfoptions, Pointer factorStorage,
-  Pointer workspace);
-
-/** \abstract Returns the factorization of a sparse matrix of float values
- *            corresponding to the supplied symbolic factorization, using the
- *            specified options and without any internal memory allocations.
- *
- *  \discussion Note that internal memory allocations may occur in the case of
- *  pivoted factorizations that result in delayed pivots. If you require closer
- *  control over memory allocations, supply a sfoptions.malloc() function that
- *  implements the required behaviour, or use an alternative non-pivoted
- *  factorization returns. Note that if sfoptions.malloc() returns NULL the
- *  factorization will abort immediately.
- *
- *  @param SymbolicFactor A symbolic factorization, as returned by a call of the
- *         form SymbolicFactor = SparseFactor(Matrix.structure).
- *
- *  @param Matrix The matrix to factorize.
- *
- *  @param nfoptions Numeric factor options, for example pivoting parameters.
- *
- *  @param factorStorage A pointer to space used to store the factorization
- *         of size at least SymbolicFactor.factorSize_Float bytes. This storage
- *         should not be altered by the user during the lifetime of the return
- *         value. This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- *
- *  @param workspace A pointer to a workspace of size at least
- *         SymbolicFactor.workspaceSize_Float bytes. This workspace may be
- *         reused or destroyed by the user as soon as the function returns.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- *
- *  @return Factorization of Matrix.                                         */
-public static native int SparseFactor(
-  @ByVal SparseOpaqueSymbolicFactorization SymbolicFactor, @ByVal SparseMatrix_Float Matrix,
-  @ByVal SparseNumericFactorOptions nfoptions, Pointer factorStorage,
-  Pointer workspace);
-
-/******************************************************************************
- *  \group Sparse Direct Solve Functions (DenseMatrix)
- ******************************************************************************/
-
-/** \abstract Solves the system AX=B for X, using the supplied factorization
- *            of A, in place.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || X ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_X || AX - B ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAX=B.
- *
- *  @param Factored A factorization of A.
- *
- *  @param XB On entry, the right-hand sides B. On return, the solution vectors
- *         X. If A has dimension m x n, then XB must have dimension k x nrhs,
- *         where k=max(m,n) and nrhs is the number of right-hand sides to find
- *         solutions for.                                                     */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Double Factored, @ByVal DenseMatrix_Double XB);
-
-/** \abstract Solves the system AX=B for X, using the supplied factorization
- *            of A, in place.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || X ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_X || AX - B ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAX=B.
- *
- *  @param Factored A factorization of A.
- *
- *  @param XB On entry, the right-hand sides B. On return, the solution vectors
- *         X. If A has dimension m x n, then XB must have dimension k x nrhs,
- *         where k=max(m,n) and nrhs is the number of right-hand sides to find
- *         solutions for.                                                     */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Float Factored, @ByVal DenseMatrix_Float XB);
-
-/** \abstract Solves the system AX=B for X, using the supplied factorization
- *            of A, in place.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || X ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_X || AX - B ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAX=B.
- *
- *  @param Factored A factorization of A.
- *
- *  @param B The right-hand sides B to solve for. If A has dimension m x n, then
- *         B must have dimension m x nrhs, where nrhs is the number of
- *         right-hand sides to find solutions for.
- *
- *  @param X Matrix in which to return solutions. If A has dimension m x n, and
- *         B has dimension m x nrhs, then X must have dimension n x nrhs.     */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Double Factored, @ByVal DenseMatrix_Double B, @ByVal DenseMatrix_Double X);
-
-/** \abstract Solves the system AX=B for X, using the supplied factorization
- *            of A, in place.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || X ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_X || AX - B ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAX=B.
- *
- *  @param Factored A factorization of A.
- *
- *  @param B The right-hand sides B to solve for. If A has dimension m x n, then
- *         B must have dimension m x nrhs, where nrhs is the number of
- *         right-hand sides to find solutions for.
- *
- *  @param X Matrix in which to return solutions. If A has dimension m x n, and
- *         B has dimension m x nrhs, then X must have dimension n x nrhs.     */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Float Factored, @ByVal DenseMatrix_Float B, @ByVal DenseMatrix_Float X);
-
-/**** Solving Systems with User Defined Workspace *****************************/
-
-/** \abstract Solves the system AX=B for X, using the supplied factorization
- *            of A, in place, and without any internal memory allocations.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || X ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_X || AX - B ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAX=B.
- *
- *  @param Factored A factorization of A.
- *
- *  @param XB On entry, the right-hand sides B. On return, the solution vectors
- *         X. If A has dimension m x n, then XB must have dimension k x nrhs,
- *         where k=max(m,n) and nrhs is the number of right-hand sides to find
- *         solutions for.
- *
- *  @param workspace Scratch space of size
- *         Factored.solveWorkspaceRequiredStatic + nrhs * Factored.solveWorkspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Double Factored,
-  @ByVal DenseMatrix_Double XB, Pointer workspace);
-
-/** \abstract Solves the system AX=B for X, using the supplied factorization
- *            of A, in place, and without any internal memory allocations.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || X ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_X || AX - B ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAX=B.
- *
- *  @param Factored A factorization of A.
- *
- *  @param XB On entry, the right-hand sides B. On return, the solution vectors
- *         X. If A has dimension m x n, then XB must have dimension k x nrhs,
- *         where k=max(m,n) and nrhs is the number of right-hand sides to find
- *         solutions for.
- *
- *  @param workspace Scratch space of size
- *         Factored.solveWorkspaceRequiredStatic + nrhs * Factored.solveWorkspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Float Factored, @ByVal DenseMatrix_Float XB,
-  Pointer workspace);
-
-/** \abstract Solves the system AX=B for X, using the supplied factorization
- *            of A, and without any internal memory allocations.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || X ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_X || AX - B ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAX=B.
- *
- *  @param Factored A factorization of A.
- *
- *  @param B The right-hand sides B to solve for. If A has dimension m x n, then
- *         B must have dimension m x nrhs, where nrhs is the number of
- *         right-hand sides to find solutions for.
- *
- *  @param X Matrix in which to return solutions. If A has dimension m x n, and
- *         B has dimension m x nrhs, then X must have dimension n x nrhs.
- *
- *  @param workspace Scratch space of size
- *         Factored.solveWorkspaceRequiredStatic + nrhs * Factored.solveWorkspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Double Factored,
-  @ByVal DenseMatrix_Double X, @ByVal DenseMatrix_Double B, Pointer workspace);
-
-/** \abstract Solves the system AX=B for X, using the supplied factorization
- *            of A, and without any internal memory allocations.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || X ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_X || AX - B ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAX=B.
- *
- *  @param Factored A factorization of A.
- *
- *  @param B The right-hand sides B to solve for. If A has dimension m x n, then
- *         B must have dimension m x nrhs, where nrhs is the number of
- *         right-hand sides to find solutions for.
- *
- *  @param X Matrix in which to return solutions. If A has dimension m x n, and
- *         B has dimension m x nrhs, then X must have dimension n x nrhs.
- *
- *  @param workspace Scratch space of size
- *         Factored.solveWorkspaceRequiredStatic + nrhs * Factored.solveWorkspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Float Factored, @ByVal DenseMatrix_Float X,
-  @ByVal DenseMatrix_Float B, Pointer workspace);
-
-/******************************************************************************
- *  \group Sparse Direct Solve Functions (DenseVector)
- ******************************************************************************/
-
-/** \abstract Solves the system Ax=b for x, using the supplied factorization
- *            of A, in place.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || x ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_x || Ax - b ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAx=b.
- *
- *  @param Factored A factorization of A.
- *
- *  @param xb On entry, the right-hand side b. On return, the solution vector
- *         x. If A has dimension m x n, then xb must have length k, where
- *         k=max(m,n).                                                        */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Double Factored,
-  @ByVal DenseVector_Double xb);
-
-/** \abstract Solves the system Ax=b for x, using the supplied factorization
- *            of A, in place.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || x ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_x || Ax - b ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAx=b.
- *
- *  @param Factored A factorization of A.
- *
- *  @param xb On entry, the right-hand side b. On return, the solution vector
- *         x. If A has dimension m x n, then xb must have length k, where
- *         k=max(m,n).                                                        */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Float Factored, @ByVal DenseVector_Float xb);
-
-/** \abstract Solves the system Ax=b for x, using the supplied factorization
- *            of A.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || x ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_x || Ax - b ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAx=b.
- *
- *  @param Factored A factorization of A.
- *
- *  @param b The right-hand side b to solve for. If A has dimension m x n, then
- *         b must have length m.
- *
- *  @param x Vector in which to return solution. If A has dimension m x n, then
- *         x must have length n.                                              */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Double Factored,
-  @ByVal DenseVector_Double b, @ByVal DenseVector_Double x);
-
-/** \abstract Solves the system Ax=b for x, using the supplied factorization
- *            of A.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || x ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_x || Ax - b ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAx=b.
- *
- *  @param Factored A factorization of A.
- *
- *  @param b The right-hand side b to solve for. If A has dimension m x n, then
- *         b must have length m.
- *
- *  @param x Vector in which to return solution. If A has dimension m x n, then
- *         x must have length n.                                              */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Float Factored, @ByVal DenseVector_Float b,
-  @ByVal DenseVector_Float x);
-
-/**** Solving Systems with User Defined Workspace *****************************/
-
-/** \abstract Solves the system Ax=b for x, using the supplied factorization
- *            of A, in place.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || x ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_x || Ax - b ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAx=b.
- *
- *  @param Factored A factorization of A.
- *
- *  @param xb On entry, the right-hand side b. On return, the solution vector
- *         x. If A has dimension m x n, then xb must have length k, where
- *         k=max(m,n).
- *
- *  @param workspace Scratch space of size
- *         Factored.solveWorkspaceRequiredStatic + 1*Factored.solveWorkspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Double Factored,
-  @ByVal DenseVector_Double xb, Pointer workspace);
-
-/** \abstract Solves the system Ax=b for x, using the supplied factorization
- *            of A, in place.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || x ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_x || Ax - b ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAx=b.
- *
- *  @param Factored A factorization of A.
- *
- *  @param xb On entry, the right-hand side b. On return, the solution vector
- *         x. If A has dimension m x n, then xb must have length k, where
- *         k=max(m,n).
- *
- *  @param workspace Scratch space of size
- *         Factored.solveWorkspaceRequiredStatic + 1*Factored.solveWorkspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Float Factored, @ByVal DenseVector_Float xb,
-                 Pointer workspace);
-
-/** \abstract Solves the system Ax=b for x, using the supplied factorization
- *            of A, in place.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || x ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_x || Ax - b ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAx=b.
- *
- *  @param Factored A factorization of A.
- *
- *  @param b The right-hand side b to solve for. If A has dimension m x n, then
- *         b must have length m.
- *
- *  @param x Vector in which to return solution. If A has dimension m x n, then
- *         x must have length n.
- *
- *  @param workspace Scratch space of size
- *         Factored.solveWorkspaceRequiredStatic + 1*Factored.solveWorkspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Double Factored,
-  @ByVal DenseVector_Double x, @ByVal DenseVector_Double b, Pointer workspace);
-
-/** \abstract Solves the system Ax=b for x, using the supplied factorization
- *            of A, in place.
- *
- *  \discussion If the factorization is A=QR and the system is underdetermined,
- *  the solution of minimum norm || x ||_2 is returned.
- *  If the factorization is A=QR and the system is overdetermined, the least
- *  squares solution arg min_x || Ax - b ||_2 is returned.
- *  In the case of a factorization of type=SparseCholeskyAtA, the factorization
- *  is in fact of A^T A, so the solution returned is for the system A^TAx=b.
- *
- *  @param Factored A factorization of A.
- *
- *  @param b The right-hand side b to solve for. If A has dimension m x n, then
- *         b must have length m.
- *
- *  @param x Vector in which to return solution. If A has dimension m x n, then
- *         x must have length n.
- *
- *  @param workspace Scratch space of size
- *         Factored.solveWorkspaceRequiredStatic + 1*Factored.solveWorkspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseSolve(@ByVal SparseOpaqueFactorization_Float Factored, @ByVal DenseVector_Float x,
-  @ByVal DenseVector_Float b, Pointer workspace);
-
-/******************************************************************************
- *  \group Advanced Solving Functions
- ******************************************************************************/
-
-/**** Symbolic Factorization Functions ****************************************/
-
-/** \abstract Returns a symbolic factorization of the requested type for a
- *            matrix with the given structure.
- *
- *  \discussion The resulting symbolic factorization may be used for multiple
- *  numerical factorizations with different numerical values but the same
- *  non-zero structure.
- *
- *  @param type The type of factorization to perform.
- *
- *  @param Matrix The structure of the sparse matrix to be factorized.
- *
- *  @return The requested symbolic factorization of Matrix.                  */
-public static native int SparseFactor(@Cast("SparseFactorization_t") byte type,
-  @ByVal SparseMatrixStructure Matrix);
-
-/** \abstract Returns a symbolic factorization of the requested type for a
- *            matrix with the given structure, with the supplied options.
- *
- *  \discussion The resulting symbolic factorization may be used for multiple
- *  numerical factorizations with different numerical values but the same
- *  non-zero structure.
- *
- *  @param type The type of factorization to perform.
- *
- *  @param Matrix The structure of the sparse matrix to be factorized.
- *
- *  @param sfoptions Symbolic factor options, for example the ordering algorithm
- *         to use.
- *
- *  @return The requested symbolic factorization of Matrix.                  */
-public static native int SparseFactor(@Cast("SparseFactorization_t") byte type,
-  @ByVal SparseMatrixStructure Matrix, @ByVal SparseSymbolicFactorOptions sfoptions);
-
-/**** Symbolic Refactor Functions *********************************************/
-
-
-/** \abstract Reuses supplied factorization object's storage to compute a new
- *            factorization of the supplied matrix.
- *
- *  \discussion Matrix must have the same non-zero structure as that used for
- *  the original factorization.
- *  The same numerical factorization options will be used as in the original
- *  construction of Factorization.
- *  This call provides very similar behavior to that which can be achieved by
- *  reusing explicit storage supplied to SparseFactor() as the argument
- *  factorStorage. However, in addition to providing a simplified call sequence,
- *  this call can also reuse any additional storage allocated to accomodate
- *  delayed pivots.
- *  Note that if the reference count of the underlying object is not
- *  exactly one (i.e. if there are any implict copies as a result of calls to
- *  SparseGetTranspose() or SparseCreateSubfactor() that have not been destroyed
- *  through a call to SparseCleanup()), then new storage will be allocated
- *  regardless.
- *
- *  @param Matrix The matrix to be factorized.
- *
- *  @param Factorization The factorization to be updated.                     */
-public static native int SparseRefactor(@ByVal SparseMatrix_Double Matrix,
-  SparseOpaqueFactorization_Double Factorization);
-
-/** \abstract Reuses supplied factorization object's storage to compute a new
- *            factorization of the supplied matrix.
- *
- *  \discussion Matrix must have the same non-zero structure as that used for
- *  the original factorization.
- *  The same numerical factorization options will be used as in the original
- *  construction of Factorization.
- *  This call provides very similar behavior to that which can be achieved by
- *  reusing explicit storage supplied to SparseFactor() as the argument
- *  factorStorage. However, in addition to providing a simplified call sequence,
- *  this call can also reuse any additional storage allocated to accomodate
- *  delayed pivots.
- *  Note that if the reference count of the underlying object is not
- *  exactly one (i.e. if there are any implict copies as a result of calls to
- *  SparseGetTranspose() or SparseCreateSubfactor() that have not been destroyed
- *  through a call to SparseCleanup()), then new storage will be allocated
- *  regardless.
- *
- *  @param Matrix The matrix to be factorized.
- *
- *  @param Factorization The factorization to be updated.                     */
-public static native int SparseRefactor(@ByVal SparseMatrix_Float Matrix,
-  SparseOpaqueFactorization_Float Factorization);
-
-/** \abstract Reuses supplied factorization object's storage to compute a new
- *            factorization of the supplied matrix, using different options.
- *
- *  \discussion Matrix must have the same non-zero structure as that used for
- *  the original factorization.
- *  This call provides very similar behavior to that which can be achieved by
- *  reusing explicit storage supplied to SparseFactor() as the argument
- *  factorStorage. However, in addition to providing a simplified call sequence,
- *  this call can also reuse any additional storage allocated to accomodate
- *  delayed pivots.
- *  Note that if the reference count of the underlying object is not
- *  exactly one (i.e. if there are any implict copies as a result of calls to
- *  SparseGetTranspose() or SparseCreateSubfactor() that have not been destroyed
- *  through a call to SparseCleanup()), then new storage will be allocated
- *  regardless.
- *
- *  @param Matrix The matrix to be factorized.
- *
- *  @param Factorization The factorization to be updated.
- *
- *  @param nfoptions Numeric factor options, for example pivoting parameters. */
-public static native int SparseRefactor(@ByVal SparseMatrix_Double Matrix,
-  SparseOpaqueFactorization_Double Factorization,
-  @ByVal SparseNumericFactorOptions nfoptions);
-
-/** \abstract Reuses supplied factorization object's storage to compute a new
- *            factorization of the supplied matrix, using different options.
- *
- *  \discussion Matrix must have the same non-zero structure as that used for
- *  the original factorization.
- *  This call provides very similar behavior to that which can be achieved by
- *  reusing explicit storage supplied to SparseFactor() as the argument
- *  factorStorage. However, in addition to providing a simplified call sequence,
- *  this call can also reuse any additional storage allocated to accomodate
- *  delayed pivots.
- *  Note that if the reference count of the underlying object is not
- *  exactly one (i.e. if there are any implict copies as a result of calls to
- *  SparseGetTranspose() or SparseCreateSubfactor() that have not been destroyed
- *  through a call to SparseCleanup()), then new storage will be allocated
- *  regardless.
- *
- *  @param Matrix The matrix to be factorized.
- *
- *  @param Factorization The factorization to be updated.
- *
- *  @param nfoptions Numeric factor options, for example pivoting parameters. */
-public static native int SparseRefactor(@ByVal SparseMatrix_Float Matrix,
-  SparseOpaqueFactorization_Float Factorization,
-  @ByVal SparseNumericFactorOptions nfoptions);
-
-/** \abstract Reuses supplied factorization object's storage to compute a new
- *            factorization of the supplied matrix, without any internal
- *            allocations.
- *
- *  \discussion Matrix must have the same non-zero structure as that used for
- *  the original factorization.
- *  The same numerical factorization options will be used as in the original
- *  construction of Factorization.
- *  This call provides very similar behavior to that which can be achieved by
- *  reusing explicit storage supplied to SparseFactor() as the argument
- *  factorStorage. However, in addition to providing a simplified call sequence,
- *  this call can also reuse any additional storage allocated to accomodate
- *  delayed pivots.
- *  Note that internal memory allocations may occur in the case of
- *  pivoted factorizations that result in delayed pivots. If you require closer
- *  control over memory allocations, supply a sfoptions.malloc() function that
- *  implements the required behaviour, or use an alternative non-pivoted
- *  factorization returns. Note that if sfoptions.malloc() returns NULL the
- *  factorization will abort immediately.
- *  Note that if the reference count of the underlying object is not
- *  exactly one (i.e. if there are any implict copies as a result of calls to
- *  SparseGetTranspose() or SparseCreateSubfactor() that have not been destroyed
- *  through a call to SparseCleanup()), then new storage will be allocated
- *  regardless.
- *
- *  @param Matrix The matrix to be factorized.
- *
- *  @param Factorization The factorization to be updated.                     */
-public static native int SparseRefactor(@ByVal SparseMatrix_Double Matrix,
-  SparseOpaqueFactorization_Double Factorization, Pointer workspace);
-
-/** \abstract Reuses supplied factorization object's storage to compute a new
- *            factorization of the supplied matrix, without any internal
- *            allocations.
- *
- *  \discussion Matrix must have the same non-zero structure as that used for
- *  the original factorization.
- *  The same numerical factorization options will be used as in the original
- *  construction of Factorization.
- *  This call provides very similar behavior to that which can be achieved by
- *  reusing explicit storage supplied to SparseFactor() as the argument
- *  factorStorage. However, in addition to providing a simplified call sequence,
- *  this call can also reuse any additional storage allocated to accomodate
- *  delayed pivots.
- *  Note that internal memory allocations may occur in the case of
- *  pivoted factorizations that result in delayed pivots. If you require closer
- *  control over memory allocations, supply a sfoptions.malloc() function that
- *  implements the required behaviour, or use an alternative non-pivoted
- *  factorization returns. Note that if sfoptions.malloc() returns NULL the
- *  factorization will abort immediately.
- *  Note that if the reference count of the underlying object is not
- *  exactly one (i.e. if there are any implict copies as a result of calls to
- *  SparseGetTranspose() or SparseCreateSubfactor() that have not been destroyed
- *  through a call to SparseCleanup()), then new storage will be allocated
- *  regardless.
- *
- *  @param Matrix The matrix to be factorized.
- *
- *  @param Factorization The factorization to be updated.                     */
-public static native int SparseRefactor(@ByVal SparseMatrix_Float Matrix,
-  SparseOpaqueFactorization_Float Factorization, Pointer workspace);
-
-/** \abstract Reuses supplied factorization object's storage to compute a new
- *            factorization of the supplied matrix, using updated options and
- *            without any internal allocations.
- *
- *  \discussion Matrix must have the same non-zero structure as that used for
- *  the original factorization.
- <p>
- *  This call provides very similar behavior to that which can be achieved by
- *  reusing explicit storage supplied to SparseFactor() as the argument
- *  factorStorage. However, in addition to providing a simplified call sequence,
- *  this call can also reuse any additional storage allocated to accomodate
- *  delayed pivots.
- *  Note that internal memory allocations may occur in the case of
- *  pivoted factorizations that result in delayed pivots. If you require closer
- *  control over memory allocations, supply a sfoptions.malloc() function that
- *  implements the required behaviour, or use an alternative non-pivoted
- *  factorization returns. Note that if sfoptions.malloc() returns NULL the
- *  factorization will abort immediately.
- *  Note that if the reference count of the underlying object is not
- *  exactly one (i.e. if there are any implict copies as a result of calls to
- *  SparseGetTranspose() or SparseCreateSubfactor() that have not been destroyed
- *  through a call to SparseCleanup()), then new storage will be allocated
- *  regardless.
- *
- *  @param Matrix The matrix to be factorized.
- *
- *  @param Factorization The factorization to be updated.
- *
- *  @param nfoptions Numeric factor options, for example pivoting parameters.
- *
- *  @param workspace A pointer to a workspace of size at least
- *         Factorization->symbolicFactorization.workspaceSize_Double bytes.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- *         This workspace may be reused or destroyed by the user as soon as the
- *         function returns.                                                  */
-public static native int SparseRefactor(@ByVal SparseMatrix_Double Matrix,
-  SparseOpaqueFactorization_Double Factorization,
-  @ByVal SparseNumericFactorOptions nfoptions, Pointer workspace);
-
-/** \abstract Reuses supplied factorization object's storage to compute a new
- *            factorization of the supplied matrix, using updated options and
- *            without any internal allocations.
- *
- *  \discussion Matrix must have the same non-zero structure as that used for
- *  the original factorization.
- <p>
- *  This call provides very similar behavior to that which can be achieved by
- *  reusing explicit storage supplied to SparseFactor() as the argument
- *  factorStorage. However, in addition to providing a simplified call sequence,
- *  this call can also reuse any additional storage allocated to accomodate
- *  delayed pivots.
- *  Note that internal memory allocations may occur in the case of
- *  pivoted factorizations that result in delayed pivots. If you require closer
- *  control over memory allocations, supply a sfoptions.malloc() function that
- *  implements the required behaviour, or use an alternative non-pivoted
- *  factorization returns. Note that if sfoptions.malloc() returns NULL the
- *  factorization will abort immediately.
- *  Note that if the reference count of the underlying object is not
- *  exactly one (i.e. if there are any implict copies as a result of calls to
- *  SparseGetTranspose() or SparseCreateSubfactor() that have not been destroyed
- *  through a call to SparseCleanup()), then new storage will be allocated
- *  regardless.
- *
- *  @param Matrix The matrix to be factorized.
- *
- *  @param Factorization The factorization to be updated.
- *
- *  @param nfoptions Numeric factor options, for example pivoting parameters.
- *
- *  @param workspace A pointer to a workspace of size at least
- *         Factorization->symbolicFactorization.workspaceSize_Float bytes.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- *         This workspace may be reused or destroyed by the user as soon as the
- *         function returns.                                                  */
-public static native int SparseRefactor(@ByVal SparseMatrix_Float Matrix,
-  SparseOpaqueFactorization_Float Factorization,
-  @ByVal SparseNumericFactorOptions nfoptions, Pointer workspace);
-
-/**** Factor Query Functions *********************************************/
-
-/** \abstract Returns the inertia of an LDLT factorization
- *
- *  \discussion
- *  For a given LDLT factorization, this function returns the number of
- *  negative, zero and positive pivots taken during the factorization.
- *  Note that in some cases, particularly when eigenvalues are close to
- *  zero, the computed numerical inertia may not be an accurate reflection
- *  of the true inertia of the system, and in particular can be highly dependent
- *  on the zeroTolerance (and to a less degree the pivotTolerance) specified
- *  in the factorization options.
- *
- *  This call is only supported for factorizations of type SparseFactorizationLDLTTPP.
- *
- *  @param Factored The factorization to be queried.
- *
- *  @param num_positive Upon return *num_positive has been set to the number
- *         of positive pivots.
- *
- *  @param num_zero Upon return *num_zero has been set to the number
- *         of zero pivots.
- *
- *  @param num_negative Upon return *num_negative has been set to the number
- *         of negative pivots.
- *
- *  @return 0 on success, non-zero on error
- */
-public static native int SparseGetInertia(@ByVal SparseOpaqueFactorization_Float Factored, IntPointer num_positive, IntPointer num_zero, IntPointer num_negative);
-public static native int SparseGetInertia(@ByVal SparseOpaqueFactorization_Float Factored, IntBuffer num_positive, IntBuffer num_zero, IntBuffer num_negative);
-public static native int SparseGetInertia(@ByVal SparseOpaqueFactorization_Float Factored, int[] num_positive, int[] num_zero, int[] num_negative);
-
-/** \abstract Returns the inertia of an LDLT factorization
- *
- *  \discussion
- *  For a given LDLT factorization, this function returns the number of
- *  negative, zero and positive pivots taken during the factorization.
- *  Note that in some cases, particularly when eigenvalues are close to
- *  zero, the computed numerical inertia may not be an accurate reflection
- *  of the true inertia of the system, and in particular can be highly dependent
- *  on the zeroTolerance (and to a less degree the pivotTolerance) specified
- *  in the factorization options.
- *
- *  This call is only supported for factorizations of type SparseFactorizationLDLTTPP.
- *
- *  @param Factored The factorization to be queried.
- *
- *  @param num_positive Upon return *num_positive has been set to the number
- *         of positive pivots.
- *
- *  @param num_zero Upon return *num_zero has been set to the number
- *         of zero pivots.
- *
- *  @param num_negative Upon return *num_negative has been set to the number
- *         of negative pivots.
- *
- *  @return 0 on success, non-zero on error
- */
-public static native int SparseGetInertia(@ByVal SparseOpaqueFactorization_Double Factored, IntPointer num_positive, IntPointer num_zero, IntPointer num_negative);
-public static native int SparseGetInertia(@ByVal SparseOpaqueFactorization_Double Factored, IntBuffer num_positive, IntBuffer num_zero, IntBuffer num_negative);
-public static native int SparseGetInertia(@ByVal SparseOpaqueFactorization_Double Factored, int[] num_positive, int[] num_zero, int[] num_negative);
-
-/******************************************************************************
- *  \group Extracting Sub-factors of Factors
- ******************************************************************************/
-
-/** \abstract Returns an opaque object representing a sub-factor of a
- *            factorization.
- *
- *  \discussion Here the term "sub-factor" is used to mean one or more parts of
- *  the whole factorization. For example, just the Q factor from A=QRP.
- *  The returned object is a wrapper around the orignal factorization, and does
- *  not actually perform any extraction (sub-factors are stored in non-standard
- *  formats that exploit implicit structure for efficiency, and formation of the
- *  sub-factor explicitly can be expensive). It is intended to be used as an
- *  argument to SparseMultiply() and SparseSolve() functions only.
- *  As Factor is contained in the returned object, its underlying reference
- *  count in incremented, and the returned object must hence be destroyed
- *  through a call to SparseCleanup() to prevent a memory leak (however it is
- *  safe to call SparseCleanup() on the original factorization whilst this
- *  object is still being used).
- *
- *  @param subfactor The sub-factor the new object shuold represent.
- *
- *  @param Factor The factorization to extract the sub-factor from.
- *
- *  @return Object representing the requested sub-factor. Must be cleaned up
- *  by a call to SparseCleanup() once it is no longer required.               */
-public static native int SparseCreateSubfactor(@Cast("SparseSubfactor_t") byte subfactor,
-  @ByVal SparseOpaqueFactorization_Double Factor);
-
-/** \abstract Returns an opaque object representing a sub-factor of a
- *            factorization.
- *
- *  \discussion Here the term "sub-factor" is used to mean one or more parts of
- *  the whole factorization. For example, just the Q factor from A=QRP.
- *  The returned object is a wrapper around the orignal factorization, and does
- *  not actually perform any extraction (sub-factors are stored in non-standard
- *  formats that exploit implicit structure for efficiency, and formation of the
- *  sub-factor explicitly can be expensive). It is intended to be used as an
- *  argument to SparseMultiply() and SparseSolve() functions only.
- *  As Factor is contained in the returned object, its underlying reference
- *  count in incremented, and the returned object must hence be destroyed
- *  through a call to SparseCleanup() to prevent a memory leak (however it is
- *  safe to call SparseCleanup() on the original factorization whilst this
- *  object is still being used).
- *
- *  @param subfactor The sub-factor the new object shuold represent.
- *
- *  @param Factor The factorization to extract the sub-factor from.
- *
- *  @return Object representing the requested sub-factor. Must be cleaned up
- *  by a call to SparseCleanup() once it is no longer required.               */
-public static native int SparseCreateSubfactor(@Cast("SparseSubfactor_t") byte subfactor,
-  @ByVal SparseOpaqueFactorization_Float Factor);
-
-/******************************************************************************
- *  \group Sub-factor Multiplication and Solve Functions
- ******************************************************************************/
-
-/**** Matrix solve functions **************************************************/
-
-/** \abstract Solve the equation Subfactor * X = B for the matrix X, in place.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param XB (input/output) On input, the matrix B. On return it is overwritten
- *         with the matrix X. If Subfactor is m x n, then XB must have dimension
- *         k x nrhs, where k = max(m, n) and nrhs is the number of right-hand
- *         sides. If m != n, then only the first min(m,n) entries are used for
- *         input or output as approriate.                                     */
-public static native int SparseSolve(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseMatrix_Double XB);
-
-/** \abstract Solve the equation Subfactor * X = B for the matrix X, in place.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param XB (input/output) On input, the matrix B. On return it is overwritten
- *         with the matrix X. If Subfactor is m x n, then XB must have dimension
- *         k x nrhs, where k = max(m, n) and nrhs is the number of right-hand
- *         sides. If m != n, then only the first min(m,n) entries are used for
- *         input or output as approriate.                                     */
-public static native int SparseSolve(@ByVal SparseOpaqueSubfactor_Float Subfactor, @ByVal DenseMatrix_Float XB);
-
-/** \abstract Solve the equation Subfactor * X = B for the matrix X.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by SparseCreateSubfactor().
- *
- *  @param B (input) The right-hand sides B. If Subfactor is m x n, then B must
- *         have dimension m x nrhs, where nrhs is the number of right-hand
- *         sides.
- *
- *  @param X (output) The solutions X. If Subfactor is m x n, and B is m x nrhs,
- *         then X must have dimension n x nrhs.                               */
-public static native int SparseSolve(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseMatrix_Double B,
-  @ByVal DenseMatrix_Double X);
-
-/** \abstract Solve the equation Subfactor * X = B for the matrix X.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by SparseCreateSubfactor().
- *
- *  @param B (input) The right-hand sides B. If Subfactor is m x n, then B must
- *         have dimension m x nrhs, where nrhs is the number of right-hand
- *         sides.
- *
- *  @param X (output) The solutions X. If Subfactor is m x n, and B is m x nrhs,
- *         then X must have dimension n x nrhs.                               */
-public static native int SparseSolve(@ByVal SparseOpaqueSubfactor_Float Subfactor, @ByVal DenseMatrix_Float B,
-  @ByVal DenseMatrix_Float X);
-
-/**** Matrix solve functions with user-supplied workspace *********************/
-
-/** \abstract Solve the equation Subfactor * X = B for the matrix X, in place.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param XB (input/output) On input, the matrix B. On return it is overwritten
- *         with the matrix X. If Subfactor is m x n, then XB must have dimension
- *         k x nrhs, where k = max(m, n) and nrhs is the number of right-hand
- *         sides. If m != n, then only the first min(m,n) entries are used for
- *         input or output as approriate.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + nrhs * Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseSolve(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseMatrix_Double XB,
-  Pointer workspace);
-
-/** \abstract Solve the equation Subfactor * X = B for the matrix X, in place.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param XB (input/output) On input, the matrix B. On return it is overwritten
- *         with the matrix X. If Subfactor is m x n, then XB must have dimension
- *         k x nrhs, where k = max(m, n) and nrhs is the number of right-hand
- *         sides. If m != n, then only the first min(m,n) entries are used for
- *         input or output as approriate.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + nrhs * Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseSolve(@ByVal SparseOpaqueSubfactor_Float Subfactor, @ByVal DenseMatrix_Float XB,
-  Pointer workspace);
-
-/** \abstract Solve the equation Subfactor * X = B for the matrix X.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param B (input) The right-hand sides B. If Subfactor is m x n, then B must
- *         have dimension m x nrhs, where nrhs is the number of right-hand
- *         sides.
- *
- *  @param X (output) The solutions X. If Subfactor is m x n, and B is m x nrhs,
- *         then X must have dimension n x nrhs.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + nrhs * Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseSolve(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseMatrix_Double B,
-  @ByVal DenseMatrix_Double X, Pointer workspace);
-
-/** \abstract Solve the equation Subfactor * X = B for the matrix X.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param B (input) The right-hand sides B. If Subfactor is m x n, then B must
- *         have dimension m x nrhs, where nrhs is the number of right-hand
- *         sides.
- *
- *  @param X (output) The solutions X. If Subfactor is m x n, and B is m x nrhs,
- *         then X must have dimension n x nrhs.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + nrhs * Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseSolve(@ByVal SparseOpaqueSubfactor_Float Subfactor, @ByVal DenseMatrix_Float B,
-  @ByVal DenseMatrix_Float X, Pointer workspace);
-
-/**** Vector solve ************************************************************/
-
-/** \abstract Solve the equation Subfactor * x = b for the vector x, in place.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param xb (input/output) On input, the vector b. On return it is overwritten
- *         with the solution vector x. If Subfactor is m x n, then xb must have
- *         length k, where k = max(m, n). If m != n, then only the first
- *         min(m,n) entries are used for input or output as approriate.       */
-public static native int SparseSolve(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseVector_Double xb);
-
-/** \abstract Solve the equation Subfactor * x = b for the vector x, in place.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param xb (input/output) On input, the vector b. On return it is overwritten
- *         with the solution vector x. If Subfactor is m x n, then xb must have
- *         length k, where k = max(m, n). If m != n, then only the first
- *         min(m,n) entries are used for input or output as approriate.       */
-public static native int SparseSolve(@ByVal SparseOpaqueSubfactor_Float Subfactor, @ByVal DenseVector_Float xb);
-
-/** \abstract Solve the equation Subfactor * x = b for the vector x.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param b (input) The right-hand side b. If Subfactor is m x n, then b must
- *         have length m.
- *
- *  @param x (output) The solution x. If Subfactor is m x n, then x must have
- *         length n.                                                          */
-public static native int SparseSolve(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseVector_Double b,
-  @ByVal DenseVector_Double x);
-
-/** \abstract Solve the equation Subfactor * x = b for the vector x.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param b (input) The right-hand side b. If Subfactor is m x n, then b must
- *         have length m.
- *
- *  @param x (output) The solution x. If Subfactor is m x n, then x must have
- *         length n.                                                          */
-public static native int SparseSolve(@ByVal SparseOpaqueSubfactor_Float Subfactor, @ByVal DenseVector_Float b,
-  @ByVal DenseVector_Float x);
-
-/**** Vector solve functions with user-supplied workspace *********************/
-
-/** \abstract Solve the equation Subfactor * x = b for the vector x, in place.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param xb (input/output) On input, the vector b. On return it is overwritten
- *         with the solution vector x. If Subfactor is m x n, then xb must have
- *         length k, where k = max(m, n). If m != n, then only the first
- *         min(m,n) entries are used for input or output as approriate.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + 1*Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseSolve(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseVector_Double xb,
-  Pointer workspace);
-
-/** \abstract Solve the equation Subfactor * x = b for the vector x, in place.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param xb (input/output) On input, the vector b. On return it is overwritten
- *         with the solution vector x. If Subfactor is m x n, then xb must have
- *         length k, where k = max(m, n). If m != n, then only the first
- *         min(m,n) entries are used for input or output as approriate.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + 1*Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-
-/** \abstract Solve the equation Subfactor * x = b for the vector x, in place.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param b (input) The right-hand side b. If Subfactor is m x n, then b must
- *         have length m.
- *
- *  @param x (output) The solution x. If Subfactor is m x n, then x must have
- *         length n.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + 1*Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseSolve(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseVector_Double b,
-  @ByVal DenseVector_Double x, Pointer workspace);
-
-/** \abstract Solve the equation Subfactor * x = b for the vector x, in place.
- *
- *  @param Subfactor (input) The subfactor to solve a system involving, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param b (input) The right-hand side b. If Subfactor is m x n, then b must
- *         have length m.
- *
- *  @param x (output) The solution x. If Subfactor is m x n, then x must have
- *         length n.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + 1*Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseSolve(@ByVal SparseOpaqueSubfactor_Float Subfactor, @ByVal DenseVector_Float b,
-  @ByVal DenseVector_Float x, Pointer workspace);
-
-/**** Matrix multiply functions ***********************************************/
-
-/** \abstract Perform the multiply operation Y = Subfactor * X in place.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param XY (input/output) On input, the matrix X. On return it is overwritten
- *         with the matrix Y. If Subfactor is m x n, then XB must have dimension
- *         k x nrhs, where k = max(m, n) and nrhs is the number of right-hand
- *         side vectors. If m != n, then only the first min(m,n) entries are
- *         used for input or output as approriate.                            */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseMatrix_Double XY);
-
-/** \abstract Perform the multiply operation Y = Subfactor * X in place.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param XY (input/output) On input, the matrix X. On return it is overwritten
- *         with the matrix Y. If Subfactor is m x n, then XB must have dimension
- *         k x nrhs, where k = max(m, n) and nrhs is the number of right-hand
- *         side vectors. If m != n, then only the first min(m,n) entries are
- *         used for input or output as approriate.                            */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Float Subfactor, @ByVal DenseMatrix_Float XY);
-
-/** \abstract Perform the multiply operation Y = Subfactor * X.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param X (input) The right-hand side vectors X. If Subfactor is m x n, then X
- *         must have dimension n x nrhs, where nrhs is the number of right-hand
- *         side vectors.
- *
- *  @param Y (output) The result vectors Y. If Subfactor is m x n, and X is
- *         m x nrhs, then Y must have dimension m x nrhs.                     */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseMatrix_Double X,
-  @ByVal DenseMatrix_Double Y);
-
-/** \abstract Perform the multiply operation Y = Subfactor * X.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param X (input) The right-hand side vectors X. If Subfactor is m x n, then X
- *         must have dimension n x nrhs, where nrhs is the number of right-hand
- *         side vectors.
- *
- *  @param Y (output) The result vectors Y. If Subfactor is m x n, and X is
- *         m x nrhs, then Y must have dimension m x nrhs.                     */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Float Subfactor, @ByVal DenseMatrix_Float X,
-  @ByVal DenseMatrix_Float Y);
-
-/**** Matrix multiply functions with user-supplied workspace ******************/
-
-/** \abstract Perform the multiply operation Y = Subfactor * X in place.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param XY (input/output) On input, the matrix X. On return it is overwritten
- *         with the matrix Y. If Subfactor is m x n, then XB must have dimension
- *         k x nrhs, where k = max(m, n) and nrhs is the number of right-hand
- *         side vectors. If m != n, then only the first min(m,n) entries are
- *         used for input or output as approriate.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + nrhs * Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseMatrix_Double XY,
-  Pointer workspace);
-
-/** \abstract Perform the multiply operation Y = Subfactor * X in place.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param XY (input/output) On input, the matrix X. On return it is overwritten
- *         with the matrix Y. If Subfactor is m x n, then XB must have dimension
- *         k x nrhs, where k = max(m, n) and nrhs is the number of right-hand
- *         side vectors. If m != n, then only the first min(m,n) entries are
- *         used for input or output as approriate.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + nrhs * Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Float Subfactor, @ByVal DenseMatrix_Float XY,
-  Pointer workspace);
-
-/** \abstract Perform the multiply operation Y = Subfactor * X.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param X (input) The right-hand side vectors X. If Subfactor is m x n, then X
- *         must have dimension n x nrhs, where nrhs is the number of right-hand
- *         side vectors.
- *
- *  @param Y (output) The result vectors Y. If Subfactor is m x n, and X is
- *         m x nrhs, then Y must have dimension m x nrhs.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + nrhs * Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseMatrix_Double X,
-  @ByVal DenseMatrix_Double Y, Pointer workspace);
-
-/** \abstract Perform the multiply operation Y = Subfactor * X.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param X (input) The right-hand side vectors X. If Subfactor is m x n, then X
- *         must have dimension n x nrhs, where nrhs is the number of right-hand
- *         side vectors.
- *
- *  @param Y (output) The result vectors Y. If Subfactor is m x n, and X is
- *         m x nrhs, then Y must have dimension m x nrhs.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + nrhs * Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Float Subfactor, @ByVal DenseMatrix_Float X,
-  @ByVal DenseMatrix_Float Y, Pointer workspace);
-
-/**** Vector multiply functions ***********************************************/
-
-/** \abstract Perform the multiply operation y = Subfactor * x in place.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param xy (input/output) On input, the vector x. On return it is overwritten
- *         with the vector y. If Subfactor is m x n, then xb must have length
- *         k, where k = max(m, n). If m != n, then only the first min(m,n)
- *         entries are used for input or output as approriate.                */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseVector_Double xy);
-
-/** \abstract Perform the multiply operation y = Subfactor * x in place.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param xy (input/output) On input, the vector x. On return it is overwritten
- *         with the vector y. If Subfactor is m x n, then xb must have length
- *         k, where k = max(m, n). If m != n, then only the first min(m,n)
- *         entries are used for input or output as approriate.                */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Float Subfactor, @ByVal DenseVector_Float xy);
-
-/** \abstract Perform the multiply operation y = Subfactor * x.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param x (input) The right-hand side vector x. If Subfactor is m x n, then x
- *         must have length n.
- *
- *  @param y (output) The result vector y. If Subfactor is m x n, then y must have
- *         length m.                                                          */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseVector_Double x,
-  @ByVal DenseVector_Double y);
-
-/** \abstract Perform the multiply operation y = Subfactor * x.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param x (input) The right-hand side vector x. If Subfactor is m x n, then x
- *         must have length n.
- *
- *  @param y (output) The result vector y. If Subfactor is m x n, then y must have
- *         length m.                                                          */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Float Subfactor, @ByVal DenseVector_Float x,
-  @ByVal DenseVector_Float y);
-
-/**** Vector multiply functions with user-supplied workspace ******************/
-
-/** \abstract Perform the multiply operation y = Subfactor * x in place.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param xy (input/output) On input, the vector x. On return it is overwritten
- *         with the vector y. If Subfactor is m x n, then xb must have length
- *         k, where k = max(m, n). If m != n, then only the first min(m,n)
- *         entries are used for input or output as approriate.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + 1*Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseVector_Double xy,
-  Pointer workspace);
-
-/** \abstract Perform the multiply operation y = Subfactor * x in place.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param xy (input/output) On input, the vector x. On return it is overwritten
- *         with the vector y. If Subfactor is m x n, then xb must have length
- *         k, where k = max(m, n). If m != n, then only the first min(m,n)
- *         entries are used for input or output as approriate.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + 1*Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Float Subfactor, @ByVal DenseVector_Float xy,
-  Pointer workspace);
-
-/** \abstract Perform the multiply operation y = Subfactor * x.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param x (input) The right-hand side vector x. If Subfactor is m x n, then x
- *         must have length n.
- *
- *  @param y (output) The result vector y. If Subfactor is m x n, then y must have
- *         length m.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + 1*Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Double Subfactor, @ByVal DenseVector_Double x,
-  @ByVal DenseVector_Double y, Pointer workspace);
-
-/** \abstract Perform the multiply operation y = Subfactor * x.
- *
- *  @param Subfactor (input) The subfactor to multiply by, as returned by
- *         SparseCreateSubfactor().
- *
- *  @param x (input) The right-hand side vector x. If Subfactor is m x n, then x
- *         must have length n.
- *
- *  @param y (output) The result vector y. If Subfactor is m x n, then y must have
- *         length m.
- *
- *  @param workspace (scratch) A workspace of size
- *         Subfactor.workspaceRequiredStatic + 1*Subfactor.workspaceRequiredPerRHS.
- *         This memory must be 16-byte aligned (any allocation returned
- *         by malloc() has this property).
- */
-public static native int SparseMultiply(@ByVal SparseOpaqueSubfactor_Float Subfactor, @ByVal DenseVector_Float x,
-  @ByVal DenseVector_Float y, Pointer workspace);
-
-/******************************************************************************
- *  \group Preconditioners
- ******************************************************************************/
-
-/** \abstract Types of preconditioner.
- *
- *  \const SparsePreconditionerNone
- *    No preconditioner, used to flag an empty type as required.
- *  \const SparsePreconditionerUser
- *    User-defined preconditioner.
- *  \const SparsePreconditionerDiagonal
- *    Diagonal (Jacobi) preconditioner D_ii = 1.0 / A_ii.
- *    Zero entries on the diagonal of A are replaced with 1.0.
- *  \cont SparsePreconditionerDiagScaling
- *    Diagonal scaling preconditioner D_ii = 1.0 / || A_i ||_2, where A_i is
- *    i-th column of A.
- */ /** enum  */
- public static final int
-   SparsePreconditionerNone = 0,
-  SparsePreconditionerUser = 1,
-  SparsePreconditionerDiagonal = 2,
-  SparsePreconditionerDiagScaling = 3;
-
-/** \abstract Represents a preconditioner.
- *
- *  \field type The type of preconditioner represented.
- *
- *  \field mem Block of memory that will be passed unaltered as the first
- *         argument of the apply() callback.
- *
- *  {@literal @}callback apply(mem, trans, X, Y) Function to call to apply the
- *             preconditioner as Y = PX (trans=false) or Y = P^TX (trans=true).
- *    {@literal @}param mem   The unaltered pointer mem from this struct.
- *    {@literal @}param trans Flags whether to apply the preconditioner or its transpose.
- *    {@literal @}param X     The right-hand side vectors X.
- *    {@literal @}param Y     The result vectors Y.                                     */
-public static class SparseOpaquePreconditioner_Double extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseOpaquePreconditioner_Double() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseOpaquePreconditioner_Double(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseOpaquePreconditioner_Double(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseOpaquePreconditioner_Double position(long position) {
-        return (SparseOpaquePreconditioner_Double)super.position(position);
-    }
-    @Override public SparseOpaquePreconditioner_Double getPointer(long i) {
-        return new SparseOpaquePreconditioner_Double((Pointer)this).offsetAddress(i);
-    }
-
-  public native @Cast("SparsePreconditioner_t") int type(); public native SparseOpaquePreconditioner_Double type(int setter);
-  public native Pointer mem(); public native SparseOpaquePreconditioner_Double mem(Pointer setter);
-  public static class Apply_Pointer_int_DenseMatrix_Double_DenseMatrix_Double extends FunctionPointer {
-      static { Loader.load(); }
-      /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-      public    Apply_Pointer_int_DenseMatrix_Double_DenseMatrix_Double(Pointer p) { super(p); }
-      protected Apply_Pointer_int_DenseMatrix_Double_DenseMatrix_Double() { allocate(); }
-      private native void allocate();
-      public native void call(Pointer arg0, @Cast("CBLAS_TRANSPOSE") int trans, @ByVal DenseMatrix_Double X, @ByVal DenseMatrix_Double Y);
-  }
-  public native Apply_Pointer_int_DenseMatrix_Double_DenseMatrix_Double apply(); public native SparseOpaquePreconditioner_Double apply(Apply_Pointer_int_DenseMatrix_Double_DenseMatrix_Double setter);
-}
-
-/** \abstract Represents a preconditioner.
- *
- *  \field type The type of preconditioner represented.
- *
- *  \field mem Block of memory that will be passed unaltered as the first
- *         argument of the apply() callback.
- *
- *  {@literal @}callback apply(mem, trans, X, Y) Function to call to apply the
- *             preconditioner as Y = PX (trans=false) or Y = P^TX (trans=true).
- *    {@literal @}param mem   The unaltered pointer mem from this struct.
- *    {@literal @}param trans Flags whether to apply the preconditioner or its transpose.
- *    {@literal @}param X     The right-hand side vectors X.
- *    {@literal @}param Y     The result vectors Y.                                     */
-public static class SparseOpaquePreconditioner_Float extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseOpaquePreconditioner_Float() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseOpaquePreconditioner_Float(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseOpaquePreconditioner_Float(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseOpaquePreconditioner_Float position(long position) {
-        return (SparseOpaquePreconditioner_Float)super.position(position);
-    }
-    @Override public SparseOpaquePreconditioner_Float getPointer(long i) {
-        return new SparseOpaquePreconditioner_Float((Pointer)this).offsetAddress(i);
-    }
-
-  public native @Cast("SparsePreconditioner_t") int type(); public native SparseOpaquePreconditioner_Float type(int setter);
-  public native Pointer mem(); public native SparseOpaquePreconditioner_Float mem(Pointer setter);
-  public static class Apply_Pointer_int_DenseMatrix_Float_DenseMatrix_Float extends FunctionPointer {
-      static { Loader.load(); }
-      /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-      public    Apply_Pointer_int_DenseMatrix_Float_DenseMatrix_Float(Pointer p) { super(p); }
-      protected Apply_Pointer_int_DenseMatrix_Float_DenseMatrix_Float() { allocate(); }
-      private native void allocate();
-      public native void call(Pointer arg0, @Cast("CBLAS_TRANSPOSE") int trans, @ByVal DenseMatrix_Float X, @ByVal DenseMatrix_Float arg3);
-  }
-  public native Apply_Pointer_int_DenseMatrix_Float_DenseMatrix_Float apply(); public native SparseOpaquePreconditioner_Float apply(Apply_Pointer_int_DenseMatrix_Float_DenseMatrix_Float setter);
-}
-
-/** \abstract Create a preconditioner for the given matrix.
- *
- *  @param type (input) The type of preconditioner to create.
- *
- *  @param A (input) The matrix to construct a preconditioner for.
- *
- *  @return The constructed preconditioner object. Resource must be freed
- *           through a call to SparseCleanup() once the user is finished with
- *           the preconditioner.                                              */
-public static native int SparseCreatePreconditioner(
-  @Cast("SparsePreconditioner_t") int type, @ByVal SparseMatrix_Double A);
-
-/** \abstract Create a preconditioner for the given matrix.
- *
- *  @param type (input) The type of preconditioner to create.
- *
- *  @param A (input) The matrix to construct a preconditioner for.
- *
- *  @return The constructed preconditioner object. Resource must be freed
- *           through a call to SparseCleanup() once the user is finished with
- *           the preconditioner.                                              */
-public static native int SparseCreatePreconditioner(
-  @Cast("SparsePreconditioner_t") int type, @ByVal SparseMatrix_Float A);
-
-/******************************************************************************
- *  \group Sparse Iterative Methods
- ******************************************************************************
- * \discussion
- * Sparse Iterative methods solve Ax=b through an iterative process that only
- * requires multiplication by A or A^T. However, if A is numerically difficult,
- * the iterative process may fail to converge to a solution. Further, even for
- * problems where the process converges, it may do so slowly. Both of these
- * issues can be fixed through the application of a problem-specific
- * preconditioner that cheaply approximates the inverse of A (though good
- * preconditioners are not known for all probelms).
- *
- * More information on iterative methods is available on wikipedia:
- * https://en.wikipedia.org/wiki/Iterative_method
- *
- * The following book provides a more in-depth treatment of the subject:
- * [1] Y. Saad (2003), "Iterative Methods for Sparse Linear Systems",
- *     2nd Edition, Published by SIAM.                                        */
-
-/**** Type definitions ********************************************************/
-
-/** \abstract Exit status definitions for sparse iterative methods.
- *
- *  \const SparseIterativeConverged
- *    All solution vectors converged.
- *  \const SparseIterativeMaxIterations
- *    One or more solutions failed to converge in the maximum number of
- *    iterations.
- *  \const SparseIterativeParameterError
- *    There was an error with one or more user-supplied parameters.
- *  \const SparseIterativeIllConditioned
- *    Problem determined to be sufficiently ill conditioned convergence is
- *    unlikely.
- *  \const SparseIterativeInternalError
- *    Some internal failure occured (e.g. memory allocation failed).          */ /** enum  */
- public static final int
-   SparseIterativeConverged = 0,
-  SparseIterativeMaxIterations = 1,
-  SparseIterativeParameterError = -1,
-  SparseIterativeIllConditioned = -2,
-  SparseIterativeInternalError = -99;
-
-/** \internal This type required for implementation use only.
- *
- *  \abstract Base type for iterative method options structures.
- *
- *  \discussion In the SparseIterativeMethod datatype, all possible options
- *  structures are held as a union. Defining this base type allows easy access
- *  to the reportError() method regardless of which particular method the
- *  structure represents, so long as reportError() is the first entry in each
- *  options structure.
- *
- *  {@literal @}callback reportError Function to use to report parameter errors.
- *    {@literal @}param message
- *    {@literal @}discussion If NULL, errors are logged via <os/log.h> and execution is
- *      halted via __builtin_trap().  If non-NULL, the provided function is
- *      called with a human-readable string describing the error condition.
- *      If the callback returns, control will be returned to the caller with
- *      any outputs in a safe but undefined state (i.e. they may hold partial
- *      results or garbage, but all sizes and pointers are valid).            */
-public static class _SparseIterativeMethodBaseOptions extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public _SparseIterativeMethodBaseOptions() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public _SparseIterativeMethodBaseOptions(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public _SparseIterativeMethodBaseOptions(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public _SparseIterativeMethodBaseOptions position(long position) {
-        return (_SparseIterativeMethodBaseOptions)super.position(position);
-    }
-    @Override public _SparseIterativeMethodBaseOptions getPointer(long i) {
-        return new _SparseIterativeMethodBaseOptions((Pointer)this).offsetAddress(i);
-    }
-
-  // reportError should always be FIRST member in below structs
-  @Convention("_Nullable") public static class ReportError_BytePointer extends FunctionPointer {
-      static { Loader.load(); }
-      /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-      public    ReportError_BytePointer(Pointer p) { super(p); }
-      protected ReportError_BytePointer() { allocate(); }
-      private native void allocate();
-      public native void call(@Cast("const char*") BytePointer message);
-  }
-  public native ReportError_BytePointer reportError(); public native _SparseIterativeMethodBaseOptions reportError(ReportError_BytePointer setter);
-}
-
-/** \abstract Conjugate Gradient Options.
- *
- *  \discussion Use CG to solve Ax=b when A is symmetric positive-definite (the method may break
- *  down or fail to converge if A is not positive-definite).
- *
- *  For square, full rank unsymmetric or indefinite equations, use GMRES instead.
- *  For rectangular or singular systems, use LSMR instead.
- *
- *  More information on the CG algorithm can be found on wikipedia:
- *  https://en.wikipedia.org/wiki/Conjugate_gradient_method
- *
- *  A more detailed review of CG is available in the paper:
- *  [1] J. Shewchuk (1994), "An Introduction to the Conjugate Gradient Method Without the
- *      Agonizing Pain", Technical Report, Carnegie Mellon University.
- *
- *  {@literal @}callback reportError Function to use to report parameter errors.
- *    {@literal @}param message
- *    {@literal @}discussion If NULL, errors are logged via <os/log.h> and execution is
- *      halted via __builtin_trap().  If non-NULL, the provided function is
- *      called with a human-readable string describing the error condition.
- *      If the callback returns, control will be returned to the caller with
- *      any outputs in a safe but undefined state (i.e. they may hold partial
- *      results or garbage, but all sizes and pointers are valid).
- *
- *  \field maxIterations
- *    Maximum number of iterations to perform. If 0, the default value of 100
- *    is used.
- *
- *  \field atol
- *    Absolute convergence tolerance. Iterate is considered to have converged if
- *              || b-Ax ||_2 < rtol * || b-Ax_0 ||_2 + atol.
- *  \field rtol
- *    Relative convergence tolerance. Iterate is considered to have converged if
- *              || b-Ax ||_2 < rtol * || b-Ax_0 ||_2 + atol.
- *    If rtol = 0.0, default value of sqrt(epsilon) is used.
- *    If negative, rtol is treated as 0.0 (default is not used).
- *
- *  {@literal @}callback reportStatus Function to use to report status (iteration count
- *             and residual of first right-hand side) every few iterations.
- *    {@literal @}param message
- *    {@literal @}discussion If NULL, status is not reported.                           */
-public static class SparseCGOptions extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseCGOptions() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseCGOptions(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseCGOptions(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseCGOptions position(long position) {
-        return (SparseCGOptions)super.position(position);
-    }
-    @Override public SparseCGOptions getPointer(long i) {
-        return new SparseCGOptions((Pointer)this).offsetAddress(i);
-    }
-
-  @Convention("_Nullable") public static class ReportError_BytePointer extends FunctionPointer {
-      static { Loader.load(); }
-      /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-      public    ReportError_BytePointer(Pointer p) { super(p); }
-      protected ReportError_BytePointer() { allocate(); }
-      private native void allocate();
-      public native void call(@Cast("const char*") BytePointer message);
-  }
-  public native ReportError_BytePointer reportError(); public native SparseCGOptions reportError(ReportError_BytePointer setter);
-  public native int maxIterations(); public native SparseCGOptions maxIterations(int setter);
-  public native double atol(); public native SparseCGOptions atol(double setter);
-  public native double rtol(); public native SparseCGOptions rtol(double setter);
-  @Convention("_Nullable") public static class ReportStatus_BytePointer extends FunctionPointer {
-      static { Loader.load(); }
-      /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-      public    ReportStatus_BytePointer(Pointer p) { super(p); }
-      protected ReportStatus_BytePointer() { allocate(); }
-      private native void allocate();
-      public native void call(@Cast("const char*") BytePointer message);
-  }
-  public native ReportStatus_BytePointer reportStatus(); public native SparseCGOptions reportStatus(ReportStatus_BytePointer setter);
-}
-
-/** \abstract Specify different variants of GMRES that can be used.
- *
- *  \discussion Basic GMRES requires restarting (as otherwise memory and
- *  calculation costs to keep vectors orthagonal become prohibitive). Upon
- *  restarting all information from previous iterations is discarded.
- *  DQGMRES implements a quasi-GMRES method that does not restart, but instead
- *  only performs orthagonalization against vectors from the most recent
- *  iterations.
- *  Basic GMRES also requires that the same preconditioner is used at every
- *  iteration. At the cost of some additional storage and work, it can be
- *  made flexible (able to cope with different preconditioners at each
- *  iteration) this variant is known as FGMRES.
- *  DGMRES is inherently flexible, so no additional flexible variant is
- *  required.
- *
- *  DQGMRES is the default variant, though for some problems, GMRES or FGMRES
- *  may converge faster and require less computation, particualrly if the
- *  number of orthagonalization vectors nvec is small (< 16).
- *
- *  \const SparseVariantDQGMRES
- *    Use DQGMRES variant. This method is flexible.
- *  \const SparseVariantGMRES
- *    Use standard restarted GMRES. This method is not flexible.
- *  \const SparseVariantFGMRES
- *    Use Flexible GMRES. This method is flexible.                            */ /** enum  */
- public static final int
-   SparseVariantDQGMRES = 0,
-  SparseVariantGMRES = 1,
-  SparseVariantFGMRES = 2;
-
-/** \abstract (right-preconditioned) (F/DQ)GMRES Parameters Options.
- *
- *  \discussion Use (F/DQ)GMRES to solve Ax=b when A is symmetric indefinite or unsymmetric.
- *
- *  For symmetric positive-definite systems, use CG instead.
- *  For rectangular or singular systems, use LSMR instead.
- *
- *  More information about GMRES can be found on wikipedia:
- *  https://en.wikipedia.org/wiki/Generalized_minimal_residual_method
- *
- *  A more detailed description of GMRES and its variants is available in the book:
- *  [1] Y. Saad (2003), "Iterative Methods for Sparse Linear Systems", 2nd Edition,
- *      Published by SIAM.
- *
- *  {@literal @}callback reportError Function to use to report parameter errors.
- *    {@literal @}param message
- *    {@literal @}discussion If NULL, errors are logged via <os/log.h> and execution is
- *      halted via __builtin_trap().  If non-NULL, the provided function is
- *      called with a human-readable string describing the error condition.
- *      If the callback returns, control will be returned to the caller with
- *      any outputs in a safe but undefined state (i.e. they may hold partial
- *      results or garbage, but all sizes and pointers are valid).
- *
- *  \field variant
- *    Variant of GMRES to use. See definition of SparseGMRESVariant_t for
- *    further information on the available variants.
- *
- *  \field nvec
- *    Number of orthagonal vectors maintained. For GMRES and FGMRES variants,
- *    this is the number of iterations between restarts. For DQGMRES it is the
- *    number of historical vectors maintained in memory.
- *    If nvec<=0, the default value of 16 is used.
- *
- *  \field maxIterations
- *    Maximum number of iterations to perform. If 0, the default value of 100
- *    is used.
- *
- *  \field atol
- *    Absolute convergence tolerance. Iterate is considered to have converged if
- *              || b-Ax ||_2 < rtol * || b-Ax_0 ||_2 + atol.
- *  \field rtol
- *    Relative convergence tolerance. Iterate is considered to have converged if
- *              || b-Ax ||_2 < rtol * || b-Ax_0 ||_2 + atol.
- *    If rtol = 0.0, default value of sqrt(epsilon) is used.
- *    If negative, rtol is treated as 0.0 (default is not used).
- *
- *  {@literal @}callback reportStatus Function to use to report status (iteration count
- *             and residual of first right-hand side) every few iterations.
- *    {@literal @}param message
- *    {@literal @}discussion If NULL, status is not reported.                           */
-public static class SparseGMRESOptions extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseGMRESOptions() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseGMRESOptions(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseGMRESOptions(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseGMRESOptions position(long position) {
-        return (SparseGMRESOptions)super.position(position);
-    }
-    @Override public SparseGMRESOptions getPointer(long i) {
-        return new SparseGMRESOptions((Pointer)this).offsetAddress(i);
-    }
-
-  @Convention("_Nullable") public static class ReportError_BytePointer extends FunctionPointer {
-      static { Loader.load(); }
-      /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-      public    ReportError_BytePointer(Pointer p) { super(p); }
-      protected ReportError_BytePointer() { allocate(); }
-      private native void allocate();
-      public native void call(@Cast("const char*") BytePointer message);
-  }
-  public native ReportError_BytePointer reportError(); public native SparseGMRESOptions reportError(ReportError_BytePointer setter);
-  public native @Cast("SparseGMRESVariant_t") byte variant(); public native SparseGMRESOptions variant(byte setter);
-  public native int nvec(); public native SparseGMRESOptions nvec(int setter);
-  public native int maxIterations(); public native SparseGMRESOptions maxIterations(int setter);
-  public native double atol(); public native SparseGMRESOptions atol(double setter);
-  public native double rtol(); public native SparseGMRESOptions rtol(double setter);
-  @Convention("_Nullable") public static class ReportStatus_BytePointer extends FunctionPointer {
-      static { Loader.load(); }
-      /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-      public    ReportStatus_BytePointer(Pointer p) { super(p); }
-      protected ReportStatus_BytePointer() { allocate(); }
-      private native void allocate();
-      public native void call(@Cast("const char*") BytePointer message);
-  }
-  public native ReportStatus_BytePointer reportStatus(); public native SparseGMRESOptions reportStatus(ReportStatus_BytePointer setter);
-}
-
-/** \abstract Available types of convergence test for LSMR.
- *
- *  \discussion In addition to accelerate's default convergence test
- *  applied to the normal equations, the original more specializated
- *  convergence test of Fong and Saunders is offered.
- *
- *  \const SparseLSMRCTDefault
- *    Use accelerate's default convergence test:
- *      || A^Tb - A^TAx ||_2 < rtol * || A^Tb - A^TAx_0 ||_2 + atol.
- *
- *  \const SparseLSMRCTFongSaunders
- *    Use the convergence test of Fong and Saunders:
- *      Either || b-Ax ||_2 < btol * || b ||_2 + atol * || A ||_2 || x ||_2
- *      or     || A^T (b-Ax) ||_2 < atol * || A ||_2 * || A-bx ||_2
- *      or     Estimated condition of matrix >= conditionLimit                */ /** enum  */
- public static final int
-   SparseLSMRCTDefault = 0,
-  SparseLSMRCTFongSaunders = 1;
-
-/** \abstract LSMR is MINRES specialised for solving least squares.
- *
- *  \discussion Use LSMR to solve equations of the form Ax=b where an exact
- *  solution does not exist. The returned solution minimises || b-Ax ||_2.
- *
- *  Whilst LSMR is equivalent to MINRES applied to the normal equations
- *  A^TAx = A^Tb in exact arithmetic, it has superior numerical behaviour and
- *  should be used in preference.
- *
- *  We note that due to the implicit squaring of the condition of A in the
- *  normal equations, LSMR may struggle to converge in single precision, and
- *  double precision arithmetic is recommended.
- *
- *  For symmetric positive-definite systems, use CG instead.
- *  For square, full rank unsymmetric or indefinite equations, use GMRES instead.
- *
- *  LSMR is described in the following paper:
- *  [1] D.C.-L. Fong and M.A. Saunders (2011), "LSMR: An iterative algoirthm for
- *      sparse least-squares problems", SIAM J. Scientific Computing 33(5),
- *      pp 2950--2971.
- *
- *  {@literal @}callback reportError Function to use to report parameter errors.
- *    {@literal @}param message
- *    {@literal @}discussion If NULL, errors are logged via <os/log.h> and execution is
- *      halted via __builtin_trap().  If non-NULL, the provided function is
- *      called with a human-readable string describing the error condition.
- *      If the callback returns, control will be returned to the caller with
- *      any outputs in a safe but undefined state (i.e. they may hold partial
- *      results or garbage, but all sizes and pointers are valid).
- *
- *  \field lambda
- *    Damping parameter, if non-zero the actual problem solved is
- *          min_x || Ax-b ||_2 + lambda || x ||_2.
- *    Using damping can often allow the iteration to converge on ill-conditioned
- *    systems.
- *
- *  \field variant
- *    Variant of GMRES to use. See definition of SparseGMRESVariant_t for
- *    further information on the available variants.
- *
- *  \field nvec
- *    Number of vectors used for local orthagonalization.
- *    If nvec<=0, no orthagonalization is performed.
- *
- *  \field convergenceTest
- *    Which convergence test to use. See definition of
- *    SparseLSMRConvergenceTest_t for further information.
- *
- *  \field maxIterations
- *    Maximum number of iterations to perform. If 0, the default value of 4n
- *    is used.
- *    However, if a good preconditioner is available and/or the matrix is well
- *    conditioned such that singular values are clustered, a value of n/2 may
- *    be more approriate.
- *
- *  \field atol
- *    Either absolute tolerance (default test) or A tolerance (Fong-Saunders
- *    test). In the Fong and Saunders case, it should hold an estimate of the
- *    relative error in the data defining the matrix A. For example, if A is
- *    accurate to about 6 digits, set atol = 1.0e-6. In the Fong and Saunders
- *    case, if atol is 0.0, it is treated as machine epsilon. If using the
- *    default test, a value of 0.0 is treated as 0.0.
- *
- *  \field rtol
- *    Relative convergence tolerance (default test only).
- *    If rtol = 0.0, default value of sqrt(epsilon) is used.
- *    If negative, rtol is treated as 0.0 (default is not used).
- *
- *  \field btol
- *    b tolerance (Fong-Saunders test only). It should hold an estimate of the
- *    relative error in the data defining the rhs b. For example, if b is
- *    accurate to about 6 digits, set btol = 1.0e-6. If btol is zero, it
- *    is treated as machine epsilon.
- *
- *  \field conditionLimit
- *    Condition number limit (Fong-Saunders test). Iterations will be terminated
- *    if a computed estimate of cond(Abar) exceeds this value. This is intended
- *    to prevent certain small or zero singular values of A or Abar from coming
- *    into effect and causing unwanted growth in the computed solution.
- *    conditionLimit and lambda may be used separately or together to regularize
- *    ill-conditioned systems.
- *    Normally, conlim should be in the range 1000 to 1/eps.
- *    Suggested value:
- *    conlim = 1/(100*eps)  for compatible systems,
- *    conlim = 1/(10*sqrt(eps)) for least squares.
- *    If conditionLimit is 0.0, it is treated as 1/eps.
- *
- *  {@literal @}callback reportStatus Function to use to report status (iteration count
- *             and residual of first right-hand side) every few iterations.
- *    {@literal @}param message
- *    {@literal @}discussion If NULL, status is not reported.                           */
-public static class SparseLSMROptions extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseLSMROptions() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseLSMROptions(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseLSMROptions(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseLSMROptions position(long position) {
-        return (SparseLSMROptions)super.position(position);
-    }
-    @Override public SparseLSMROptions getPointer(long i) {
-        return new SparseLSMROptions((Pointer)this).offsetAddress(i);
-    }
-
-  @Convention("_Nullable") public static class ReportError_BytePointer extends FunctionPointer {
-      static { Loader.load(); }
-      /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-      public    ReportError_BytePointer(Pointer p) { super(p); }
-      protected ReportError_BytePointer() { allocate(); }
-      private native void allocate();
-      public native void call(@Cast("const char*") BytePointer message);
-  }
-  public native ReportError_BytePointer reportError(); public native SparseLSMROptions reportError(ReportError_BytePointer setter);
-  public native double lambda(); public native SparseLSMROptions lambda(double setter);
-  public native int nvec(); public native SparseLSMROptions nvec(int setter);
-  public native @Cast("SparseLSMRConvergenceTest_t") int convergenceTest(); public native SparseLSMROptions convergenceTest(int setter);
-  public native double atol(); public native SparseLSMROptions atol(double setter);
-  public native double rtol(); public native SparseLSMROptions rtol(double setter);
-  public native double btol(); public native SparseLSMROptions btol(double setter);
-  public native double conditionLimit(); public native SparseLSMROptions conditionLimit(double setter);
-  public native int maxIterations(); public native SparseLSMROptions maxIterations(int setter);
-  @Convention("_Nullable") public static class ReportStatus_BytePointer extends FunctionPointer {
-      static { Loader.load(); }
-      /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-      public    ReportStatus_BytePointer(Pointer p) { super(p); }
-      protected ReportStatus_BytePointer() { allocate(); }
-      private native void allocate();
-      public native void call(@Cast("const char*") BytePointer message);
-  }
-  public native ReportStatus_BytePointer reportStatus(); public native SparseLSMROptions reportStatus(ReportStatus_BytePointer setter);
-}
-
-/** \abstract General description object for all iterative methods.
- *
- *  \discussion This object is intended to be constructed through a call to an
- *  iterative method factory function, such as SparseConjugateGradient() or
- *  SparseLSMR().
- *
- *  \field method The type of method the object represents.
- *
- *  \field options The options to be used for the method.                     */
-public static class SparseIterativeMethod extends Pointer {
-    static { Loader.load(); }
-    /** Default native constructor. */
-    public SparseIterativeMethod() { super((Pointer)null); allocate(); }
-    /** Native array allocator. Access with {@link Pointer#position(long)}. */
-    public SparseIterativeMethod(long size) { super((Pointer)null); allocateArray(size); }
-    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
-    public SparseIterativeMethod(Pointer p) { super(p); }
-    private native void allocate();
-    private native void allocateArray(long size);
-    @Override public SparseIterativeMethod position(long position) {
-        return (SparseIterativeMethod)super.position(position);
-    }
-    @Override public SparseIterativeMethod getPointer(long i) {
-        return new SparseIterativeMethod((Pointer)this).offsetAddress(i);
-    }
-
-  /** \abstract Specify type of method described */
-  public native int method(); public native SparseIterativeMethod method(int setter);
-    @Name("options.base") public native @ByRef _SparseIterativeMethodBaseOptions options_base(); public native SparseIterativeMethod options_base(_SparseIterativeMethodBaseOptions setter);
-    @Name("options.cg") public native @ByRef SparseCGOptions options_cg(); public native SparseIterativeMethod options_cg(SparseCGOptions setter);
-    @Name("options.gmres") public native @ByRef SparseGMRESOptions options_gmres(); public native SparseIterativeMethod options_gmres(SparseGMRESOptions setter);
-    @Name("options.lsmr") public native @ByRef SparseLSMROptions options_lsmr(); public native SparseIterativeMethod options_lsmr(SparseLSMROptions setter);
-    @Name("options.padding") public native @Cast("char") byte options_padding(int i); public native SparseIterativeMethod options_padding(int i, byte setter);
-    @Name("options.padding") @MemberGetter public native @Cast("char*") BytePointer options_padding(); /* Ensure union big enough for future method options */
-}
-
-/**** Iterative Method Factory Functions **************************************/
-
-/** \abstract Return a Conjugate Gradient Method with default options.        */
-public static native int SparseConjugateGradient();
-
-/** \abstract Return a Conjugate Gradient Method with specified options.
- *
- *  @param options Options for conjugate gradient method.                     */
-public static native int SparseConjugateGradient(@ByVal SparseCGOptions options);
-
-/** \abstract Return a GMRES Method with default options.                     */
-public static native int SparseGMRES();
-
-/** \abstract Return a GMRES Method with specified options.
- *
- *  @param options Options for GMRES method.                                  */
-public static native int SparseGMRES(@ByVal SparseGMRESOptions options);
-
-/** \abstract Return a LSMR Method with default options.                      */
-public static native int SparseLSMR();
-
-/** \abstract Return a LSMR Method with specified options
- *
- *  @param options Options for LSMR method.                                   */
-public static native int SparseLSMR(@ByVal SparseLSMROptions options);
-
-/******************************************************************************
- *  \group Iterative Sparse Solve Functions
- ******************************************************************************/
-
-/**** Solve without preconditioner ********************************************/
-
-/** \abstract Solve AX=B using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  @param A (input) The matrix A to solve the system for. Only used for
- *         multiplication by A or A^T.
- *
- *  @param B The right-hand sides B to solve for. If A has dimension m x n, then
- *         B must have dimension m x nrhs, where nrhs is the number of
- *         right-hand sides to find solutions for.
- *
- *  @param X On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, and B has dimension m x nrhs, then X must have
- *         dimension n x nrhs. If no good initial estimate is available, user
- *         should set the initial guess to be the zero vector.                */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal SparseMatrix_Double A, @ByVal DenseMatrix_Double B, @ByVal DenseMatrix_Double X);
-
-/** \abstract Solve AX=B using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  @param A (input) The matrix A to solve the system for. Only used for
- *         multiplication by A or A^T.
- *
- *  @param B The right-hand sides B to solve for. If A has dimension m x n, then
- *         B must have dimension m x nrhs, where nrhs is the number of
- *         right-hand sides to find solutions for.
- *
- *  @param X On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, and B has dimension m x nrhs, then X must have
- *         dimension n x nrhs. If no good initial estimate is available, user
- *         should set the initial guess to be the zero vector.                */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal SparseMatrix_Float A, @ByVal DenseMatrix_Float B, @ByVal DenseMatrix_Float X);
-
-/** \abstract Solve Ax=b using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  @param A (input) The matrix A to solve the system for. Only used for
- *         multiplication by A or A^T.
- *
- *  @param b The right-hand side b to solve for. If A has dimension m x n, then
- *         b must have length m.
- *
- *  @param x On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, then x must have length n. If no good initial
- *         estimate is available, user should set the initial guess to be the
- *         zero vector.                                                       */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal SparseMatrix_Double A, @ByVal DenseVector_Double b, @ByVal DenseVector_Double x);
-
-/** \abstract Solve Ax=b using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  @param A (input) The matrix A to solve the system for. Only used for
- *         multiplication by A or A^T.
- *
- *  @param b The right-hand side b to solve for. If A has dimension m x n, then
- *         b must have length m.
- *
- *  @param x On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, then x must have length n. If no good initial
- *         estimate is available, user should set the initial guess to be the
- *         zero vector.                                                       */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal SparseMatrix_Float A, @ByVal DenseVector_Float b, @ByVal DenseVector_Float x);
-
-/** \abstract Solve AX=B using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  {@literal @}callback ApplyOperator (block) ApplyOperator(accumulate, trans, X, Y)
- *             should perform the operation Y = op(A)X if accumulate is false,
- *             or Y += op(A)X if accumulate is true.
- *    {@literal @}param accumulate (input) Indicates whether to perform Y += op(A)X (if
- *            true) or Y = op(A)X (if false).
- *    {@literal @}param trans (input) Indicates whether op(A) is the application of A
- *            (trans=CblasNoTrans) or A^T (trans=CblasTrans).
- *    {@literal @}param X The matrix to multiply.
- *    {@literal @}param Y The matrix in which to accumulate or store the result.
- *
- *  @param B The right-hand sides B to solve for. If A has dimension m x n, then
- *         B must have dimension m x nrhs, where nrhs is the number of
- *         right-hand sides to find solutions for.
- *
- *  @param X On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, and B has dimension m x nrhs, then X must have
- *         dimension n x nrhs. If no good initial estimate is available, user
- *         should set the initial guess to be the zero vector.                */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal DenseMatrix_Double B, @ByVal DenseMatrix_Double X);
-
-/** \abstract Solve AX=B using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  {@literal @}callback ApplyOperator (block) ApplyOperator(accumulate, trans, X, Y)
- *             should perform the operation Y = op(A)X if accumulate is false,
- *             or Y += op(A)X if accumulate is true.
- *    {@literal @}param accumulate (input) Indicates whether to perform Y += op(A)X (if
- *            true) or Y = op(A)X (if false).
- *    {@literal @}param trans (input) Indicates whether op(A) is the application of A
- *            (trans=CblasNoTrans) or A^T (trans=CblasTrans).
- *    {@literal @}param X The matrix to multiply.
- *    {@literal @}param Y The matrix in which to accumulate or store the result.
- *
- *  @param B The right-hand sides B to solve for. If A has dimension m x n, then
- *         B must have dimension m x nrhs, where nrhs is the number of
- *         right-hand sides to find solutions for.
- *
- *  @param X On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, and B has dimension m x nrhs, then X must have
- *         dimension n x nrhs. If no good initial estimate is available, user
- *         should set the initial guess to be the zero vector.                */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal DenseMatrix_Float B, @ByVal DenseMatrix_Float X);
-
-/** \abstract Solve Ax=b using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  {@literal @}callback ApplyOperator (block) ApplyOperator(accumulate, trans, x, y)
- *             should perform the operation y = op(A)x if accumulate is false,
- *             or y += op(A)x if accumulate is true.
- *    {@literal @}param accumulate (input) Indicates whether to perform y += op(A)x (if
- *            true) or y = op(A)x (if false).
- *    {@literal @}param trans (input) Indicates whether op(A) is the application of A
- *            (trans=CblasNoTrans) or A^T (trans=CblasTrans).
- *    {@literal @}param x The vector to multiply.
- *    {@literal @}param y The vector in which to accumulate or store the result.
- *
- *  @param b The right-hand side b to solve for. If a has dimension m x n, then
- *         b must have length m.
- *
- *  @param x On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, then x must have length n. If no good initial
- *         estimate is available, user should set the initial guess to be the
- *         zero vector.                                                       */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal DenseVector_Double b, @ByVal DenseVector_Double x);
-
-/** \abstract Solve Ax=b using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  {@literal @}callback ApplyOperator (block) ApplyOperator(accumulate, trans, x, y)
- *             should perform the operation y = op(A)x if accumulate is false,
- *             or y += op(A)x if accumulate is true.
- *    {@literal @}param accumulate (input) Indicates whether to perform y += op(A)x (if
- *            true) or y = op(A)x (if false).
- *    {@literal @}param trans (input) Indicates whether op(A) is the application of A
- *            (trans=CblasNoTrans) or A^T (trans=CblasTrans).
- *    {@literal @}param x The vector to multiply.
- *    {@literal @}param y The vector in which to accumulate or store the result.
- *
- *  @param b The right-hand side b to solve for. If a has dimension m x n, then
- *         b must have length m.
- *
- *  @param x On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, then x must have length n. If no good initial
- *         estimate is available, user should set the initial guess to be the
- *         zero vector.                                                       */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal DenseVector_Float b, @ByVal DenseVector_Float x);
-
-/**** Solve with preconditioner ***********************************************/
-
-/** \abstract Solve AX=B using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  @param A (input) The matrix A to solve the system for. Only used for
- *         multiplication by A or A^T.
- *
- *  @param B The right-hand sides B to solve for. If A has dimension m x n, then
- *         B must have dimension m x nrhs, where nrhs is the number of
- *         right-hand sides to find solutions for.
- *
- *  @param X On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, and B has dimension m x nrhs, then X must have
- *         dimension n x nrhs. If no good initial estimate is available, user
- *         should set the initial guess to be the zero vector.
- *
- *  @param Preconditioner Type of preconditioner to create and apply.         */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal SparseMatrix_Double A, @ByVal DenseMatrix_Double B, @ByVal DenseMatrix_Double X,
-  @Cast("SparsePreconditioner_t") int Preconditioner);
-
-/** \abstract Solve AX=B using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  @param A (input) The matrix A to solve the system for. Only used for
- *         multiplication by A or A^T.
- *
- *  @param B The right-hand sides B to solve for. If A has dimension m x n, then
- *         B must have dimension m x nrhs, where nrhs is the number of
- *         right-hand sides to find solutions for.
- *
- *  @param X On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, and B has dimension m x nrhs, then X must have
- *         dimension n x nrhs. If no good initial estimate is available, user
- *         should set the initial guess to be the zero vector.
- *
- *  @param Preconditioner Type of preconditioner to create and apply.         */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal SparseMatrix_Float A, @ByVal DenseMatrix_Float B, @ByVal DenseMatrix_Float X,
-  @Cast("SparsePreconditioner_t") int Preconditioner);
-
-/** \abstract Solve Ax=b using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  @param A (input) The matrix A to solve the system for. Only used for
- *         multiplication by A or A^T.
- *
- *  @param b The right-hand side b to solve for. If A has dimension m x n, then
- *         b must have length m.
- *
- *  @param x On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, then x must have length n. If no good initial
- *         estimate is available, user should set the initial guess to be the
- *         zero vector.
- *
- *  @param Preconditioner Type of preconditioner to create and apply.         */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal SparseMatrix_Double A, @ByVal DenseVector_Double b, @ByVal DenseVector_Double x,
-  @Cast("SparsePreconditioner_t") int Preconditioner);
-
-/** \abstract Solve Ax=b using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  @param A (input) The matrix A to solve the system for. Only used for
- *         multiplication by A or A^T.
- *
- *  @param b The right-hand side b to solve for. If A has dimension m x n, then
- *         b must have length m.
- *
- *  @param x On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, then x must have length n. If no good initial
- *         estimate is available, user should set the initial guess to be the
- *         zero vector.
- *
- *  @param Preconditioner Type of preconditioner to create and apply.         */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal SparseMatrix_Float A, @ByVal DenseVector_Float b, @ByVal DenseVector_Float x,
-  @Cast("SparsePreconditioner_t") int Preconditioner);
-
-/** \abstract Solve AX=B using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  @param A (input) The matrix A to solve the system for. Only used for
- *         multiplication by A or A^T.
- *
- *  @param B The right-hand sides B to solve for. If A has dimension m x n, then
- *         B must have dimension m x nrhs, where nrhs is the number of
- *         right-hand sides to find solutions for.
- *
- *  @param X On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, and B has dimension m x nrhs, then X must have
- *         dimension n x nrhs. If no good initial estimate is available, user
- *         should set the initial guess to be the zero vector.
- *
- *  \parameter Preconditioner The preconditioner to apply.                    */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal SparseMatrix_Double A, @ByVal DenseMatrix_Double B, @ByVal DenseMatrix_Double X,
-  @ByVal SparseOpaquePreconditioner_Double Preconditioner);
-
-/** \abstract Solve AX=B using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  @param A (input) The matrix A to solve the system for. Only used for
- *         multiplication by A or A^T.
- *
- *  @param B The right-hand sides B to solve for. If A has dimension m x n, then
- *         B must have dimension m x nrhs, where nrhs is the number of
- *         right-hand sides to find solutions for.
- *
- *  @param X On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, and B has dimension m x nrhs, then X must have
- *         dimension n x nrhs. If no good initial estimate is available, user
- *         should set the initial guess to be the zero vector.
- *
- *  \parameter Preconditioner The preconditioner to apply.                    */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal SparseMatrix_Float A, @ByVal DenseMatrix_Float B, @ByVal DenseMatrix_Float X,
-  @ByVal SparseOpaquePreconditioner_Float Preconditioner);
-
-/** \abstract Solve Ax=b using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  @param A (input) The matrix A to solve the system for. Only used for
- *         multiplication by A or A^T.
- *
- *  @param b The right-hand side b to solve for. If A has dimension m x n, then
- *         b must have length m.
- *
- *  @param x On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, then x must have length n. If no good initial
- *         estimate is available, user should set the initial guess to be the
- *         zero vector.
- *
- *  @param Preconditioner The preconditioner to apply.                        */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal SparseMatrix_Double A, @ByVal DenseVector_Double b, @ByVal DenseVector_Double x,
-  @ByVal SparseOpaquePreconditioner_Double Preconditioner);
-
-/** \abstract Solve Ax=b using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  @param A (input) The matrix A to solve the system for. Only used for
- *         multiplication by A or A^T.
- *
- *  @param b The right-hand side b to solve for. If A has dimension m x n, then
- *         b must have length m.
- *
- *  @param x On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, then x must have length n. If no good initial
- *         estimate is available, user should set the initial guess to be the
- *         zero vector.
- *
- *  @param Preconditioner The preconditioner to apply.                        */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal SparseMatrix_Float A, @ByVal DenseVector_Float b, @ByVal DenseVector_Float x,
-  @ByVal SparseOpaquePreconditioner_Float Preconditioner);
-
-/** \abstract Solve AX=B using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  {@literal @}callback ApplyOperator (block) ApplyOperator(accumulate, trans, X, Y)
- *             should perform the operation Y = op(A)X if accumulate is false,
- *             or Y += op(A)X if accumulate is true.
- *    {@literal @}param accumulate (input) Indicates whether to perform Y += op(A)X (if
- *            true) or Y = op(A)X (if false).
- *    {@literal @}param trans (input) Indicates whether op(A) is the application of A
- *            (trans=CblasNoTrans) or A^T (trans=CblasTrans).
- *    {@literal @}param X The matrix to multiply.
- *    {@literal @}param Y The matrix in which to accumulate or store the result.
- *
- *  @param B The right-hand sides B to solve for. If A has dimension m x n, then
- *         B must have dimension m x nrhs, where nrhs is the number of
- *         right-hand sides to find solutions for.
- *
- *  @param X On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, and B has dimension m x nrhs, then X must have
- *         dimension n x nrhs. If no good initial estimate is available, user
- *         should set the initial guess to be the zero vector.
- *
- *  @param Preconditioner (input) The preconditioner to use.                  */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal DenseMatrix_Double B, @ByVal DenseMatrix_Double X,
-  @ByVal SparseOpaquePreconditioner_Double Preconditioner);
-
-/** \abstract Solve AX=B using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  {@literal @}callback ApplyOperator (block) ApplyOperator(accumulate, trans, X, Y)
- *             should perform the operation Y = op(A)X if accumulate is false,
- *             or Y += op(A)X if accumulate is true.
- *    {@literal @}param accumulate (input) Indicates whether to perform Y += op(A)X (if
- *            true) or Y = op(A)X (if false).
- *    {@literal @}param trans (input) Indicates whether op(A) is the application of A
- *            (trans=CblasNoTrans) or A^T (trans=CblasTrans).
- *    {@literal @}param X The matrix to multiply.
- *    {@literal @}param Y The matrix in which to accumulate or store the result.
- *
- *  @param B The right-hand sides B to solve for. If A has dimension m x n, then
- *         B must have dimension m x nrhs, where nrhs is the number of
- *         right-hand sides to find solutions for.
- *
- *  @param X On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, and B has dimension m x nrhs, then X must have
- *         dimension n x nrhs. If no good initial estimate is available, user
- *         should set the initial guess to be the zero vector.
- *
- *  @param Preconditioner (input) The preconditioner to use.                  */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal DenseMatrix_Float B, @ByVal DenseMatrix_Float X,
-  @ByVal SparseOpaquePreconditioner_Float Preconditioner);
-
-/** \abstract Solve Ax=b using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  {@literal @}callback ApplyOperator (block) ApplyOperator(accumulate, trans, x, y)
- *             should perform the operation y = op(A)x if accumulate is false,
- *             or y += op(A)x if accumulate is true.
- *    {@literal @}param accumulate (input) Indicates whether to perform y += op(A)x (if
- *            true) or y = op(A)x (if false).
- *    {@literal @}param trans (input) Indicates whether op(A) is the application of A
- *            (trans=CblasNoTrans) or A^T (trans=CblasTrans).
- *    {@literal @}param x The vector to multiply.
- *    {@literal @}param y The vector in which to accumulate or store the result.
- *
- *  @param b The right-hand side b to solve for. If a has dimension m x n, then
- *         b must have length m.
- *
- *  @param x On entry, initial guess for solution, on return the solution. If A
- *         has dimension m x n, then x must have length n. If no good initial
- *         estimate is available, user should set the initial guess to be the
- *         zero vector.
- *
- *  @param Preconditioner (input) The preconditioner to use.                  */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal DenseVector_Double b, @ByVal DenseVector_Double x,
-  @ByVal SparseOpaquePreconditioner_Double Preconditioner);
-
-/** \abstract Solve Ax=b using the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *
- *  {@literal @}callback ApplyOperator (block) ApplyOperator(accumulate, trans, x, y)
- *             should perform the operation y = op(A)x if accumulate is false,
- *             or y += op(A)x if accumulate is true.
- *    {@literal @}param accumulate (input) Indicates whether to perform y += op(A)x (if
- *            true) or y = op(A)x (if false).
- *    {@literal @}param trans (input) Indicates whether op(A) is the application of A
- *            (trans=CblasNoTrans) or A^T (trans=CblasTrans).
- *    {@literal @}param x The vector to multiply.
- *    {@literal @}param y The vector in which to accumulate or store the result.
- *
- *  {@literal @}param b The right-hand side b to solve for. If a has dimension m x n, then
- *          b must have length m.
- *
- *  {@literal @}param x On entry, initial guess for solution, on return the solution. If A
- *          has dimension m x n, then x must have length n. If no good initial
- *          estimate is available, user should set the initial guess to be the
- *          zero vector.
- *
- *  @param Preconditioner (input) The preconditioner to use.                  */
-public static native int SparseSolve(@ByVal SparseIterativeMethod method,
-  @ByVal DenseVector_Float B, @ByVal DenseVector_Float X,
-  @ByVal SparseOpaquePreconditioner_Float Preconditioner);
-
-/******************************************************************************
- *  \group Sparse Single-step Iteration  Functions
- ******************************************************************************
- *
- *  \discussion These functions are provided for expert uses who wish to execute
- *  iterative methods a single step at a time, for example to perform their own
- *  custom convergence tests.
- *
- *  A typical use of this routine might be as follows:
- *
- *  <pre>
- *  // Setup
- *  SparseIterativeMethod cg = SparseConjugateGradient();
- *  void *state = malloc( SparseGetStateSize_Double(cg, true, n, nrhs) );
- *  bool *converged = malloc(nrhs*sizeof(bool));
- *  memset(converged, false, nrhs*sizeof(bool)); // Initialize all as not converged
- *  SparseOpaquePreconditioner_Double Preconditioner = {
- *    .type  = SparsePreconditionerUser,
- *    .apply = myApplyFunction,
- *    .mem   = myDataBlock
- *  };
- *  for(long i=0; i<n*nrhs; i++) X->data[i] = 0.0; // Set X to initial guess of 0.0.
- *  memcpy(R->data, B->data, n*nrhs*sizeof(double)); // Set R = B   (X=0 => B-AX=B)
- *
- *  // Main iteration
- *  for(int iteration=0; iteration<maxIterations; iteration++) {
- *    SparseIterate(cg, iteration, converged, state, ApplyOperator, B, R, X, Preconditioner);
- *    bool all_converged = true;
- *    for(int j=0; j<nrhs; j++) {
- *      double residual2NormEstimate = R->data[j*R.columnStride];
- *      converged[j] = converged[j] || (residual2NormEstimate < convergenceTolerance);
- *      all_converged &= converged[j];
- *    }
- *    if(all_converged) break;
- *  }
- *
- *  // Finalise values
- *  SparseIterate(cg, -1, converged, state, ApplyOperator, B, R, X, Preconditioner);
- *
- *  // Free memory
- *  free(converged);
- *  free(state);
- *  </pre>
- */
-
-/** \abstract Returns size in bytes of state space required for call to
- *  SparseIterate().
- *
- *  @param method (input) Method to return required state space size for.
- *
- *  @param preconditioner (input) True if a preconditioner will be supplied,
- *         false otherwise.
- *
- *  @param m (input) Number of entries in right-hand side (rows in matrix A).
- *
- *  @param n (input) Number of variables to solve for (columns in matrix A).
- *
- *  @param nrhs (input) Number of right-hand sides to be solved for.
- *
- *  @return Size of state space required in bytes.                           */
-public static native int SparseGetStateSize_Double(@ByVal SparseIterativeMethod method,
-  @Cast("bool") boolean preconditioner, int m, int n, int nrhs);
-
-/** \abstract Returns size in bytes of state space required for call to
- *  SparseIterate().
- *
- *  @param method (input) Method to return required state space size for.
- *
- *  @param preconditioner (input) True if a preconditioner will be supplied,
- *         false otherwise.
- *
- *  @param m (input) Number of entries in right-hand side (rows in matrix A).
- *
- *  @param n (input) Number of variables to solve for (columns in matrix A).
- *
- *  @param nrhs (input) Number of right-hand sides to be solved for.
- *
- *  @return Size of state space required in bytes.                           */
-public static native int SparseGetStateSize_Float(@ByVal SparseIterativeMethod method,
-  @Cast("bool") boolean preconditioner, int m, int n, int nrhs);
-
-/** \abstract Perform a single iteration of the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *         Note that the options related to convergence testing (e.g.
- *         maxIterations, atol, rtol) are ignored as convergence tests must be
- *         performed by the user.
- *
- *  @param iteration (input) The current iteration number, starting from 0. If
- *         iteration<0, then the current iterate is finalised, and the value of
- *         X is updated (note that this may force some methods to restart,
- *         slowing convergence).
- *
- *  @param state (input/output) A pointer to a state-space of size returned by
- *         SparseGetStateSize_Double(). This memory must be 16-byte aligned
- *         (any allocation returned by malloc() has this property). It must not
- *         be altered by the user between iterations, but may be safely discarded
- *         after the final call to SparseIterate().
- *
- *  @param converged (input) Convergence status of each solution vector.
- *         converged[j]=true indicates that the vector stored as column j of X
- *         has converged, and it should be ignored in this iteration.
- *
- *  {@literal @}callback ApplyOperator (block) ApplyOperator(accumulate, trans, X, Y)
- *             should perform the operation Y = op(A)X if accumulate is false,
- *             or Y += op(A)X if accumulate is true.
- *    {@literal @}param accumulate (input) Indicates whether to perform Y += op(A)X (if
- *            true) or Y = op(A)X (if false).
- *    {@literal @}param trans (input) Indicates whether op(A) is the application of A
- *            (trans=CblasNoTrans) or A^T (trans=CblasTrans).
- *    {@literal @}param X The matrix to multiply.
- *    {@literal @}param Y The matrix in which to accumulate or store the result.
- *
- *  @param B (input) The right-hand sides to solve for.
- *
- *  @param R (output) Residual estimate. On entry with iteration=0, it must hold
- *         the residuals b-Ax (equal to B if X=0). On return from each call with
- *         iteration>=0, the first entry(s) of each vector contain various
- *         estimates of norms to be used in convergence testing.
- *         For CG and GMRES:
- *           R(0,j) holds an estimate of || b-Ax ||_2 for the j-th rhs.
- *         For LSMR:
- *           R(0,j) holds an estimate of || A^T(b-Ax) ||_2 for the j-th rhs.
- *           R(1,j) holds an estimate of || b-Ax ||_2 for the j-th rhs.
- *           R(2,j) holds an estimate of || A ||_F, the Frobenius norm of A,
- *                  estimated using calculations related to the j-th rhs.
- *           R(3,j) holds an estimate of cond(A), the condition number of A,
- *                  estimated using calculations related to the j-th rhs.
- *         Other entries of R may be used by the routine as a workspace.
- *         On return from a call with iteration<0, the exact residual vector
- *         b-Ax is returned.
- *
- *  @param X (input/output) The current estimate of the solution vectors X.
- *         On entry with iteration=0, this should be an initial estimate for the
- *         solution. If no good estimate is available, use X = 0.0.
- *         Depending on the method used, X may not be updated at each iteration,
- *         or may be used to store some other vector.
- *         The user should make a call with iteration<0 once convergence has
- *         been achieved to bring X up to date.
- *
- *  @param Preconditioner (input) Preconditioner to apply.                    */
-public static native int SparseIterate(@ByVal SparseIterativeMethod method, int iteration,
-  @Cast("const bool*") BoolPointer converged, Pointer state,
-  @ByVal DenseMatrix_Double B, @ByVal DenseMatrix_Double R, @ByVal DenseMatrix_Double X,
-  @ByVal SparseOpaquePreconditioner_Double Preconditioner);
-public static native int SparseIterate(@ByVal SparseIterativeMethod method, int iteration,
-  @Cast("const bool*") boolean[] converged, Pointer state,
-  @ByVal DenseMatrix_Double B, @ByVal DenseMatrix_Double R, @ByVal DenseMatrix_Double X,
-  @ByVal SparseOpaquePreconditioner_Double Preconditioner);
-
-/** \abstract Perform a single iteration of the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *         Note that the options related to convergence testing (e.g.
- *         maxIterations, atol, rtol) are ignored as convergence tests must be
- *         performed by the user.
- *
- *  @param iteration (input) The current iteration number, starting from 0. If
- *         iteration<0, then the current iterate is finalised, and the value of
- *         X is updated (note that this may force some methods to restart,
- *         slowing convergence).
- *
- *  @param state (input/output) A pointer to a state-space of size returned by
- *         SparseGetStateSize_Double(). This memory must be 16-byte aligned
- *         (any allocation returned by malloc() has this property). It must not
- *         be altered by the user between iterations, but may be safely discarded
- *         after the final call to SparseIterate().
- *
- *  @param converged (input) Convergence status of each solution vector.
- *         converged[j]=true indicates that the vector stored as column j of X
- *         has converged, and it should be ignored in this iteration.
- *
- *  {@literal @}callback ApplyOperator (block) ApplyOperator(accumulate, trans, X, Y)
- *             should perform the operation Y = op(A)X if accumulate is false,
- *             or Y += op(A)X if accumulate is true.
- *    {@literal @}param accumulate (input) Indicates whether to perform Y += op(A)X (if
- *            true) or Y = op(A)X (if false).
- *    {@literal @}param trans (input) Indicates whether op(A) is the application of A
- *            (trans=CblasNoTrans) or A^T (trans=CblasTrans).
- *    {@literal @}param X The matrix to multiply.
- *    {@literal @}param Y The matrix in which to accumulate or store the result.
- *
- *  @param B (input) The right-hand sides to solve for.
- *
- *  @param R (output) Residual estimate. On entry with iteration=0, it must hold
- *         the residuals b-Ax (equal to B if X=0). On return from each call with
- *         iteration>=0, the first entry(s) of each vector contain various
- *         estimates of norms to be used in convergence testing.
- *         For CG and GMRES:
- *           R(0,j) holds an estimate of || b-Ax ||_2 for the j-th rhs.
- *         For LSMR:
- *           R(0,j) holds an estimate of || A^T(b-Ax) ||_2 for the j-th rhs.
- *           R(1,j) holds an estimate of || b-Ax ||_2 for the j-th rhs.
- *           R(2,j) holds an estimate of || A ||_F, the Frobenius norm of A,
- *                  estimated using calculations related to the j-th rhs.
- *           R(3,j) holds an estimate of cond(A), the condition number of A,
- *                  estimated using calculations related to the j-th rhs.
- *         Other entries of R may be used by the routine as a workspace.
- *         On return from a call with iteration<0, the exact residual vector
- *         b-Ax is returned.
- *
- *  @param X (input/output) The current estimate of the solution vectors X.
- *         On entry with iteration=0, this should be an initial estimate for the
- *         solution. If no good estimate is available, use X = 0.0.
- *         Depending on the method used, X may not be updated at each iteration,
- *         or may be used to store some other vector.
- *         The user should make a call with iteration<0 once convergence has
- *         been achieved to bring X up to date.
- *
- *  @param Preconditioner (input) Preconditioner to apply.                    */
-public static native int SparseIterate(@ByVal SparseIterativeMethod method, int iteration,
-  @Cast("const bool*") BoolPointer converged, Pointer state,
-  @ByVal DenseMatrix_Float B, @ByVal DenseMatrix_Float R, @ByVal DenseMatrix_Float X,
-  @ByVal SparseOpaquePreconditioner_Float Preconditioner);
-public static native int SparseIterate(@ByVal SparseIterativeMethod method, int iteration,
-  @Cast("const bool*") boolean[] converged, Pointer state,
-  @ByVal DenseMatrix_Float B, @ByVal DenseMatrix_Float R, @ByVal DenseMatrix_Float X,
-  @ByVal SparseOpaquePreconditioner_Float Preconditioner);
-
-/** \abstract Perform a single iteration of the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *         Note that the options related to convergence testing (e.g.
- *         maxIterations, atol, rtol) are ignored as convergence tests must be
- *         performed by the user.
- *
- *  @param iteration (input) The current iteration number, starting from 0. If
- *         iteration<0, then the current iterate is finalised, and the value of
- *         X is updated (note that this may force some methods to restart,
- *         slowing convergence).
- *
- *  @param state (input/output) A pointer to a state-space of size returned by
- *         SparseGetStateSize_Double(). This memory must be 16-byte aligned
- *         (any allocation returned by malloc() has this property). It must not
- *         be altered by the user between iterations, but may be safely discarded
- *         after the final call to SparseIterate().
- *
- *  @param converged (input) Convergence status of each solution vector.
- *         converged[j]=true indicates that the vector stored as column j of X
- *         has converged, and it should be ignored in this iteration.
- *
- *  {@literal @}callback ApplyOperator (block) ApplyOperator(accumulate, trans, X, Y)
- *             should perform the operation Y = op(A)X if accumulate is false,
- *             or Y += op(A)X if accumulate is true.
- *    {@literal @}param accumulate (input) Indicates whether to perform Y += op(A)X (if
- *            true) or Y = op(A)X (if false).
- *    {@literal @}param trans (input) Indicates whether op(A) is the application of A
- *            (trans=CblasNoTrans) or A^T (trans=CblasTrans).
- *    {@literal @}param X The matrix to multiply.
- *    {@literal @}param Y The matrix in which to accumulate or store the result.
- *
- *  @param B (input) The right-hand sides to solve for.
- *
- *  @param R (output) Residual estimate. On entry with iteration=0, it must hold
- *         the residuals b-Ax (equal to B if X=0). On return from each call with
- *         iteration>=0, the first entry(s) of each vector contain various
- *         estimates of norms to be used in convergence testing.
- *         For CG and GMRES:
- *           R(0,j) holds an estimate of || b-Ax ||_2 for the j-th rhs.
- *         For LSMR:
- *           R(0,j) holds an estimate of || A^T(b-Ax) ||_2 for the j-th rhs.
- *           R(1,j) holds an estimate of || b-Ax ||_2 for the j-th rhs.
- *           R(2,j) holds an estimate of || A ||_F, the Frobenius norm of A,
- *                  estimated using calculations related to the j-th rhs.
- *           R(3,j) holds an estimate of cond(A), the condition number of A,
- *                  estimated using calculations related to the j-th rhs.
- *         Other entries of R may be used by the routine as a workspace.
- *         On return from a call with iteration<0, the exact residual vector
- *         b-Ax is returned.
- *
- *  @param X (input/output) The current estimate of the solution vectors X.
- *         On entry with iteration=0, this should be an initial estimate for the
- *         solution. If no good estimate is available, use X = 0.0.
- *         Depending on the method used, X may not be updated at each iteration,
- *         or may be used to store some other vector.
- *         The user should make a call with iteration<0 once convergence has
- *         been achieved to bring X up to date.                               */
-public static native int SparseIterate(@ByVal SparseIterativeMethod method, int iteration,
-  @Cast("const bool*") BoolPointer converged, Pointer state,
-  @ByVal DenseMatrix_Double B, @ByVal DenseMatrix_Double R, @ByVal DenseMatrix_Double X);
-public static native int SparseIterate(@ByVal SparseIterativeMethod method, int iteration,
-  @Cast("const bool*") boolean[] converged, Pointer state,
-  @ByVal DenseMatrix_Double B, @ByVal DenseMatrix_Double R, @ByVal DenseMatrix_Double X);
-
-/** \abstract Perform a single iteration of the specified iterative method.
- *
- *  @param method (input) Iterative method specification, eg return value of
- *         SparseConjugateGradient().
- *         Note that the options related to convergence testing (e.g.
- *         maxIterations, atol, rtol) are ignored as convergence tests must be
- *         performed by the user.
- *
- *  @param iteration (input) The current iteration number, starting from 0. If
- *         iteration<0, then the current iterate is finalised, and the value of
- *         X is updated (note that this may force some methods to restart,
- *         slowing convergence).
- *
- *  @param state (input/output) A pointer to a state-space of size returned by
- *         SparseGetStateSize_Double(). This memory must be 16-byte aligned
- *         (any allocation returned by malloc() has this property). It must not
- *         be altered by the user between iterations, but may be safely discarded
- *         after the final call to SparseIterate().
- *
- *  @param converged (input) Convergence status of each solution vector.
- *         converged[j]=true indicates that the vector stored as column j of X
- *         has converged, and it should be ignored in this iteration.
- *
- *  {@literal @}callback ApplyOperator (block) ApplyOperator(accumulate, trans, X, Y)
- *             should perform the operation Y = op(A)X if accumulate is false,
- *             or Y += op(A)X if accumulate is true.
- *    {@literal @}param accumulate (input) Indicates whether to perform Y += op(A)X (if
- *            true) or Y = op(A)X (if false).
- *    {@literal @}param trans (input) Indicates whether op(A) is the application of A
- *            (trans=CblasNoTrans) or A^T (trans=CblasTrans).
- *    {@literal @}param X The matrix to multiply.
- *    {@literal @}param Y The matrix in which to accumulate or store the result.
- *
- *  @param B (input) The right-hand sides to solve for.
- *
- *  @param R (output) Residual estimate. On entry with iteration=0, it must hold
- *         the residuals b-Ax (equal to B if X=0). On return from each call with
- *         iteration>=0, the first entry(s) of each vector contain various
- *         estimates of norms to be used in convergence testing.
- *         For CG and GMRES:
- *           R(0,j) holds an estimate of || b-Ax ||_2 for the j-th rhs.
- *         For LSMR:
- *           R(0,j) holds an estimate of || A^T(b-Ax) ||_2 for the j-th rhs.
- *           R(1,j) holds an estimate of || b-Ax ||_2 for the j-th rhs.
- *           R(2,j) holds an estimate of || A ||_F, the Frobenius norm of A,
- *                  estimated using calculations related to the j-th rhs.
- *           R(3,j) holds an estimate of cond(A), the condition number of A,
- *                  estimated using calculations related to the j-th rhs.
- *         Other entries of R may be used by the routine as a workspace.
- *         On return from a call with iteration<0, the exact residual vector
- *         b-Ax is returned.
- *
- *  @param X (input/output) The current estimate of the solution vectors X.
- *         On entry with iteration=0, this should be an initial estimate for the
- *         solution. If no good estimate is available, use X = 0.0.
- *         Depending on the method used, X may not be updated at each iteration,
- *         or may be used to store some other vector.
- *         The user should make a call with iteration<0 once convergence has
- *         been achieved to bring X up to date.                               */
-public static native int SparseIterate(@ByVal SparseIterativeMethod method, int iteration,
-  @Cast("const bool*") BoolPointer converged, Pointer state,
-  @ByVal DenseMatrix_Float B, @ByVal DenseMatrix_Float R, @ByVal DenseMatrix_Float X);
-public static native int SparseIterate(@ByVal SparseIterativeMethod method, int iteration,
-  @Cast("const bool*") boolean[] converged, Pointer state,
-  @ByVal DenseMatrix_Float B, @ByVal DenseMatrix_Float R, @ByVal DenseMatrix_Float X);
-
-/******************************************************************************
- *  \group Memory Management
- ******************************************************************************
- *  \discussion
- *  Underlying many object in sparse is a private data type references by a
- *  void* component on an opaque type. These are reference counted so that more
- *  than one opaque type can reference the same private object. For example,
- *  SparseCreateSubfactor() increments the refence count of the underlying type
- *  so that the returned SparseOpaqueSubfactor will still be valid even if the
- *  original factorization is destroyed.
- *
- *  Most users do not need to worry about the details of these objects, and
- *  should just ensure that they call SparseCleanup() on any object created
- *  by accelerate once they are done with it.
- *
- *  For advanced users, a SparseRetain() function is provided so they can create
- *  their own copies using the underlying reference counting. Whilst these
- *  functions return a copy, this can be discarded so long as a SparseCleanup()
- *  is invoked in some other fashion to release the reference.                */
-
-/**** Retaining resources *****************************************************/
-
-/** \abstract Increase reference count on a symbolic factorization object,
- *            returning a copy.
- *
- *  @param SymbolicFactor The symbolic factorization to increase the underlying
- *         reference count of.
- *
- *  @return A copy of SymbolicFactor.                                        */
-public static native int SparseRetain(
-  @ByVal SparseOpaqueSymbolicFactorization SymbolicFactor);
-
-/** \abstract Increase reference count on a numeric factorization object,
- *            returning a copy.
- *
- *  @param NumericFactor The symbolic factorization to increase the underlying
- *         reference count of.
- *
- *  @return A copy of NumericFactor.                                        */
-public static native int SparseRetain(
-  @ByVal SparseOpaqueFactorization_Double NumericFactor);
-
-/** \abstract Increase reference count on a numeric factorization object,
- *            returning a copy.
- *
- *  @param NumericFactor The symbolic factorization to increase the underlying
- *         reference count of.
- *
- *  @return A copy of NumericFactor.                                        */
-public static native int SparseRetain(
-  @ByVal SparseOpaqueFactorization_Float NumericFactor);
-
-/** \abstract Increase reference count on a numeric factorization object,
- *            returning a copy.
- *
- *  @param NumericFactor The symbolic factorization to increase the underlying
- *         reference count of.
- *
- *  @return A copy of NumericFactor.                                        */
-public static native int SparseRetain(@ByVal SparseOpaqueSubfactor_Double NumericFactor);
-
-/** \abstract Increase reference count on a numeric factorization object,
- *            returning a copy.
- *
- *  @param NumericFactor The symbolic factorization to increase the underlying
- *         reference count of.
- *
- *  @return A copy of NumericFactor.                                        */
-public static native int SparseRetain(@ByVal SparseOpaqueSubfactor_Float NumericFactor);
-
-/**** Cleaning up resources ***************************************************/
-
-/** \abstract Release a Sparse Object's references to any memory allocated
- *  by the sparse library.
- *
- *  @param Opaque The resource to be freed.                                   */
-public static native int SparseCleanup(@ByVal SparseOpaqueSymbolicFactorization Opaque);
-
-/** \abstract Release a Sparse Object's references to any memory allocated
- *  by the sparse library.
- *
- *  @param Opaque The resource to be freed.                                   */
-public static native int SparseCleanup(@ByVal SparseOpaqueFactorization_Double Opaque);
-
-/** \abstract Release a Sparse Object's references to any memory allocated
- *  by the sparse library.
- *
- *  @param Opaque The resource to be freed.                                   */
-public static native int SparseCleanup(@ByVal SparseOpaqueFactorization_Float Opaque);
-
-/** \abstract Release a Sparse Object's references to any memory allocated
- *  by the sparse library.
- *
- *  @param Opaque The resource to be freed.                                   */
-public static native int SparseCleanup(@ByVal SparseOpaqueSubfactor_Double Opaque);
-
-/** \abstract Release a Sparse Object's references to any memory allocated
- *  by the sparse library.
- *
- *  @param Opaque The resource to be freed.                                   */
-public static native int SparseCleanup(@ByVal SparseOpaqueSubfactor_Float Opaque);
-
-/** \abstract Release a Sparse matrix's references to any memory allocated
- *  by the Sparse library.
- *
- *  \discussion Reports an error if the matrix was not allocated by Sparse.
- *
- *  @param Matrix The matrix to be freed.                                     */
-public static native int SparseCleanup(@ByVal SparseMatrix_Double Matrix);
-
-/** \abstract Release a Sparse matrix's references to any memory allocated
- *  by the Sparse library.
- *
- *  \discussion Reports an error if the matrix was not allocated by Sparse.
- *
- *  @param Matrix The matrix to be freed.                                     */
-public static native int SparseCleanup(@ByVal SparseMatrix_Float Matrix);
-
-/** \abstract Release a Sparse Preconditioner's references to any memory allocated
- *  by the sparse library.
- *
- *  @param Opaque The Preconditioner to be freed.                             */
-public static native int SparseCleanup(@ByVal SparseOpaquePreconditioner_Double Opaque);
-
-/** \abstract Release a Sparse Preconditioner's references to any memory allocated
- *  by the sparse library.
- *
- *  @param Opaque The Preconditioner to be freed.                             */
-public static native int SparseCleanup(@ByVal SparseOpaquePreconditioner_Float Opaque);
-
-/*********************************** END **************************************/
-
-// #if __has_feature(nullability)
-// # pragma clang assume_nonnull end
-// #endif
-
-// #if defined SPARSE_INCLUDED_VIA_ACCELERATE /* Included via Accelerate */
-// # include <vecLib/Sparse/SolveImplementation.h>
-// #else /* Standalone environments */
-// # include "SolveImplementation.h"
-// #endif
-
-// #if !__has_include( <Availability.h> )
-//   #undef __API_AVAILABLE
-// #endif
-
-// #endif /* __has_attribute(overloadable) */
-// #endif /* SPARSE_SOLVE_HEADER */
 
 
 }
