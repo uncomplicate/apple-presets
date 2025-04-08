@@ -115,22 +115,22 @@
             </resourcePaths>
             <buildResources>
               <buildResource>/${javacpp.platform.library.path}/</buildResource>
-              <buildResource>/org/bytedeco/javacpp/${javacpp.platform}${javacpp.platform.extension}/</buildResource>
-              <buildResource>/org/bytedeco/javacpp/${javacpp.platform}/</buildResource>
+              <buildResource>/uncomplicate/javacpp/${javacpp.platform}${javacpp.platform.extension}/</buildResource>
+              <buildResource>/uncomplicate/javacpp/${javacpp.platform}/</buildResource>
             </buildResources>
             <includeResources>
               <includeResource>/${javacpp.platform.library.path}/include/</includeResource>
-              <includeResource>/org/bytedeco/javacpp/include/</includeResource>
-              <includeResource>/org/bytedeco/javacpp/${javacpp.platform}${javacpp.platform.extension}/include/</includeResource>
-              <includeResource>/org/bytedeco/javacpp/${javacpp.platform}/include/</includeResource>
+              <includeResource>/uncomplicate/javacpp/include/</includeResource>
+              <includeResource>/uncomplicate/javacpp/${javacpp.platform}${javacpp.platform.extension}/include/</includeResource>
+              <includeResource>/uncomplicate/javacpp/${javacpp.platform}/include/</includeResource>
             </includeResources>
             <linkResources>
               <linkResource>/${javacpp.platform.library.path}/</linkResource>
               <linkResource>/${javacpp.platform.library.path}/lib/</linkResource>
-              <linkResource>/org/bytedeco/javacpp/${javacpp.platform}${javacpp.platform.extension}/</linkResource>
-              <linkResource>/org/bytedeco/javacpp/${javacpp.platform}${javacpp.platform.extension}/lib/</linkResource>
-              <linkResource>/org/bytedeco/javacpp/${javacpp.platform}/</linkResource>
-              <linkResource>/org/bytedeco/javacpp/${javacpp.platform}/lib/</linkResource>
+              <linkResource>/uncomplicate/javacpp/${javacpp.platform}${javacpp.platform.extension}/</linkResource>
+              <linkResource>/uncomplicate/javacpp/${javacpp.platform}${javacpp.platform.extension}/lib/</linkResource>
+              <linkResource>/uncomplicate/javacpp/${javacpp.platform}/</linkResource>
+              <linkResource>/uncomplicate/javacpp/${javacpp.platform}/lib/</linkResource>
             </linkResources>
         </configuration>
         <executions>
@@ -223,13 +223,14 @@
                 <!-- In case of successive builds for multiple platforms
                      without cleaning, ensures we only include files for
                      this platform. -->
-                <include>uncomplicate/javacpp/${javacpp.packageName}/${javacpp.platform}${javacpp.platform.extension}</include>
+                <!-- <include>uncomplicate/javacpp/${javacpp.packageName}/${javacpp.platform}${javacpp.platform.extension}</include> -->
+                <include>${javacpp.platform.nativeOutputPath}/</include>
                 <include>META-INF/native-image/${javacpp.platform}${javacpp.platform.extension}/</include>
               </includes>
               <archive>
-                <manifestEntries>
-                  <Multi-Release>true</Multi-Release>
-                </manifestEntries>
+                  <manifestEntries>
+                      <Multi-Release>true</Multi-Release>
+                  </manifestEntries>
               </archive>
               <classesDirectory>${project.build.directory}/native</classesDirectory>
             </configuration>
