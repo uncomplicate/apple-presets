@@ -34,7 +34,13 @@ import org.bytedeco.javacpp.tools.InfoMapper;
  * @author Dragan Djuric
  */
 @Properties(inherit = javacpp.class, global = "uncomplicate.javacpp.accelerate.global.vimage", value = {
-        @Platform(value = "macosx-arm64",
+        @Platform(value = "macosx",
+                  include = {"vImage_Types.h", "Alpha.h", "Convolution.h",
+                      "Conversion.h", "Geometry.h", "Histogram.h", "Morphology.h",
+                      "BasicImageTypes.h", "Transform.h"},
+                  includepath = {"/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Accelerate.framework/Frameworks/vImage.framework/Headers/"
+                      , "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"}),
+        @Platform(value = "ios",
                   include = {"vImage_Types.h", "Alpha.h", "Convolution.h",
                       "Conversion.h", "Geometry.h", "Histogram.h", "Morphology.h",
                       "BasicImageTypes.h", "Transform.h"},

@@ -34,7 +34,11 @@ import org.bytedeco.javacpp.tools.InfoMapper;
  * @author Dragan Djuric
  */
 @Properties(inherit = javacpp.class, global = "uncomplicate.javacpp.accelerate.global.blas_new", value = {
-        @Platform(value = "macosx-arm64",
+        @Platform(value = "macosx",
+                  define = {"ACCELERATE_NEW_LAPACK", "ACCELERATE_LAPACK_ILP64"},
+                  include = {"lapack_types.h", "cblas_new.h"},
+                  includepath = {"/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/vecLib.framework/Headers", "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"}),
+        @Platform(value = "ios",
                   define = {"ACCELERATE_NEW_LAPACK", "ACCELERATE_LAPACK_ILP64"},
                   include = {"lapack_types.h", "cblas_new.h"},
                   includepath = {"/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/vecLib.framework/Headers", "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"})})

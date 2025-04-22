@@ -34,7 +34,12 @@ import org.bytedeco.javacpp.tools.InfoMapper;
  * @author Dragan Djuric
  */
 @Properties(inherit = javacpp.class, global = "uncomplicate.javacpp.accelerate.global.vdsp", value = {
-        @Platform(value = "macosx-arm64",
+        @Platform(value = "macosx",
+                  include = {"vDSP.h"},
+                  includepath = {"/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/vecLib.framework/Headers",
+                      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/",
+                      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"}),
+        @Platform(value = "ios",
                   include = {"vDSP.h"},
                   includepath = {"/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/vecLib.framework/Headers",
                       "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/",

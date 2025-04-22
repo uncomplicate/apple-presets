@@ -34,7 +34,10 @@ import org.bytedeco.javacpp.tools.InfoMapper;
  * @author Dragan Djuric
  */
 @Properties(inherit = bnns.class, global = "uncomplicate.javacpp.accelerate.global.bnns_graph", value = {
-        @Platform(value = "macosx-arm64",
+        @Platform(value = "macosx",
+                  include = {"bnns_graph.h"},
+                  includepath = {"/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/vecLib.framework/Headers/BNNS/", "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"}),
+        @Platform(value = "ios",
                   include = {"bnns_graph.h"},
                   includepath = {"/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/vecLib.framework/Headers/BNNS/", "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"})})
 @NoException
