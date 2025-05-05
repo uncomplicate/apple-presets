@@ -7,7 +7,7 @@
   <artifactId>accelerate</artifactId>
   <version>0.1.0-1.5.12-SNAPSHOT</version>
   <name>JavaCPP Presets for Apple Accelerate Framework</name>
-  
+
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
@@ -42,14 +42,14 @@
     <javacpp.platform.macosx-arm64>macosx-arm64${javacpp.platform.extension}</javacpp.platform.macosx-arm64>
     <javacpp.platform.macosx-x86_64>macosx-x86_64${javacpp.platform.extension}</javacpp.platform.macosx-x86_64>
   </properties>
-  
+
   <distributionManagement>
       <repository>
         <id>clojars.org</id>
         <url>https://repo.clojars.org</url>
       </repository>
   </distributionManagement>
-  
+
   <dependencies>
     <dependency>
       <groupId>org.bytedeco</groupId>
@@ -332,18 +332,18 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.13</version>
-        <extensions>true</extensions>
-        <configuration>
-          <serverId>sonatype-nexus-staging</serverId>
-          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-<!--          <skipLocalStaging>true</skipLocalStaging> -->
-          <skipStagingRepositoryClose>true</skipStagingRepositoryClose>
-        </configuration>
-      </plugin>
+      <!-- <plugin> -->
+<!--         <groupId>org.sonatype.plugins</groupId> -->
+<!--         <artifactId>nexus-staging-maven-plugin</artifactId> -->
+<!--         <version>1.6.13</version> -->
+<!--         <extensions>true</extensions> -->
+<!--         <configuration> -->
+<!--           <serverId>sonatype-nexus-staging</serverId> -->
+<!--           <nexusUrl>https://oss.sonatype.org/</nexusUrl> -->
+<!-- <!-\-          <skipLocalStaging>true</skipLocalStaging> -\-> -->
+<!--           <skipStagingRepositoryClose>true</skipStagingRepositoryClose> -->
+<!--         </configuration> -->
+<!--       </plugin> -->
     </plugins>
   </build>
 </project>
