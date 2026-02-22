@@ -71,6 +71,8 @@ public class sparse implements LoadEnabled, InfoMapper {
 
         putTypedefHandle(infoMap, "sparse_m_float", "sparse_matrix_float");
         putTypedefHandle(infoMap, "sparse_m_double", "sparse_matrix_double");
+        putTypedefHandle(infoMap, "sparse_m_float_complex", "sparse_matrix_float_complex");
+        putTypedefHandle(infoMap, "sparse_m_double_complex", "sparse_matrix_double_complex");
 
     }
 

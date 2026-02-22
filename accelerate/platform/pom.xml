@@ -5,7 +5,7 @@
 
   <groupId>org.uncomplicate</groupId>
   <artifactId>accelerate-platform</artifactId>
-  <version>0.1.0-1.5.12-SNAPSHOT</version>
+  <version>0.1.0-1.5.12</version>
   <name>JavaCPP Presets Platform for Apple Accelerate Framework</name>
 
   <licenses>
@@ -25,7 +25,7 @@
 
   <properties>
       <javacpp.moduleId>accelerate</javacpp.moduleId>
-    <javacpp.version>1.5.12-SNAPSHOT</javacpp.version>
+    <javacpp.version>1.5.12</javacpp.version>
       <javacpp.compiler.option>-O3</javacpp.compiler.option>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <javacpp.parser.skip>false</javacpp.parser.skip>     <!-- To skip header file parsing phase: -Djavacpp.parser.skip=true  -->
@@ -69,7 +69,7 @@
       <version>${project.version}</version>
       <classifier>${javacpp.platform.macosx-arm64}</classifier>
     </dependency>
-     <dependency>
+    <!-- <dependency>
        <groupId>${project.groupId}</groupId>
        <artifactId>${javacpp.moduleId}</artifactId>
        <version>${project.version}</version>
@@ -87,12 +87,12 @@
         <version>${project.version}</version>
         <classifier>${javacpp.platform.linux-arm64}</classifier>
     </dependency>
-        <dependency>
-             <groupId>${project.groupId}</groupId>
-             <artifactId>${javacpp.moduleId}</artifactId>
-             <version>${project.version}</version>
-             <classifier>${javacpp.platform.windows-x86_64}</classifier>
-           </dependency>
+    <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>${javacpp.moduleId}</artifactId>
+        <version>${project.version}</version>
+        <classifier>${javacpp.platform.windows-x86_64}</classifier>
+    </dependency> -->
   </dependencies>
 
   <build>
