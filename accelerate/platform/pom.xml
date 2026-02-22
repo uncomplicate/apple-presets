@@ -5,7 +5,7 @@
 
   <groupId>org.uncomplicate</groupId>
   <artifactId>accelerate-platform</artifactId>
-  <version>0.1.0-1.5.12</version>
+  <version>0.2.0-1.5.13</version>
   <name>JavaCPP Presets Platform for Apple Accelerate Framework</name>
 
   <licenses>
@@ -24,10 +24,10 @@
   </distributionManagement>
 
   <properties>
-      <javacpp.moduleId>accelerate</javacpp.moduleId>
-    <javacpp.version>1.5.12</javacpp.version>
-      <javacpp.compiler.option>-O3</javacpp.compiler.option>
-      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <javacpp.moduleId>accelerate</javacpp.moduleId>
+    <javacpp.version>1.5.13</javacpp.version>
+    <javacpp.compiler.option>-O3</javacpp.compiler.option>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <javacpp.parser.skip>false</javacpp.parser.skip>     <!-- To skip header file parsing phase: -Djavacpp.parser.skip=true  -->
     <javacpp.compiler.skip>false</javacpp.compiler.skip> <!-- To skip native compilation phase: -Djavacpp.compiler.skip=true -->
 
